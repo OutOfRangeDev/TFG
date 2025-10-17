@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using TFG.Scripts.Core.Systems;
+using TFG.Scripts.Core.World;
 
 namespace TFG;
 
@@ -8,6 +10,9 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    
+    private World _world;
+    private SystemManager _systemManager;
 
     public Game1()
     {
@@ -18,7 +23,8 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
+        _world = new World();
+        _systemManager = new SystemManager();
 
         base.Initialize();
     }
@@ -36,7 +42,7 @@ public class Game1 : Game
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        // TODO: Add your update logic here
+        _systemManager.Update(_world, gameTime);
 
         base.Update(gameTime);
     }
