@@ -1,5 +1,3 @@
-﻿namespace TFG.Scripts.Core.Systems;
+﻿namespace TFG.Scripts.Core.Systems.Core;
 
-public interface IComponent
-{
-}
+public interface IComponent {/*This is just a reference*/}

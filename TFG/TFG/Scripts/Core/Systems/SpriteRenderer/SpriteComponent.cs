@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TFG.Scripts.Core.Systems.Core;
 
 namespace TFG.Scripts.Core.Systems.SpriteRenderer;
 

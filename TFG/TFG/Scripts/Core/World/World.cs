@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using TFG.Scripts.Core.Systems;
-using IComponent = TFG.Scripts.Core.Systems.IComponent;
+using IComponent = TFG.Scripts.Core.Systems.Core.IComponent;
 
 namespace TFG.Scripts.Core.World;
 
@@ -108,6 +108,27 @@ public class World
             _componentStores[componentType][entity.Id] = component;
         }
     }
+    
+    public void SetComponent<TComponent>(Entity entity, TComponent component) where TComponent : IComponent
+    {
+        // If the entity doesn't exist, throw an exception.
+        if (!_activeEntities.Contains(entity))
+        {
+            throw new Exception($"[World] Tried to set component to non-existing entity with ID {entity.Id}.");
+        }
+        
+        // Indicate the type of component we want to set.
+        var componentType = typeof(TComponent);
+
+        // Check if we have a store for this Type yet. If not, throw an exception.
+        if (!_componentStores.TryGetValue(componentType, out var store))
+        {
+            throw new Exception($"[World] Attempted to set a component of type {componentType.Name} but no components of this type have been added yet.");
+        }
+        
+        // If the entity exists and have the component, replace it. Or create it if it doesn't exist.
+        store[entity.Id] = component;
+    }
 
     #endregion
 
@@ -115,15 +136,18 @@ public class World
 
     public QueryBuilder Query()
     {
+        // When a system calls Query(), we return a new QueryBuilder.
         return new QueryBuilder(this);
     }
     
     public Dictionary<int, IComponent> GetComponentStore(Type type)
     {
+        // When the Query request for a component, we return all the components of that type with their IDs.
         if (_componentStores.TryGetValue(type, out var store))
         {
             return store;
         }
+        // If we don't have a store for that type, return an empty dictionary.
         return new Dictionary<int, IComponent>();
     }
 
