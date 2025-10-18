@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using TFG.Scripts.Core.Systems;
-using TFG.Scripts.Core.Systems.SpriteRenderer;
 using IComponent = TFG.Scripts.Core.Systems.IComponent;
 
 namespace TFG.Scripts.Core.World;

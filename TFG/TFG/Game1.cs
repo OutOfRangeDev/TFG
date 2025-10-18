@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using TFG.Scripts.Core.Systems;
+using TFG.Scripts.Core.Systems.Core;
 using TFG.Scripts.Core.Systems.SpriteRenderer;
 using TFG.Scripts.Core.World;
 
@@ -9,7 +9,6 @@ namespace TFG;
 
 public class Game1 : Game
 {
-    private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     
     private World _world;
@@ -18,7 +17,6 @@ public class Game1 : Game
 
     public Game1()
     {
-        _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }

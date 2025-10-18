@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace TFG.Scripts.Core.Systems;
+namespace TFG.Scripts.Core.Systems.Core;
 
 public class SystemManager
 {
