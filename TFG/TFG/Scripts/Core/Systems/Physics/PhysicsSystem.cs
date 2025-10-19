@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using TFG.Scripts.Core.Systems.Core;
 
 namespace TFG.Scripts.Core.Systems.Physics;
@@ -31,6 +32,8 @@ public class PhysicsSystem : ISystem
             // Save the updated components back to the world
             world.SetComponent(entity, physics);
             world.SetComponent(entity, transform);
+            
+            //Debug.WriteLine($"Entity {entity.Id} - Position: {transform.Position}, Velocity: {physics.Velocity}");
         }
     }
 }

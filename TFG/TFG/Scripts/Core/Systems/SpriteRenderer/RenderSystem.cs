@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework.Graphics;
 using TFG.Scripts.Core.Systems.Core;
 
 namespace TFG.Scripts.Core.Systems.SpriteRenderer;
@@ -33,6 +34,7 @@ public class RenderSystem
                 effects: sprite.Effects,
                 layerDepth: sprite.LayerDepth
             );
+            //Debug.WriteLine("Drawing entity " + entity.Id);
         }
     }
 }

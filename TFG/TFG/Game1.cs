@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using TFG.Scripts.Core.Systems.Core;
@@ -11,14 +12,21 @@ namespace TFG;
 public class Game1 : Game
 {
     private SpriteBatch _spriteBatch;
+
+    private GraphicsDeviceManager _graphics;
     
     private World _world;
     private SystemManager _systemManager;
+    private AssetManager _assetManager;
     private RenderSystem _renderSystem;
     private PhysicsSystem _physicsSystem;
+    
+    private KeyboardState _currentKeyboardState;
+    private KeyboardState _previousKeyboardState;
 
     public Game1()
     {
+        _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
@@ -31,6 +39,7 @@ public class Game1 : Game
         _renderSystem = new RenderSystem();
         _physicsSystem = new PhysicsSystem();
         
+        
         // Then we register the systems.
         _systemManager.RegisterSystem(_physicsSystem);
         
@@ -40,6 +49,8 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        _assetManager = new AssetManager(Content);
+        EntityFactory.Initialize(_assetManager);
     }
 
     protected override void Update(GameTime gameTime)
@@ -50,6 +61,20 @@ public class Game1 : Game
         
         // Update all the systems.
         _systemManager.Update(_world, gameTime);
+        
+        _previousKeyboardState = _currentKeyboardState;
+        
+        _currentKeyboardState = Keyboard.GetState();
+        
+        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+            _currentKeyboardState.IsKeyDown(Keys.Escape))
+            Exit();
+        
+        if (_currentKeyboardState.IsKeyDown(Keys.Space) && _previousKeyboardState.IsKeyUp(Keys.Space))
+        {
+            EntityFactory.CreateTestEntity(_world, new Vector2(100, 100));
+            Debug.WriteLine("Pressed space ONCE");
+        }
 
         base.Update(gameTime);
     }
@@ -59,7 +84,7 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         // Draw all the entities.
-        _spriteBatch.Begin(sortMode: SpriteSortMode.BackToFront);
+        _spriteBatch.Begin(sortMode: SpriteSortMode.BackToFront, samplerState: SamplerState.PointClamp);
         _renderSystem.Draw(_world, _spriteBatch);
         _spriteBatch.End();
 

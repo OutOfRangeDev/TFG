@@ -10,7 +10,7 @@ public class QueryBuilder
     //Variables
     //Save the state of the query as it is built.
     private readonly World.World _world;
-    private readonly List<Type> _requiredComponents;
+    private readonly List<Type> _requiredComponents = new();
 
     // Constructor. Called by the World class.
     // The world is passed in to access the component stores.

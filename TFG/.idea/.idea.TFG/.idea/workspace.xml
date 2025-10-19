@@ -8,14 +8,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d85ef076-19b6-4c35-852a-267c2112e074" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Physics/PhysicsComponent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Physics/PhysicsSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/AssetManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Content/Content.mgcb" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Content/Content.mgcb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Game1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Game1.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/IComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/IComponent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/QueryBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/QueryBuilder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/SpriteRenderer/SpriteComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/SpriteRenderer/SpriteComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Physics/PhysicsSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Physics/PhysicsSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/SpriteRenderer/RenderSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/SpriteRenderer/RenderSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/World/EntityFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/World/EntityFactory.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/World/World.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/World/World.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/TFG.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/TFG.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" afterDir="false" />
     </list>
@@ -23,6 +25,9 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DpaMonitoringSettings">
+    <option name="firstShow" value="false" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -52,6 +57,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/AssetManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/IComponent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/ISystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/QueryBuilder.cs" root0="FORCE_HIGHLIGHTING" />
@@ -79,6 +85,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    ".NET Project.TFG.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -90,7 +97,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
+    "settings.editor.selected.configurable": "monogame.tools.mgcb",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -129,7 +136,9 @@
       <workItem from="1760688945363" duration="3051000" />
       <workItem from="1760696890739" duration="4602000" />
       <workItem from="1760801342293" duration="12338000" />
-      <workItem from="1760827948869" duration="2475000" />
+      <workItem from="1760827948869" duration="2724000" />
+      <workItem from="1760881469291" duration="2410000" />
+      <workItem from="1760885991875" duration="9205000" />
     </task>
     <task id="LOCAL-00001" summary="Upload of initial monogame project.">
       <option name="closed" value="true" />
@@ -163,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760815535733</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Physics system created. Also made small adjustments.">
+      <option name="closed" value="true" />
+      <created>1760830590345</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1760830590345</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,7 +206,8 @@
     <MESSAGE value="Add core ECS implementation with systems and entities." />
     <MESSAGE value="Created Query system, used by systems to update their components. Also created GetComponent and AddComponent functions. Changed components from Lists to Dictionary." />
     <MESSAGE value="Refactor system namespaces and remove unused graphics device manager" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor system namespaces and remove unused graphics device manager" />
+    <MESSAGE value="Physics system created. Also made small adjustments." />
+    <option name="LAST_COMMIT_MESSAGE" value="Physics system created. Also made small adjustments." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

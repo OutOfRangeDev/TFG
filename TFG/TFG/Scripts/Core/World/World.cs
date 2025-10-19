@@ -34,6 +34,13 @@ public class World
         //Otherwise create a new entity id.
         else
             newEntity = new Entity(_nextEntityId++);
+        
+        //Add the new entity to the list of active entities.
+        _activeEntities.Add(newEntity);
+        
+        //Debug message.
+        Debug.WriteLine($"[World] Created new entity with ID {newEntity.Id}.");
+        
         //Add the new entity to the list of active entities.
         return newEntity;
     }
