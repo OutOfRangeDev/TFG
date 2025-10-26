@@ -23,5 +23,8 @@ public class SystemManager
             //Update the system.
             system.Update(world, gameTime);
         }
+        
+        //Remove the events that have been processed.
+        world.ClearCollisionEvents();
     }
 }

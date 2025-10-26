@@ -10,17 +10,21 @@ public class World
 {
     //Entities.
     ///List of entities. HashSet is for fast lookup.
-    private HashSet<Entity> _activeEntities = new();
+    private readonly HashSet<Entity> _activeEntities = new();
     ///Next entity id.
     private int _nextEntityId = 0;
     ///Queue of available ids. Store deleted entity ID's.
-    private Queue<int> _availableIDs = new();
+    private readonly Queue<int> _availableIDs = new();
     
     // Generic dictionary for storing components.
     // First we store the component type, then we also store inside the entity ID and the interface to the component.
     private readonly Dictionary<Type, Dictionary<int, IComponent>> _componentStores = new();
     
+    // A list of collision events.
+    private readonly List<CollisionEvent> _collisionEvents = new();
+    
     //Systems.
+    
     #region Entity Management
     
     //Create a new entity.
@@ -116,6 +120,7 @@ public class World
         }
     }
     
+    //Replace a component to an entity during execution.
     public void SetComponent<TComponent>(Entity entity, TComponent component) where TComponent : IComponent
     {
         // If the entity doesn't exist, throw an exception.
@@ -137,6 +142,21 @@ public class World
         store[entity.Id] = component;
     }
 
+    public bool TryGetComponent<TComponent>(Entity entity, out TComponent component) where TComponent : IComponent
+    {
+        if (_componentStores.TryGetValue(typeof(TComponent), out var store))
+        {
+            if (store.TryGetValue(entity.Id, out var c))
+            {
+                component = (TComponent) c;
+                return true;
+            }
+        }
+
+        component = default;
+        return false;
+    }
+
     #endregion
 
     #region Query
@@ -149,13 +169,50 @@ public class World
     
     public Dictionary<int, IComponent> GetComponentStore(Type type)
     {
-        // When the Query request for a component, we return all the components of that type with their IDs.
+        // When the Query requests for a component, we return all the components of that type with their IDs.
         if (_componentStores.TryGetValue(type, out var store))
         {
             return store;
         }
         // If we don't have a store for that type, return an empty dictionary.
         return new Dictionary<int, IComponent>();
+    }
+
+    #endregion
+    
+    //Events.
+
+    #region Collision Events
+    
+    // A constructor for collision events.
+    public struct CollisionEvent
+    {
+        public Entity EntityA;
+        public Entity EntityB;
+        
+        public CollisionEvent(Entity entityA, Entity entityB)
+        {
+            EntityA = entityA;
+            EntityB = entityB;
+        }
+    }
+    
+    // Gets called by the CollisionSystem. To launch an event.
+    public void AddCollisionEvent(CollisionEvent ev)
+    {
+        _collisionEvents.Add(ev);
+    }
+
+    // This is called by other systems to get the collision events of the frame.
+    public IEnumerable<CollisionEvent> GetCollisionEvents()
+    {
+        return _collisionEvents;
+    }
+
+    // After the frame we get the collision events, we clear the list.
+    public void ClearCollisionEvents()
+    {
+        _collisionEvents.Clear();
     }
 
     #endregion

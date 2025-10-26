@@ -8,5 +8,5 @@ public struct PhysicsComponent : IComponent
     public Vector2 Velocity;
     public float Drag;
     public float GravityScale;
-
+    public bool isStatic;
 }

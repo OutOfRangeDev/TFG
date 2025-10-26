@@ -1,7 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using TFG.Scripts.Core.Systems.Collisions;
 using TFG.Scripts.Core.Systems.Core;
 using TFG.Scripts.Core.Systems.Physics;
 using TFG.Scripts.Core.Systems.SpriteRenderer;
@@ -20,10 +22,13 @@ public class Game1 : Game
     private AssetManager _assetManager;
     private RenderSystem _renderSystem;
     private PhysicsSystem _physicsSystem;
+    private CollisionSystem _collisionSystem;
     
     private KeyboardState _currentKeyboardState;
     private KeyboardState _previousKeyboardState;
 
+    int entityCount = 0;
+    
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -38,7 +43,7 @@ public class Game1 : Game
         _systemManager = new SystemManager();
         _renderSystem = new RenderSystem();
         _physicsSystem = new PhysicsSystem();
-        
+        _collisionSystem = new CollisionSystem();
         
         // Then we register the systems.
         _systemManager.RegisterSystem(_physicsSystem);
@@ -62,6 +67,7 @@ public class Game1 : Game
         // Update all the systems.
         _systemManager.Update(_world, gameTime);
         
+        // This is a fast-created keyboard check to only create an entity when the space bar is pressed.
         _previousKeyboardState = _currentKeyboardState;
         
         _currentKeyboardState = Keyboard.GetState();
@@ -74,6 +80,7 @@ public class Game1 : Game
         {
             EntityFactory.CreateTestEntity(_world, new Vector2(100, 100));
             Debug.WriteLine("Pressed space ONCE");
+            entityCount++;
         }
 
         base.Update(gameTime);

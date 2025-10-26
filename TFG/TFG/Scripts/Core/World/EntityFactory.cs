@@ -25,7 +25,8 @@ public class EntityFactory
         { 
             Velocity = Vector2.Zero, 
             GravityScale = 1f, 
-            Drag = 0.1f 
+            Drag = 0.1f,
+            isStatic = false
         });
         
         world.AddComponent(entity, new SpriteComponent 
