@@ -31,14 +31,14 @@ public class EntityFactory
         
         world.AddComponent(entity, new SpriteComponent 
         { 
-            Texture = _assetManager.Load<Texture2D>("Test/hello_kitty"),
+            Texture = _assetManager.Load<Texture2D>("Test/Character/hello_kitty"),
             SourceRectangle = new Rectangle(0, 0, 32, 32), 
             Color = Color.White,
             Rotation = 0f, 
             Origin = Vector2.Zero, 
             Scale = new Vector2(3f),
             Effects = SpriteEffects.None,
-            LayerDepth = 0.5f 
+            LayerDepth = 0f 
         });
         
     }

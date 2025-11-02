@@ -1,0 +1,116 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using TFG.Scripts.Core.Systems.Core;
+
+namespace TFG.Scripts.Core.Levels;
+
+public class LdtkScene : IScene
+{
+    
+    private readonly string _filePath;
+    private readonly AssetManager _assetManager;
+    
+    public LdtkScene(string filePath, AssetManager assetManager)
+    {
+        _filePath = filePath;
+        _assetManager = assetManager;
+    }
+    
+    public void Load(World.World world)
+    {
+        // First, read the file.
+        var ldtkData = LdtkReader.LoadFromFile(_filePath);
+
+        // Check if the file has levels.
+        if (ldtkData.levels == null)
+        {
+            throw new Exception($"LDtk file {_filePath} has no levels.");
+        }
+        var levelToLoad = ldtkData.levels[0];
+        
+        // If it has levels, process, it's layers and entities.
+        foreach (var layerInstance in levelToLoad.layerInstances)
+        {
+            switch (layerInstance.__type)
+            {
+                case "Tiles":
+                    TranslateVisualLayer(world, layerInstance, ldtkData.defs);
+                    TranslateCollisionFromTilesLayer(world, layerInstance);
+                    break;
+                case "IntGrid":
+                    // IntGrids are not supported yet. It will be for invisible colliders.
+                    break;
+                case "Entities":
+                    // Entities are not supported yet. 
+                    break;
+            }
+        }
+    }
+    
+    public void Unload(World.World world)
+    {
+        
+    }
+
+    private void TranslateVisualLayer(World.World world, LdtkLayerInstance layer, LdtkDefinition defs)
+    {
+        // Get the tileset.
+        int requiredTilesetId = layer.__tilesetDefUid;
+        LdtkTileset tileset = defs.tilesets.FirstOrDefault(t => t.uid == requiredTilesetId);
+
+        // Check if the tileset exists.
+        if (tileset == null)
+        {
+            throw new Exception($"Tileset with ID {requiredTilesetId} not found for layer {layer.__identifier}.");
+        }
+
+        // Load the tileset variables.
+        string levelDirectory = Path.GetDirectoryName(_filePath);
+        string finalTexturePath = Path.Combine(levelDirectory, tileset.relPath);
+        string assetPathToLoad = finalTexturePath
+            .Replace("Content\\", "") 
+            .Replace(".png", ""); 
+        var tilesetTexture = _assetManager.Load<Texture2D>(assetPathToLoad);
+        int tileSize = tileset.tileGridSize;
+
+        // Create the list of tiles for the tilemap.
+        var tiles = new List<TileData>();
+
+        // Loop through the tiles and create the tile data.
+        foreach (var tileInstance in layer.gridTiles)
+        {
+            var positionInLevel = new Vector2(tileInstance.px[0], tileInstance.px[1]);
+
+            var sourceOnTexture = new Rectangle(
+                tileInstance.src[0],
+                tileInstance.src[1],
+                tileSize,
+                tileSize);
+
+            tiles.Add(new TileData( positionInLevel, sourceOnTexture));
+        }
+
+        // Create the tilemap entity.
+        var tilemapEntity = world.CreateEntity();
+        // Add the tilemap component.
+        world.AddComponent(tilemapEntity, new TilemapComponent
+        {
+            TilesetTexture = tilesetTexture,
+            Tiles = tiles
+        });
+        
+        Debug.WriteLine($"Created tilemap entity with ID {tilemapEntity.Id}.");
+    }
+
+    private void TranslateCollisionFromTilesLayer(World.World world, LdtkLayerInstance layerInstance)
+    {
+        int requiredTilesetId = layerInstance.__tilesetDefUid;
+        
+    }
+}

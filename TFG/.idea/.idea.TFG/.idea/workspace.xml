@@ -8,18 +8,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d85ef076-19b6-4c35-852a-267c2112e074" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Collisions/ColliderComponent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Collisions/CollisionLayer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Collisions/CollisionSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/IScene.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/LdtkData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/LdtkReader.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/LdtkScene.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/Tilemap.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/World/SceneManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Content/Content.mgcb" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Content/Content.mgcb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Game1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Game1.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/SystemManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/SystemManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Physics/PhysicsComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Physics/PhysicsComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/SpriteRenderer/RenderSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/SpriteRenderer/RenderSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/World/EntityFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/World/EntityFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/World/World.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/World/World.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/TFG.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/TFG.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +59,6 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Collisions/CollisionComponent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Collisions/CollisionLayer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Collisions/CollisionSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/AssetManager.cs" root0="FORCE_HIGHLIGHTING" />
@@ -66,12 +67,18 @@
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/QueryBuilder.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/SystemManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/TransformComponent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/IScene.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/LdtkData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/LdtkReader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/LdtkScene.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/Tilemap.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Physics/PhysicsComponent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Physics/PhysicsSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/SpriteRenderer/RenderSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/SpriteRenderer/SpriteComponent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/World/Entity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/World/EntityFactory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/World/SceneManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/World/World.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -86,24 +93,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Project.TFG.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.TFG.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="TFG" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -147,7 +154,13 @@
       <workItem from="1760955777454" duration="769000" />
       <workItem from="1760956776486" duration="1235000" />
       <workItem from="1761382251435" duration="7287000" />
-      <workItem from="1761460955995" duration="5103000" />
+      <workItem from="1761460955995" duration="5345000" />
+      <workItem from="1761473188101" duration="2224000" />
+      <workItem from="1761560943008" duration="1520000" />
+      <workItem from="1761661984716" duration="195000" />
+      <workItem from="1761727728718" duration="1274000" />
+      <workItem from="1761902521134" duration="1784000" />
+      <workItem from="1762078695221" duration="16425000" />
     </task>
     <task id="LOCAL-00001" summary="Upload of initial monogame project.">
       <option name="closed" value="true" />
@@ -197,7 +210,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760895454444</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Collision System. With triggers, events and statics. Not very complex.">
+      <option name="closed" value="true" />
+      <created>1761468595591</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1761468595591</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,7 +246,8 @@
     <MESSAGE value="Refactor system namespaces and remove unused graphics device manager" />
     <MESSAGE value="Physics system created. Also made small adjustments." />
     <MESSAGE value="Test and small fixes succesful." />
-    <option name="LAST_COMMIT_MESSAGE" value="Test and small fixes succesful." />
+    <MESSAGE value="Collision System. With triggers, events and statics. Not very complex." />
+    <option name="LAST_COMMIT_MESSAGE" value="Collision System. With triggers, events and statics. Not very complex." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

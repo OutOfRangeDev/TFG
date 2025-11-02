@@ -1,6 +1,12 @@
 ﻿using System.Diagnostics;
+using System.Drawing;
+using System.Net.NetworkInformation;
+using System.Reflection.Metadata.Ecma335;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TFG.Scripts.Core.Levels;
 using TFG.Scripts.Core.Systems.Core;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace TFG.Scripts.Core.Systems.SpriteRenderer;
 
@@ -8,6 +14,22 @@ public class RenderSystem
 {
     public void Draw(World.World world, SpriteBatch spriteBatch)
     {
+        var tilemapEntities = world.Query(). With<TilemapComponent>().Execute();
+        foreach (var entity in tilemapEntities)
+        {
+            var tilemap = world.GetComponent<TilemapComponent>(entity);
+
+            foreach (var tile in tilemap.Tiles)
+            {
+                spriteBatch.Draw(
+                    texture: tilemap.TilesetTexture,
+                    position: tile.PositionInLevel,
+                    sourceRectangle: tile.SourceRectangle,
+                    color: Color.White
+                    );
+            }
+        }
+        
         //Get all entities with a sprite and transform component.
         var entitiesToDraw = world.Query()
             .With<SpriteComponent>()

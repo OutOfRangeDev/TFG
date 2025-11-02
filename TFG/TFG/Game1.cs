@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using TFG.Scripts.Core.Levels;
 using TFG.Scripts.Core.Systems.Collisions;
 using TFG.Scripts.Core.Systems.Core;
 using TFG.Scripts.Core.Systems.Physics;
@@ -23,6 +24,7 @@ public class Game1 : Game
     private RenderSystem _renderSystem;
     private PhysicsSystem _physicsSystem;
     private CollisionSystem _collisionSystem;
+    private SceneManager _sceneManager;
     
     private KeyboardState _currentKeyboardState;
     private KeyboardState _previousKeyboardState;
@@ -44,9 +46,12 @@ public class Game1 : Game
         _renderSystem = new RenderSystem();
         _physicsSystem = new PhysicsSystem();
         _collisionSystem = new CollisionSystem();
+        _sceneManager = new SceneManager(_world);
         
         // Then we register the systems.
         _systemManager.RegisterSystem(_physicsSystem);
+        _systemManager.RegisterSystem(_collisionSystem);
+        
         
         base.Initialize();
     }
@@ -55,6 +60,7 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         _assetManager = new AssetManager(Content);
+        _sceneManager.ChangeScene(new LdtkScene("Content/Test/TileMap/Test.ldtk", _assetManager));
         EntityFactory.Initialize(_assetManager);
     }
 
