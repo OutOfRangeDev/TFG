@@ -19,9 +19,12 @@ public class PhysicsSystem : ISystem
         {
             var physics = world.GetComponent<PhysicsComponent>(entity);
             var transform = world.GetComponent<TransformComponent>(entity);
+            bool wasGrounded = physics.IsGrounded;
+            physics.IsGrounded = false;
 
             // Apply gravity
-            physics.Velocity += _globalGravity * physics.GravityScale * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if(!wasGrounded)
+                physics.Velocity += _globalGravity * physics.GravityScale * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // Apply drag
             physics.Velocity *= 1f - physics.Drag * (float)gameTime.ElapsedGameTime.TotalSeconds;

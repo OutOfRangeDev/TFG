@@ -91,8 +91,8 @@ public class CollisionSystem : ISystem
                             bool hasPhysicsA = world.TryGetComponent(entityA, out PhysicsComponent physicsA);
                             bool hasPhysicsB = world.TryGetComponent(entityB, out PhysicsComponent physicsB);
 
-                            bool isADinamic = hasPhysicsA && !physicsA.isStatic;
-                            bool isBDinamic = hasPhysicsB && !physicsB.isStatic;
+                            bool isADinamic = hasPhysicsA && !physicsA.IsStatic;
+                            bool isBDinamic = hasPhysicsB && !physicsB.IsStatic;
                             
                             // If both of them are dynamic, or only A.
                             if(isADinamic && isBDinamic || isADinamic)
@@ -154,11 +154,15 @@ public class CollisionSystem : ISystem
         moverTransform.Position += penetrationVector;
         
         //If we move it vertically = floor or ceiling, then we cancel the vertical velocity.
-        if(penetrationVector.Y != 0)
-            moverPhysics.Velocity.Y = 0;
+        if(penetrationVector.Y < 0)
+            moverPhysics.Velocity.Y = 0; moverPhysics.IsGrounded = true;
+        if(penetrationVector.Y > 0)
+            moverPhysics.Velocity.Y = 0; 
         //If we move it horizontally = left or right, then we cancel the horizontal velocity.
         if(penetrationVector.X != 0)
             moverPhysics.Velocity.X = 0;
+
+        
         
         //Update the components.
         world.SetComponent(mover, moverTransform);

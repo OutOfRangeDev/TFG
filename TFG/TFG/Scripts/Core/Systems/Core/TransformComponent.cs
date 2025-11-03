@@ -4,7 +4,7 @@ namespace TFG.Scripts.Core.Systems.Core;
 
 public struct TransformComponent : IComponent
 {
-    public Vector2 Position;
-    public float Rotation;
-    public Vector2 Scale;
+    public Vector2 Position {get; set;}
+    public float Rotation {get; set;}
+    public Vector2 Scale {get; set;}
 }

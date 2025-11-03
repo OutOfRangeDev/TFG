@@ -6,7 +6,9 @@ using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TFG.Scripts.Core.Systems.Collisions;
 using TFG.Scripts.Core.Systems.Core;
+using TFG.Scripts.Core.Systems.Physics;
 
 namespace TFG.Scripts.Core.Levels;
 
@@ -110,7 +112,30 @@ public class LdtkScene : IScene
 
     private void TranslateCollisionFromTilesLayer(World.World world, LdtkLayerInstance layerInstance)
     {
-        int requiredTilesetId = layerInstance.__tilesetDefUid;
-        
+        // Get the grid size.
+        int gridSize = layerInstance.__gridSize;
+
+        // Loop through the tiles and create the ground entities.
+        foreach (var tileInstance in layerInstance.gridTiles)
+        {
+            // Check if the tile is not empty.
+            if (tileInstance.t != 0)
+            {
+                // Create the ground entity.
+                var groundEntity = world.CreateEntity();
+                
+                // Get the position and add the components.
+                var position = new Vector2(tileInstance.px[0], tileInstance.px[1]);
+                
+                // Add the components.
+                world.AddComponent(groundEntity, new TransformComponent{Position = position});
+                world.AddComponent(groundEntity, new ColliderComponent
+                {
+                    Layer = CollisionLayer.Environment,
+                    Size = new Vector2(gridSize, gridSize)
+                });
+                world.AddComponent(groundEntity, new PhysicsComponent{IsStatic = true});
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TFG.Scripts.Core.Systems.Collisions;
 using TFG.Scripts.Core.Systems.Core;
 using TFG.Scripts.Core.Systems.Physics;
 using TFG.Scripts.Core.Systems.SpriteRenderer;
@@ -21,12 +22,20 @@ public class EntityFactory
         
         world.AddComponent(entity, new TransformComponent { Position = position });
         
+        world.AddComponent(entity, new ColliderComponent
+        {
+            IsTrigger = false,
+            Layer = CollisionLayer.Player,
+            Size = new Vector2(32, 32),
+            Offset = Vector2.Zero
+        });
+        
         world.AddComponent(entity, new PhysicsComponent 
         { 
             Velocity = Vector2.Zero, 
             GravityScale = 1f, 
             Drag = 0.1f,
-            isStatic = false
+            IsStatic = false
         });
         
         world.AddComponent(entity, new SpriteComponent 
@@ -36,7 +45,7 @@ public class EntityFactory
             Color = Color.White,
             Rotation = 0f, 
             Origin = Vector2.Zero, 
-            Scale = new Vector2(3f),
+            Scale = new Vector2(1f),
             Effects = SpriteEffects.None,
             LayerDepth = 0f 
         });
