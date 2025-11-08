@@ -1,4 +1,5 @@
 ﻿using TFG.Scripts.Core.Levels;
+using TFG.Scripts.Core.Systems.Levels;
 
 namespace TFG.Scripts.Core.World;
 
@@ -24,6 +25,8 @@ public class SceneManager
         _currentScene = newScene;
         
         // Load the new scene.
+
+        //Scene scene = new Scene(_currentScene.Load(_world, 0));
         _currentScene.Load(_world);
     }
 }

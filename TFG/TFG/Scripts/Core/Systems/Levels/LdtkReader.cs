@@ -1,7 +1,8 @@
 ﻿using System.IO;
 using System.Text.Json;
+using TFG.Scripts.Core.Levels;
 
-namespace TFG.Scripts.Core.Levels;
+namespace TFG.Scripts.Core.Systems.Levels;
 
 public class LdtkReader
 {

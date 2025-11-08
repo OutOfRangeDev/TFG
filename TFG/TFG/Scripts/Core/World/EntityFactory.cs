@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using TFG.Scripts.Core.Systems.Collisions;
 using TFG.Scripts.Core.Systems.Core;
+using TFG.Scripts.Core.Systems.Input;
 using TFG.Scripts.Core.Systems.Physics;
 using TFG.Scripts.Core.Systems.SpriteRenderer;
 
@@ -16,11 +17,17 @@ public class EntityFactory
         _assetManager = assetManager;
     }
     
-    public static void CreateTestEntity(World world, Vector2 position)
+    public static void CreatePlayerEntity(World world, Vector2 position)
     {
         var entity = world.CreateEntity();
         
         world.AddComponent(entity, new TransformComponent { Position = position });
+        
+        world.AddComponent(entity, new PlayerControllerComponent
+        {
+            Speed = 100f,
+            JumpForce = 200f
+        });
         
         world.AddComponent(entity, new ColliderComponent
         {

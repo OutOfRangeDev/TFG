@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TFG.Scripts.Core.Levels;
 using TFG.Scripts.Core.Systems.Collisions;
 using TFG.Scripts.Core.Systems.Core;
 using TFG.Scripts.Core.Systems.Physics;
 
-namespace TFG.Scripts.Core.Levels;
+namespace TFG.Scripts.Core.Systems.Levels;
 
 public class LdtkScene : IScene
 {

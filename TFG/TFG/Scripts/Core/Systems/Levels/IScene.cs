@@ -1,4 +1,4 @@
-﻿namespace TFG.Scripts.Core.Levels;
+﻿namespace TFG.Scripts.Core.Systems.Levels;
 
 public interface IScene
 {

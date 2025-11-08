@@ -1,4 +1,4 @@
-﻿namespace TFG.Scripts.Core.Levels;
+﻿namespace TFG.Scripts.Core.Systems.Levels;
 
 // Here we hold the "global" data of the LDtk file.
 public class LdtkProject
