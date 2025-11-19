@@ -12,13 +12,13 @@ using TFG.Scripts.Core.Systems.Physics;
 
 namespace TFG.Scripts.Core.Systems.Levels;
 
-public class LdtkScene : IScene
+public class LevelScene : IScene
 {
     
     private readonly string _filePath;
     private readonly AssetManager _assetManager;
     
-    public LdtkScene(string filePath, AssetManager assetManager)
+    public LevelScene(string filePath, AssetManager assetManager)
     {
         _filePath = filePath;
         _assetManager = assetManager;
@@ -95,7 +95,12 @@ public class LdtkScene : IScene
                 tileSize,
                 tileSize);
 
-            tiles.Add(new TileData( positionInLevel, sourceOnTexture));
+            tiles.Add(new TileData
+                { 
+                    PositionInLevel = positionInLevel, 
+                    SourceRectangle = sourceOnTexture
+                }
+            );
         }
 
         // Create the tilemap entity.

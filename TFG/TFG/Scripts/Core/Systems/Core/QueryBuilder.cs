@@ -37,23 +37,32 @@ public class QueryBuilder
             yield break;
         
         // First, get all the entities that have the component.
-        var initialStore = _world.GetComponentStore(_requiredComponents[0]);
-        // And make a set of their IDs.
-        var validEntityIDs = new HashSet<int>(initialStore.Keys);
-        
-        // Then intersect with the rest of the components. Starting from index 1.
-        for(int i = 1; i < _requiredComponents.Count; i++)
-        {
-            // Get the set of entity IDs that have the next component.
-            var store = _world.GetComponentStore(_requiredComponents[i]);
-            // And intersect with the previous set that we have.
-            validEntityIDs.IntersectWith(store.Keys);
-            // This stores the set of entity IDs that have both the components.
-            // We repeat this for each component.
-        }
+        var initialIds = _world.GetEntityIdsForComponent(_requiredComponents[0]);
 
-        // Finally, return the entities with the required components.
-        foreach (var id in validEntityIDs)
+        //If there are no entities with that component, return empty.
+        if (initialIds == null)
+        {
+            yield break;
+        }
+        var validEntityIds = new HashSet<int>(initialIds);
+
+        // If not, then we get the ids of all the entities that have all the required components.
+        for (int i = 1; i < _requiredComponents.Count; i++)
+        {
+            var ids = _world.GetEntityIdsForComponent(_requiredComponents[i]);
+            
+            if (ids == null)
+            {
+                yield break;
+            }
+            
+            //Intersect the ids with the current set of valid ids.
+            validEntityIds.IntersectWith(ids);
+        }
+        
+        //And send the answer
+
+        foreach (var id in validEntityIds)
         {
             yield return new Entity(id);
         }

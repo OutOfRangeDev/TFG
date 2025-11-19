@@ -18,6 +18,8 @@ public class RenderSystem
         foreach (var entity in tilemapEntities)
         {
             var tilemap = world.GetComponent<TilemapComponent>(entity);
+            
+            if (tilemap.TilesetTexture == null || tilemap.Tiles == null) continue;
 
             foreach (var tile in tilemap.Tiles)
             {
@@ -40,9 +42,11 @@ public class RenderSystem
         foreach (var entity in entitiesToDraw)
         {
             //We get the sprite component from the entity.
-            var sprite = world.GetComponent<SpriteComponent>(entity);
+            ref var sprite = ref world.GetComponent<SpriteComponent>(entity);
             //And the transform component from the entity.
-            var transform = world.GetComponent<TransformComponent>(entity);
+            ref var transform = ref world.GetComponent<TransformComponent>(entity);
+            
+            if (sprite.Texture == null) continue;
             
             //And draw the sprite.
             spriteBatch.Draw(

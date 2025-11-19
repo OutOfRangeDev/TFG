@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using TFG.Scripts.Core.Systems;
+using TFG.Scripts.Core.Systems.Collisions;
+using TFG.Scripts.Core.Systems.Core;
 using IComponent = TFG.Scripts.Core.Systems.Core.IComponent;
 
 namespace TFG.Scripts.Core.World;
@@ -16,9 +18,8 @@ public class World
     ///Queue of available ids. Store deleted entity ID's.
     private readonly Queue<int> _availableIDs = new();
     
-    // Generic dictionary for storing components.
-    // First we store the component type, then we also store inside the entity ID and the interface to the component.
-    private readonly Dictionary<Type, Dictionary<int, IComponent>> _componentStores = new();
+    // A dictionary to store the different pools of components.
+    private readonly Dictionary<Type, IComponentPool> _componentPools = new();
     
     // A list of collision events.
     private readonly List<CollisionEvent> _collisionEvents = new();
@@ -52,16 +53,20 @@ public class World
     //Destroy an entity.
     public void DestroyEntity(Entity entityToDestroy)
     {
-        //Check if the entity exists.
-        if (_activeEntities.Contains(entityToDestroy))
+        //First check if the entity exists.
+        if (!_activeEntities.Remove(entityToDestroy))
         {
-            //Remove the entity from the list of active entities. And make the ID available again.
-            _activeEntities.Remove(entityToDestroy);
-            _availableIDs.Enqueue(entityToDestroy.Id);
+            Debug.WriteLine($"[World] Tried to destroy non-existing entity {entityToDestroy.Id}.");
+            return;
         }
-        else
+        
+        //Add this id to the queue of available ids.
+        _availableIDs.Enqueue(entityToDestroy.Id);
+
+        //Remove every component of this entity from the pools.
+        foreach (var componentPool in _componentPools)
         {
-            Debug.WriteLine($"[World] Tried to delete non-existing entity with ID {entityToDestroy.Id}.");
+            componentPool.Value.Remove(entityToDestroy.Id);
         }
     }
 
@@ -69,92 +74,73 @@ public class World
 
     #region Component Management
 
-    //Get a component from an entity.
-    // Returns the component of type Component associated with the given entity.
-    public TComponent GetComponent<TComponent>(Entity entity) where TComponent : IComponent
+    private ComponentPool<T> GetOrCreateComponentPool<T>() where T : IComponent
     {
-        //First we indicate the type of component we want to get.
-        var componentType = typeof(TComponent);
-        
-        // Then we check if we have a store for this Type.
-        if(_componentStores.TryGetValue(componentType, out var store))
-            // If we do, we check if we have a component for this entity.
-            if(store.TryGetValue(entity.Id, out var component))
-                // If we do, we return the component.
-                return (TComponent) component;
-        
-        //If in any step we fail, we throw an exception.
-        throw new Exception($"[World] Tried to get unrecognized component type {typeof(TComponent)} for entity with ID {entity.Id}.");
+        var componentType = typeof(T);
+        if (!_componentPools.TryGetValue(componentType, out var pool))
+        {
+            pool = new ComponentPool<T>();
+            _componentPools.Add(componentType, pool);
+        }
+        return (ComponentPool<T>) pool;
     }
-    
-    public void AddComponent<TComponent>(Entity entity, TComponent component) where TComponent : IComponent
+
+    public void AddComponent<T>(Entity entity, T component) where T : IComponent
     {
         if (!_activeEntities.Contains(entity))
         {
-            // If the entity doesn't exist, throw an exception.
-            throw new Exception($"[World] Tried to add component to non-existing entity with ID {entity.Id}.");
+            throw new Exception($"[World] Tried to add component {typeof(T).Name} to non-existing entity {entity.Id}.");
         }
-        
-        // Indicate the type of component we want to add.
-        var componentType = typeof(TComponent);
-
-        // Check if we have a store for this Type yet.
-        if (!_componentStores.ContainsKey(componentType))
-        {
-            // If not, create one.
-            _componentStores[componentType] = new Dictionary<int, IComponent>();
-        }
-        
-        // Check if we already have a component for this entity.
-        var store = _componentStores[componentType];
-
-        if (store.ContainsKey(entity.Id))
-        {
-            // If we do, throw an exception.
-            throw new Exception($"[World] Entity with ID {entity.Id} already has a component of type {componentType.Name}.");
-        }
-        else
-        {
-            // Add the component to the correct store, using the entity's ID as the key.
-            _componentStores[componentType][entity.Id] = component;
-        }
+        GetOrCreateComponentPool<T>().Add(entity.Id, component);
     }
     
-    //Replace a component to an entity during execution.
-    public void SetComponent<TComponent>(Entity entity, TComponent component) where TComponent : IComponent
+    public bool HasComponent<T>(Entity entity) where T : IComponent
     {
-        // If the entity doesn't exist, throw an exception.
-        if (!_activeEntities.Contains(entity))
+        //Check if the component pool exists.
+        var componentType = typeof(T);
+        if (_componentPools.TryGetValue(componentType, out var store))
         {
-            throw new Exception($"[World] Tried to set component to non-existing entity with ID {entity.Id}.");
+            // After checking if the pool exists, we return the result of the Contains method if it exists.
+            return ((ComponentPool<T>) store).Contains(entity.Id);
         }
-        
-        // Indicate the type of component we want to set.
-        var componentType = typeof(TComponent);
-
-        // Check if we have a store for this Type yet. If not, throw an exception.
-        if (!_componentStores.TryGetValue(componentType, out var store))
-        {
-            throw new Exception($"[World] Attempted to set a component of type {componentType.Name} but no components of this type have been added yet.");
-        }
-        
-        // If the entity exists and have the component, replace it. Or create it if it doesn't exist.
-        store[entity.Id] = component;
+        // If the pool doesn't exist, return false.
+        return false;
     }
 
-    public bool TryGetComponent<TComponent>(Entity entity, out TComponent component) where TComponent : IComponent
+    public bool TryGetComponent<T>(Entity entity, out T component) where T : IComponent
     {
-        if (_componentStores.TryGetValue(typeof(TComponent), out var store))
+        if (HasComponent<T>(entity))
         {
-            if (store.TryGetValue(entity.Id, out var c))
-            {
-                component = (TComponent) c;
-                return true;
-            }
+            // If the entity has the component, we return it.
+            component = GetComponent<T>(entity);
+            return true;
         }
-
+        
+        // If the entity doesn't have the component, we return false.
         component = default;
         return false;
+    }
+
+    public ref T GetComponent<T>(Entity entity) where T : IComponent
+    {
+#if DEBUG
+        // In debug mode, we make a safety check to make sure the entity has the component.
+        if (!HasComponent<T>(entity))
+        {
+            Debug.WriteLine($"[World] Tried to get component {typeof(T).Name} from entity {entity.Id} but it doesn't exist.");
+        }
+#endif
+        // Just return the component from the pool.
+        return ref GetOrCreateComponentPool<T>().Get(entity.Id);
+    }
+
+    public void RemoveComponent<T>(Entity entity) where T : IComponent
+    {
+        var componentType = typeof(T);
+        if (_componentPools.TryGetValue(componentType, out var pool))
+        {
+            ((ComponentPool<T>) pool).Remove(entity.Id);
+        }
     }
 
     #endregion
@@ -166,16 +152,15 @@ public class World
         // When a system calls Query(), we return a new QueryBuilder.
         return new QueryBuilder(this);
     }
-    
-    public Dictionary<int, IComponent> GetComponentStore(Type type)
+
+    public IEnumerable<int> GetEntityIdsForComponent(Type componentType)
     {
-        // When the Query requests for a component, we return all the components of that type with their IDs.
-        if (_componentStores.TryGetValue(type, out var store))
+        if (_componentPools.TryGetValue(componentType, out var pool))
         {
-            return store;
+            return pool.GetEntityIds();
         }
-        // If we don't have a store for that type, return an empty dictionary.
-        return new Dictionary<int, IComponent>();
+
+        return null;
     }
 
     #endregion
@@ -185,16 +170,10 @@ public class World
     #region Collision Events
     
     // A constructor for collision events.
-    public struct CollisionEvent
+    public struct CollisionEvent(Entity entityA, Entity entityB)
     {
-        public Entity EntityA;
-        public Entity EntityB;
-        
-        public CollisionEvent(Entity entityA, Entity entityB)
-        {
-            EntityA = entityA;
-            EntityB = entityB;
-        }
+        public Entity EntityA = entityA;
+        public Entity EntityB = entityB;
     }
     
     // Gets called by the CollisionSystem. To launch an event.

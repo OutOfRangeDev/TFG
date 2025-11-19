@@ -21,7 +21,6 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     
     private World _world;
-    private SystemManager _systemManager;
     private AssetManager _assetManager;
     private RenderSystem _renderSystem;
     private PhysicsSystem _physicsSystem;
@@ -41,19 +40,12 @@ public class Game1 : Game
     {
         // First, we instance the world and the systems.
         _world = new World();
-        _systemManager = new SystemManager();
         _renderSystem = new RenderSystem();
         _physicsSystem = new PhysicsSystem();
         _collisionSystem = new CollisionSystem();
         _sceneManager = new SceneManager(_world);
         _inputManager = new InputManager();
         _playerInputSystem = new PlayerInputSystem(_inputManager);
-        
-        // Then we register the systems.
-        _systemManager.RegisterSystem(_playerInputSystem);
-        _systemManager.RegisterSystem(_physicsSystem);
-        _systemManager.RegisterSystem(_collisionSystem);
-        
         
         base.Initialize();
     }
@@ -62,19 +54,27 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         _assetManager = new AssetManager(Content);
-        _sceneManager.ChangeScene(new LdtkScene("Content/Test/TileMap/Test.ldtk", _assetManager));
+        _sceneManager.ChangeScene(new LevelScene("Content/Test/TileMap/Test.ldtk", _assetManager));
         EntityFactory.Initialize(_assetManager);
         EntityFactory.CreatePlayerEntity(_world, new Vector2(100, 100));
     }
 
     protected override void Update(GameTime gameTime)
     {
+        // Update the systems.
+        // First the input manager.
         _inputManager.Update();
         
         if (_inputManager.IsKeyDown(Keys.Escape) || _inputManager.IsButtonDown(Buttons.Back)) Exit();
         
-        // Update all the systems.
-        _systemManager.Update(_world, gameTime);
+        // Then the player input system.
+        _playerInputSystem.Update(_world, gameTime);
+        
+        // Then the physics system.
+        _physicsSystem.Update(_world, gameTime);
+        
+        // Then the collision system.
+        _collisionSystem.Update(_world, gameTime);
 
         base.Update(gameTime);
     }

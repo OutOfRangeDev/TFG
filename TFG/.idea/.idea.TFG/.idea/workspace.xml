@@ -8,18 +8,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d85ef076-19b6-4c35-852a-267c2112e074" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Input/DefaultBindings.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Input/InputManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Input/PlayerControllerComponent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Input/PlayerInputSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Collisions/CollisionHelper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/World/ComponentPool.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/World/IComponentPool.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Game1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Game1.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/IScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/IScene.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/LdtkData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/LdtkData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/LdtkReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/LdtkReader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/LdtkScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/LdtkScene.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/World/EntityFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/World/EntityFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/World/SceneManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/World/SceneManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Collisions/CollisionSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Collisions/CollisionSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/QueryBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/QueryBuilder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/SystemManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Input/PlayerInputSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Input/PlayerInputSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/LdtkScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/LevelScene.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/Tilemap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Levels/Tilemap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Physics/PhysicsSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Physics/PhysicsSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/SpriteRenderer/RenderSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/SpriteRenderer/RenderSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/World/World.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/World/World.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" afterDir="false" />
     </list>
@@ -63,11 +65,14 @@
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Collisions/CollisionLayer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Collisions/CollisionSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/AssetManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/ComponentPool.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/IComponent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/IComponentPool.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/ISystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/QueryBuilder.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/SystemManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/TransformComponent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Helpers/CollisionHelper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Input/DefaultBindings.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Input/InputManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Input/PlayerControllerComponent.cs" root0="FORCE_HIGHLIGHTING" />
@@ -87,6 +92,9 @@
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/World/World.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="AISelfReview" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -174,7 +182,21 @@
       <workItem from="1762264702961" duration="2853000" />
       <workItem from="1762352053090" duration="883000" />
       <workItem from="1762601942506" duration="4159000" />
-      <workItem from="1762619069736" duration="5351000" />
+      <workItem from="1762619069736" duration="6105000" />
+      <workItem from="1762641618128" duration="708000" />
+      <workItem from="1762702707751" duration="1336000" />
+      <workItem from="1762773128697" duration="4305000" />
+      <workItem from="1762946975837" duration="2580000" />
+      <workItem from="1762956928175" duration="6000" />
+      <workItem from="1762956970943" duration="2363000" />
+      <workItem from="1763049423330" duration="1029000" />
+      <workItem from="1763211077338" duration="19000" />
+      <workItem from="1763287760248" duration="642000" />
+      <workItem from="1763311250420" duration="12469000" />
+      <workItem from="1763476191617" duration="1809000" />
+      <workItem from="1763482673649" duration="1841000" />
+      <workItem from="1763485211332" duration="881000" />
+      <workItem from="1763524777186" duration="5919000" />
     </task>
     <task id="LOCAL-00001" summary="Upload of initial monogame project.">
       <option name="closed" value="true" />
@@ -248,7 +270,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762183313764</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Action based input system. Input works, other systems need polish now.">
+      <option name="closed" value="true" />
+      <created>1762624819359</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1762624819359</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +309,8 @@
     <MESSAGE value="Collision System. With triggers, events and statics. Not very complex." />
     <MESSAGE value="Can draw tilemaps in a generic way." />
     <MESSAGE value="Collision in tilemap added. With small fix to avoid snapping." />
-    <option name="LAST_COMMIT_MESSAGE" value="Collision in tilemap added. With small fix to avoid snapping." />
+    <MESSAGE value="Action based input system. Input works, other systems need polish now." />
+    <option name="LAST_COMMIT_MESSAGE" value="Action based input system. Input works, other systems need polish now." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -302,5 +333,13 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
   </component>
 </project>

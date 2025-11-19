@@ -10,8 +10,8 @@ public struct TilemapComponent : IComponent
     public List<TileData> Tiles { get; set; }
 }
 
-public struct TileData(Vector2 positionInLevel, Rectangle sourceRectangle)
+public struct TileData()
 {
-    public Vector2 PositionInLevel = positionInLevel;
-    public Rectangle SourceRectangle = sourceRectangle;
+    public Vector2 PositionInLevel;
+    public Rectangle SourceRectangle;
 }

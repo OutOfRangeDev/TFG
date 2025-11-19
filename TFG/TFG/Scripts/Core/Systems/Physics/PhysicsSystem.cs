@@ -1,6 +1,10 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using Microsoft.Xna.Framework;
+using TFG.Scripts.Core.Systems.Collisions;
 using TFG.Scripts.Core.Systems.Core;
+using TFG.Scripts.Core.World;
 
 namespace TFG.Scripts.Core.Systems.Physics;
 
@@ -10,33 +14,119 @@ public class PhysicsSystem : ISystem
     
     public void Update(World.World world, GameTime gameTime)
     {
-        var entities = world.Query().
+        
+        float deltaTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
+        
+        //Get all the entities that have a physics component. And collider.
+        var dynamicEntities = world.Query().
             With<PhysicsComponent>().
             With<TransformComponent>().
-            Execute();
+            With<ColliderComponent>().
+            Execute().
+            Where(entity => !world.GetComponent<PhysicsComponent>(entity).IsStatic).
+            ToList();
 
-        foreach (var entity in entities)
+        var solidObstacles = world.Query().
+            With<ColliderComponent>().
+            With<TransformComponent>().
+            Execute().
+            Where(entity => !world.TryGetComponent(entity, out PhysicsComponent p) || p.IsStatic).
+            ToList();
+
+        foreach (var moverEntity in dynamicEntities)
         {
-            var physics = world.GetComponent<PhysicsComponent>(entity);
-            var transform = world.GetComponent<TransformComponent>(entity);
-            bool wasGrounded = physics.IsGrounded;
-            physics.IsGrounded = false;
-
-            // Apply gravity
-            if(!wasGrounded)
-                physics.Velocity += _globalGravity * physics.GravityScale * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            // Apply drag
-            physics.Velocity *= 1f - physics.Drag * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            // Update position
-            transform.Position += physics.Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            // Save the updated components back to the world
-            world.SetComponent(entity, physics);
-            world.SetComponent(entity, transform);
+            ref var moverPhysics = ref world.GetComponent<PhysicsComponent>(moverEntity);
+            ref var moverTransform = ref world.GetComponent<TransformComponent>(moverEntity);
             
-            //Debug.WriteLine($"Entity {entity.Id} - Position: {transform.Position}, Velocity: {physics.Velocity}");
+            //------------- Gravity --------------
+            
+            bool wasGrounded = moverPhysics.IsGrounded;
+            moverPhysics.IsGrounded = false;
+            if (!wasGrounded)
+            {
+                moverPhysics.Velocity.Y += _globalGravity.Y * deltaTime * moverPhysics.GravityScale;
+            }
+            
+            // ------------- Horizontal Movement --------------
+            
+            // First, we update the position of the mover.
+            moverTransform.Position = moverTransform.Position 
+                with {X = moverTransform.Position.X + moverPhysics.Velocity.X * deltaTime};
+
+            // Now we get the bounds of the mover.
+            var moverBoundsH = CollisionHelper.GetWorldBounds(moverEntity, world);
+
+            // And check for collisions with solid obstacles.
+            foreach (var obstacleEntity in solidObstacles)
+            {
+                // Get the bounds of the obstacle.
+                var obstacleBounds = CollisionHelper.GetWorldBounds(obstacleEntity, world);
+                // And check if they intersect.
+                if (CollisionHelper.AreColliding(moverBoundsH, obstacleBounds))
+                {
+                    // If they do, we resolve the collision.
+                    ResolveHorizontalCollision(ref moverTransform, ref moverPhysics, moverBoundsH, obstacleBounds);
+                    // And update the bounds of the mover.
+                    moverBoundsH = CollisionHelper.GetWorldBounds(moverEntity, world);
+                }
+            }
+            
+            // ------------- Vertical Movement --------------
+            
+            // First, we update the position of the mover.
+            moverTransform.Position = moverTransform.Position 
+                with {Y = moverTransform.Position.Y + moverPhysics.Velocity.Y * deltaTime};
+            
+            // Small fix to make sure the mover doesn't fall through the ground.
+            const float skinWidth = 1f;
+            moverTransform.Position = moverTransform.Position with {Y = moverTransform.Position.Y + skinWidth};
+            
+            // Now we get the bounds of the mover.
+            var moverBoundsV = CollisionHelper.GetWorldBounds(moverEntity, world);
+
+            // And check for collisions with solid obstacles.
+            foreach (var obstacleEntity in solidObstacles)
+            {
+                // Get the bounds of the obstacle.
+                var obstacleBounds = CollisionHelper.GetWorldBounds(obstacleEntity, world);
+                // And check if they intersect.
+                if (CollisionHelper.AreColliding(moverBoundsV, obstacleBounds))
+                {
+                    // If they do, we resolve the collision.
+                    ResolveVerticalCollision(ref moverTransform, ref moverPhysics, moverBoundsV, obstacleBounds);
+                    // And update the bounds of the mover.
+                    moverBoundsV = CollisionHelper.GetWorldBounds(moverEntity, world);
+                }
+            }
         }
+    }
+
+    private void ResolveHorizontalCollision(ref TransformComponent moverTransform, ref PhysicsComponent moverPhysics,
+        Rectangle moverBoundsH, Rectangle obstacleBounds)
+    {
+        var intersection = Rectangle.Intersect(moverBoundsH, obstacleBounds);
+        
+        if(moverBoundsH.Center.X < obstacleBounds.Center.X)
+            moverTransform.Position = moverTransform.Position with {X = moverTransform.Position.X - intersection.Width};
+        else
+            moverTransform.Position = moverTransform.Position with {X = moverTransform.Position.X + intersection.Width};
+        
+        moverPhysics.Velocity.X = 0;
+    }
+
+    private void ResolveVerticalCollision(ref TransformComponent moverTransform, ref PhysicsComponent moverPhysics,
+        Rectangle moverBoundsV, Rectangle obstacleBounds)
+    {
+        var intersection = Rectangle.Intersect(moverBoundsV, obstacleBounds);
+
+        if (moverBoundsV.Center.Y < obstacleBounds.Center.Y)
+        {
+            moverTransform.Position = moverTransform.Position with {Y = moverTransform.Position.Y - intersection.Height};
+            moverPhysics.IsGrounded = true;
+        }
+        else
+            moverTransform.Position = moverTransform.Position with {Y = moverTransform.Position.Y + intersection.Height};
+        
+        moverPhysics.Velocity.Y = 0;
     }
 }

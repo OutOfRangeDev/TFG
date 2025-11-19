@@ -20,7 +20,7 @@ public class PlayerInputSystem(InputManager inputManager) : ISystem
         foreach (var entity in playerEntities)
         {
             //Get the components. 
-            var physics = world.GetComponent<PhysicsComponent>(entity);
+            ref var physics = ref world.GetComponent<PhysicsComponent>(entity);
             var playerController = world.GetComponent<PlayerControllerComponent>(entity);
 
             //Check if the player is moving.
@@ -44,7 +44,7 @@ public class PlayerInputSystem(InputManager inputManager) : ISystem
                 physics.IsGrounded = false;
             }
             
-            world.SetComponent(entity, physics);
+            
         }
     }
 }
