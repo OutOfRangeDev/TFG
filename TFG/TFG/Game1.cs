@@ -1,9 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using TFG.Scripts.Core.Levels;
+using TFG.Scripts.Core.Systems.Camera;
 using TFG.Scripts.Core.Systems.Collisions;
 using TFG.Scripts.Core.Systems.Core;
 using TFG.Scripts.Core.Systems.Input;
@@ -29,6 +27,9 @@ public class Game1 : Game
     private InputManager _inputManager;
     private PlayerInputSystem _playerInputSystem;
     
+    private Camera _camera;
+    private CameraSystem _cameraSystem;
+    
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -47,6 +48,9 @@ public class Game1 : Game
         _inputManager = new InputManager();
         _playerInputSystem = new PlayerInputSystem(_inputManager);
         
+        _camera = new Camera(GraphicsDevice.Viewport);
+        _cameraSystem = new CameraSystem(_camera);
+        
         base.Initialize();
     }
 
@@ -62,20 +66,24 @@ public class Game1 : Game
     protected override void Update(GameTime gameTime)
     {
         // Update the systems.
+        // ------------ Core Systems ------------
+        
         // First the input manager.
         _inputManager.Update();
         
+        // If the escape key is pressed, exit the game.
         if (_inputManager.IsKeyDown(Keys.Escape) || _inputManager.IsButtonDown(Buttons.Back)) Exit();
         
-        // Then the player input system.
         _playerInputSystem.Update(_world, gameTime);
-        
-        // Then the physics system.
         _physicsSystem.Update(_world, gameTime);
-        
-        // Then the collision system.
         _collisionSystem.Update(_world, gameTime);
-
+        
+        // ------------ Visual Systems ------------
+        _cameraSystem.Update(_world, gameTime);
+        
+        // ------------ Clean up ------------
+        _world.ClearCollisionEvents();
+        
         base.Update(gameTime);
     }
 
@@ -84,8 +92,12 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         // Draw all the entities.
-        _spriteBatch.Begin(sortMode: SpriteSortMode.BackToFront, samplerState: SamplerState.PointClamp);
+        _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix(), 
+            sortMode: SpriteSortMode.BackToFront, 
+            samplerState: SamplerState.PointClamp);
+        
         _renderSystem.Draw(_world, _spriteBatch);
+        
         _spriteBatch.End();
 
         base.Draw(gameTime);

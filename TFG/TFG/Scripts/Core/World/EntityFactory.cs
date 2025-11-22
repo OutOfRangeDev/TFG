@@ -26,7 +26,7 @@ public class EntityFactory
         world.AddComponent(entity, new PlayerControllerComponent
         {
             Speed = 100f,
-            JumpForce = 200f
+            JumpForce = 500f
         });
         
         world.AddComponent(entity, new ColliderComponent
@@ -40,6 +40,7 @@ public class EntityFactory
         world.AddComponent(entity, new PhysicsComponent 
         { 
             Velocity = Vector2.Zero, 
+            SkinWidth = 1f,
             GravityScale = 1f, 
             Drag = 0.1f,
             IsStatic = false

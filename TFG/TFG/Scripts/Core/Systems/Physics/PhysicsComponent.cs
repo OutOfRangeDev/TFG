@@ -6,6 +6,7 @@ namespace TFG.Scripts.Core.Systems.Physics;
 public struct PhysicsComponent : IComponent
 {
     public Vector2 Velocity;
+    public float SkinWidth;
     public float Drag;
     public float GravityScale;
     public bool IsStatic;

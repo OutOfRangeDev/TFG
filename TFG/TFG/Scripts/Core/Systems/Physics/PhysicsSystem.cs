@@ -78,8 +78,7 @@ public class PhysicsSystem : ISystem
                 with {Y = moverTransform.Position.Y + moverPhysics.Velocity.Y * deltaTime};
             
             // Small fix to make sure the mover doesn't fall through the ground.
-            const float skinWidth = 1f;
-            moverTransform.Position = moverTransform.Position with {Y = moverTransform.Position.Y + skinWidth};
+            moverTransform.Position = moverTransform.Position with {Y = moverTransform.Position.Y + moverPhysics.SkinWidth};
             
             // Now we get the bounds of the mover.
             var moverBoundsV = CollisionHelper.GetWorldBounds(moverEntity, world);
