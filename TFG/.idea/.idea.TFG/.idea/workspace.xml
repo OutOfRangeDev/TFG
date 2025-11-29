@@ -8,13 +8,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d85ef076-19b6-4c35-852a-267c2112e074" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Camera/Camera.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Camera/CameraSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Animation/Animation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Animation/AnimationSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Animation/AnimatorComponent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Game1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Game1.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Physics/PhysicsComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Physics/PhysicsComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Camera/Camera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Camera/Camera.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Camera/CameraSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Camera/CameraSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/AssetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/AssetManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/QueryBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Core/QueryBuilder.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Physics/PhysicsSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/Physics/PhysicsSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/World/EntityFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/World/EntityFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/SpriteRenderer/RenderSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/SpriteRenderer/RenderSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/World/SceneManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/World/SceneManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/World/World.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/World/World.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" afterDir="false" />
     </list>
@@ -25,6 +31,10 @@
   </component>
   <component name="DpaMonitoringSettings">
     <option name="firstShow" value="false" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="63" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -54,7 +64,9 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2acd3101813042f6841ef849b783ebe1138e00/8e/5d3d3939/Keys.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Animation/Animation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Animation/AnimationSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Animation/AnimatorComponent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Camera/Camera.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Camera/CameraSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/Collisions/CollisionLayer.cs" root0="FORCE_HIGHLIGHTING" />
@@ -103,14 +115,18 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -120,10 +136,8 @@
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="ENV_FILE_PATHS" value="" />
       <option name="REDIRECT_INPUT_PATH" value="" />
-      <option name="PTY_MODE" value="Auto" />
       <option name="MIXED_MODE_DEBUG" value="0" />
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
@@ -191,7 +205,15 @@
       <workItem from="1763567825616" duration="1004000" />
       <workItem from="1763591073789" duration="1361000" />
       <workItem from="1763630924204" duration="2193000" />
-      <workItem from="1763802054192" duration="3554000" />
+      <workItem from="1763802054192" duration="3605000" />
+      <workItem from="1763805755420" duration="1403000" />
+      <workItem from="1763838133213" duration="202000" />
+      <workItem from="1764084060882" duration="77000" />
+      <workItem from="1764187585093" duration="411000" />
+      <workItem from="1764257542850" duration="269000" />
+      <workItem from="1764257854540" duration="1257000" />
+      <workItem from="1764260649527" duration="1186000" />
+      <workItem from="1764408872095" duration="3018000" />
     </task>
     <task id="LOCAL-00001" summary="Upload of initial monogame project.">
       <option name="closed" value="true" />
@@ -281,7 +303,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763530870444</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Camera System. For now it only follows the player controller.">
+      <option name="closed" value="true" />
+      <created>1763805674912</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1763805674912</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -294,7 +324,15 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ID_WIDTH">
+                <map>
+                  <entry key="Table.Default.Author.ColumnIdWidth" value="155" />
+                  <entry key="Table.Default.Date.ColumnIdWidth" value="132" />
+                  <entry key="Table.GitHub.CommitStatus.ColumnIdWidth" value="131" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -314,7 +352,8 @@
     <MESSAGE value="Collision in tilemap added. With small fix to avoid snapping." />
     <MESSAGE value="Action based input system. Input works, other systems need polish now." />
     <MESSAGE value="Revamped. 1. PhysicsSystem.cs now controls physical collisions, and calcualtes separate axis. 2. CollisionSystem.cs now only reports collision events. 3. Made components ref based." />
-    <option name="LAST_COMMIT_MESSAGE" value="Revamped. 1. PhysicsSystem.cs now controls physical collisions, and calcualtes separate axis. 2. CollisionSystem.cs now only reports collision events. 3. Made components ref based." />
+    <MESSAGE value="Camera System. For now it only follows the player controller." />
+    <option name="LAST_COMMIT_MESSAGE" value="Camera System. For now it only follows the player controller." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,24 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using TFG.Scripts.Core.Systems.Core;
 using TFG.Scripts.Core.World;
 
-namespace TFG.Scripts.Core.Systems;
+namespace TFG.Scripts.Core.Systems.Core;
 
-public class QueryBuilder
+public class QueryBuilder(World.World world)
 {
     //Variables
     //Save the state of the query as it is built.
-    private readonly World.World _world;
     private readonly List<Type> _requiredComponents = new();
 
     // Constructor. Called by the World class.
     // The world is passed in to access the component stores.
-    public QueryBuilder(World.World world)
-    {
-        _world = world;
-    }
-    
+
     //Methods
     //Add a required component to the query.
     public QueryBuilder With<TComponent>() where TComponent : IComponent
@@ -37,7 +31,7 @@ public class QueryBuilder
             yield break;
         
         // First, get all the entities that have the component.
-        var initialIds = _world.GetEntityIdsForComponent(_requiredComponents[0]);
+        var initialIds = world.GetEntityIdsForComponent(_requiredComponents[0]);
 
         //If there are no entities with that component, return empty.
         if (initialIds == null)
@@ -49,7 +43,7 @@ public class QueryBuilder
         // If not, then we get the ids of all the entities that have all the required components.
         for (int i = 1; i < _requiredComponents.Count; i++)
         {
-            var ids = _world.GetEntityIdsForComponent(_requiredComponents[i]);
+            var ids = world.GetEntityIdsForComponent(_requiredComponents[i]);
             
             if (ids == null)
             {

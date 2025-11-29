@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using TFG.Scripts.Core.Systems;
-using TFG.Scripts.Core.Systems.Collisions;
 using TFG.Scripts.Core.Systems.Core;
 using IComponent = TFG.Scripts.Core.Systems.Core.IComponent;
 
@@ -14,7 +12,7 @@ public class World
     ///List of entities. HashSet is for fast lookup.
     private readonly HashSet<Entity> _activeEntities = new();
     ///Next entity id.
-    private int _nextEntityId = 0;
+    private int _nextEntityId;
     ///Queue of available ids. Store deleted entity ID's.
     private readonly Queue<int> _availableIDs = new();
     
@@ -32,14 +30,12 @@ public class World
     public Entity CreateEntity()
     {
         //Create a new entity variable.
-        Entity newEntity;
-        //If there is a previously deleted entity id, use it.
-        if(_availableIDs.Count > 0)
-            newEntity = new Entity(_availableIDs.Dequeue());
-        //Otherwise create a new entity id.
-        else
-            newEntity = new Entity(_nextEntityId++);
-        
+        var newEntity =
+            //If there is a previously deleted entity id, use it.
+            _availableIDs.Count > 0 ? new Entity(_availableIDs.Dequeue()) :
+            //Otherwise create a new entity id.
+            new Entity(_nextEntityId++);
+
         //Add the new entity to the list of active entities.
         _activeEntities.Add(newEntity);
         
@@ -53,7 +49,7 @@ public class World
     //Destroy an entity.
     public void DestroyEntity(Entity entityToDestroy)
     {
-        //First check if the entity exists.
+        //First, check if the entity exists.
         if (!_activeEntities.Remove(entityToDestroy))
         {
             Debug.WriteLine($"[World] Tried to destroy non-existing entity {entityToDestroy.Id}.");

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using TFG.Scripts.Core.Systems.Animation;
 using TFG.Scripts.Core.Systems.Camera;
 using TFG.Scripts.Core.Systems.Collisions;
 using TFG.Scripts.Core.Systems.Core;
@@ -26,6 +27,7 @@ public class Game1 : Game
     private SceneManager _sceneManager;
     private InputManager _inputManager;
     private PlayerInputSystem _playerInputSystem;
+    private AnimationSystem _animationSystem;
     
     private Camera _camera;
     private CameraSystem _cameraSystem;
@@ -47,6 +49,7 @@ public class Game1 : Game
         _sceneManager = new SceneManager(_world);
         _inputManager = new InputManager();
         _playerInputSystem = new PlayerInputSystem(_inputManager);
+        _animationSystem = new AnimationSystem();
         
         _camera = new Camera(GraphicsDevice.Viewport);
         _cameraSystem = new CameraSystem(_camera);
@@ -68,7 +71,7 @@ public class Game1 : Game
         // Update the systems.
         // ------------ Core Systems ------------
         
-        // First the input manager.
+        // First, the input manager.
         _inputManager.Update();
         
         // If the escape key is pressed, exit the game.
@@ -80,6 +83,7 @@ public class Game1 : Game
         
         // ------------ Visual Systems ------------
         _cameraSystem.Update(_world, gameTime);
+        _animationSystem.Update(_world, gameTime);
         
         // ------------ Clean up ------------
         _world.ClearCollisionEvents();

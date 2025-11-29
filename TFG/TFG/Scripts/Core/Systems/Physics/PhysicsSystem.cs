@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using TFG.Scripts.Core.Systems.Collisions;
 using TFG.Scripts.Core.Systems.Core;
-using TFG.Scripts.Core.World;
 
 namespace TFG.Scripts.Core.Systems.Physics;
 

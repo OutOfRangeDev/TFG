@@ -3,19 +3,13 @@ using Microsoft.Xna.Framework.Content;
 
 namespace TFG.Scripts.Core.Systems.Core;
 
-public class AssetManager
+public class AssetManager(ContentManager contentManager)
 {
     // We need a content manager to load assets. 
-    private ContentManager _contentManager;
     // We need a dictionary to store assets and their references.
     private Dictionary<string, object> _loadedAssets = new();
     // And also a dictionary to store the number of references to each asset.
     private Dictionary<string, int> _assetReferenceCounts = new();
-    
-    public AssetManager(ContentManager contentManager)
-    {
-        _contentManager = contentManager;
-    }
 
     #region Methods
 
@@ -30,7 +24,7 @@ public class AssetManager
         }
         // If the asset is not loaded, create a new instance of it.
         // Load the asset using the content manager.
-        var loadedAsset = _contentManager.Load<T>(assetName);
+        var loadedAsset = contentManager.Load<T>(assetName);
         
         // Store the loaded asset and set its reference count to 1.
         _loadedAssets[assetName] = loadedAsset;
@@ -52,7 +46,7 @@ public class AssetManager
             {
                 _loadedAssets.Remove(assetName);
                 _assetReferenceCounts.Remove(assetName);
-                _contentManager.Unload();
+                contentManager.Unload();
             }
         }
     }

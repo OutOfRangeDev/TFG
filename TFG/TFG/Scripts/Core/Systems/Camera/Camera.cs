@@ -3,20 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TFG.Scripts.Core.Systems.Camera;
 
-public class Camera
+public class Camera(Viewport viewport)
 {
     public Vector2 Position;
-    public Vector2 Offset;
+    public Vector2 Offset = new Vector2(300, -100); // +X to the left, +Y up.
     public float Zoom = 1f; 
     public float Rotation = 0f;
     
-    private readonly Viewport _viewport;
-    
-    public Camera(Viewport viewport)
-    {
-        _viewport = viewport;
-    }
-    
+    private readonly Viewport _viewport = viewport;
+
     public Matrix GetViewMatrix()
     {
         // Make the camera look at the target plus offset.
@@ -29,7 +24,7 @@ public class Camera
             Matrix.CreateRotationZ(Rotation) *
             // Scale around the new origin.
             Matrix.CreateScale(Zoom) *
-            // Now move the world so the player is at the origin.
+            // Now move the world so the player is at the origin plus offset.
             Matrix.CreateTranslation(_viewport.Width / 2f, _viewport.Height / 2f, 0f);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using TFG.Scripts.Core.Systems.Core;
 using TFG.Scripts.Core.Systems.Input;

@@ -1,11 +1,7 @@
-﻿using System.Diagnostics;
-using System.Drawing;
-using System.Net.NetworkInformation;
-using System.Reflection.Metadata.Ecma335;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using TFG.Scripts.Core.Levels;
 using TFG.Scripts.Core.Systems.Core;
+using TFG.Scripts.Core.Systems.Levels;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace TFG.Scripts.Core.Systems.SpriteRenderer;
