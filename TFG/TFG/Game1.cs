@@ -1,15 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using TFG.Scripts.Core.Systems.Animation;
+using TFG.Scripts.Core.Data;
+using TFG.Scripts.Core.Managers;
+using TFG.Scripts.Core.Systems;
 using TFG.Scripts.Core.Systems.Camera;
-using TFG.Scripts.Core.Systems.Collisions;
-using TFG.Scripts.Core.Systems.Core;
 using TFG.Scripts.Core.Systems.Input;
-using TFG.Scripts.Core.Systems.Levels;
-using TFG.Scripts.Core.Systems.Physics;
-using TFG.Scripts.Core.Systems.SpriteRenderer;
 using TFG.Scripts.Core.World;
+using TFG.Scripts.Game.Data;
+using TFG.Scripts.Game.Prefabs;
+using TFG.Scripts.Game.Scenes;
 
 namespace TFG;
 
@@ -45,7 +45,10 @@ public class Game1 : Game
         _world = new World();
         _renderSystem = new RenderSystem();
         _physicsSystem = new PhysicsSystem();
-        _collisionSystem = new CollisionSystem();
+        
+        var collisionMatrix = CollisionRules.CreateCollisionMatrix();
+        _collisionSystem = new CollisionSystem(collisionMatrix);
+        
         _sceneManager = new SceneManager(_world);
         _inputManager = new InputManager();
         _playerInputSystem = new PlayerInputSystem(_inputManager);
