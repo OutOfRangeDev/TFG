@@ -29,6 +29,9 @@ public class Game1 : Game
     private PlayerInputSystem _playerInputSystem;
     private AnimationSystem _animationSystem;
     
+    private AudioManager _audioManager;
+    private SoundSystem _soundSystem;
+    
     private Camera _camera;
     private CameraSystem _cameraSystem;
     
@@ -53,6 +56,9 @@ public class Game1 : Game
         _inputManager = new InputManager();
         _playerInputSystem = new PlayerInputSystem(_inputManager);
         _animationSystem = new AnimationSystem();
+        
+        _audioManager = new AudioManager(Content);
+        _soundSystem = new SoundSystem(_audioManager);
         
         _camera = new Camera(GraphicsDevice.Viewport);
         _cameraSystem = new CameraSystem(_camera);
@@ -84,12 +90,16 @@ public class Game1 : Game
         _physicsSystem.Update(_world, gameTime);
         _collisionSystem.Update(_world, gameTime);
         
+        // ------------ Audio Systems ------------
+        _soundSystem.Update(_world, gameTime);
+        
         // ------------ Visual Systems ------------
         _cameraSystem.Update(_world, gameTime);
         _animationSystem.Update(_world, gameTime);
         
         // ------------ Clean up ------------
         _world.ClearCollisionEvents();
+        _world.ClearSoundEvents();
         
         base.Update(gameTime);
     }

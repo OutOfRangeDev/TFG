@@ -20,6 +20,8 @@ public class World
     
     // A list of collision events.
     private readonly List<CollisionEvent> _collisionEvents = new();
+    // A list of sound events.
+    private readonly List<PlaySoundEvent> _soundEvents = new();
     
     //Systems.
     
@@ -187,6 +189,34 @@ public class World
     public void ClearCollisionEvents()
     {
         _collisionEvents.Clear();
+    }
+
+    #endregion
+
+    #region Sound Events
+
+    // The struct for sound events.
+    public readonly struct PlaySoundEvent(SoundData data)
+    {
+        public readonly SoundData SoundToPlay = data;
+    }
+
+    // Added by the systems, calls a new sound event.
+    public void AddSoundEvent(PlaySoundEvent ev)
+    {
+        _soundEvents.Add(ev);
+    }
+    
+    // Called by the sound system, gets all the events, and plays them.
+    public IEnumerable<PlaySoundEvent> GetSoundEvents()
+    {
+        return _soundEvents;
+    }
+    
+    // After the frame, we clear the list of sound events.
+    public void ClearSoundEvents()
+    {
+        _soundEvents.Clear();
     }
 
     #endregion
