@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using TFG.Scripts.Core.Abstractions;
 
-namespace TFG.Scripts.Core.Components;
+namespace TFG.Scripts.Core.Components.Physics;
 
 public struct ColliderComponent : IComponent
 {

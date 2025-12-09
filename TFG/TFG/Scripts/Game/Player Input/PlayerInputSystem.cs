@@ -4,14 +4,15 @@ using TFG.Scripts.Core.Abstractions;
 using TFG.Scripts.Core.Components;
 using TFG.Scripts.Core.Components.Animation;
 using TFG.Scripts.Core.Components.Physics;
+using TFG.Scripts.Core.Managers;
 
-namespace TFG.Scripts.Core.Systems.Input;
+namespace TFG.Scripts.Game.Player_Input;
 
 public class PlayerInputSystem(InputManager inputManager) : ISystem
 {
     //In the constructor we need to pass the input manager.
 
-    public void Update(Data.World world, GameTime gameTime)
+    public void Update(Core.Data.World world, GameTime gameTime)
     {
         //Get all the player entities.
         var playerEntities = world.Query().

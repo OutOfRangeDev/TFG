@@ -2,9 +2,8 @@
 using Microsoft.Xna.Framework;
 using TFG.Scripts.Core.Abstractions;
 using TFG.Scripts.Core.Components;
-using TFG.Scripts.Core.Systems.Input;
 
-namespace TFG.Scripts.Core.Systems.Camera;
+namespace TFG.Scripts.Core.Systems;
 
 public class CameraSystem(Managers.Camera camera) : ISystem
 {

@@ -1,6 +1,3 @@
 ﻿namespace TFG.Scripts.Core.Data;
 
-public readonly struct Entity(int id)
-{
-    public readonly int Id = id;
-}
+public readonly record struct Entity(int Id);

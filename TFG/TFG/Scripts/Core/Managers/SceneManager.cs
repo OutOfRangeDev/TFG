@@ -1,22 +1,15 @@
 ﻿using TFG.Scripts.Core.Abstractions;
 
-namespace TFG.Scripts.Core.World;
+namespace TFG.Scripts.Core.Managers;
 
-public class SceneManager
+public class SceneManager(Data.World world)
 {
-    private readonly Data.World _world;
-    
     private IScene _currentScene;
-    
-    public SceneManager(Data.World world)
-    {
-        _world = world;
-    }
 
     public void ChangeScene(IScene newScene)
     {
         // If we have a current scene, we unload it.
-        _currentScene?.Unload(_world);
+        _currentScene?.Unload(world);
         
         // ADD A LOADING SCREEN.
         
@@ -26,6 +19,6 @@ public class SceneManager
         // Load the new scene.
 
         //Scene scene = new Scene(_currentScene.Load(_world, 0));
-        _currentScene.Load(_world);
+        _currentScene.Load(world);
     }
 }

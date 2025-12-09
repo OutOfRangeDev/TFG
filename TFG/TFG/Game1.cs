@@ -4,10 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using TFG.Scripts.Core.Data;
 using TFG.Scripts.Core.Managers;
 using TFG.Scripts.Core.Systems;
-using TFG.Scripts.Core.Systems.Camera;
-using TFG.Scripts.Core.Systems.Input;
-using TFG.Scripts.Core.World;
 using TFG.Scripts.Game.Data;
+using TFG.Scripts.Game.Player_Input;
 using TFG.Scripts.Game.Prefabs;
 using TFG.Scripts.Game.Scenes;
 
@@ -17,6 +15,7 @@ public class Game1 : Game
 {
     private SpriteBatch _spriteBatch;
 
+    // Resharper disable once NotAccessedField.Local
     private GraphicsDeviceManager _graphics;
     
     private World _world;

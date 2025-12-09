@@ -1,5 +1,5 @@
 ﻿using System;
-using TFG.Scripts.Core.Components;
+using TFG.Scripts.Core.Components.Physics;
 
 namespace TFG.Scripts.Game.Data;
 
@@ -15,9 +15,9 @@ public static class CollisionRules
         return matrix;
     }
     
-    private static void SetCollision(bool[,] _collisionMatrix, CollisionLayer layerA, CollisionLayer layerB, bool canCollide)
+    private static void SetCollision(bool[,] collisionMatrix, CollisionLayer layerA, CollisionLayer layerB, bool canCollide)
     {
-        _collisionMatrix[(int)layerA, (int)layerB] = canCollide;
-        _collisionMatrix[(int)layerB, (int)layerA] = canCollide;
+        collisionMatrix[(int)layerA, (int)layerB] = canCollide;
+        collisionMatrix[(int)layerB, (int)layerA] = canCollide;
     }
 }

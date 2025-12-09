@@ -4,7 +4,7 @@ using TFG.Scripts.Core.Abstractions;
 
 namespace TFG.Scripts.Core.Data;
 
-public class QueryBuilder(Data.World world)
+public class QueryBuilder(World world)
 {
     //Variables
     //Save the state of the query as it is built.

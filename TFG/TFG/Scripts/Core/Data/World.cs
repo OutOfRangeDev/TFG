@@ -207,7 +207,7 @@ public class World
         _soundEvents.Add(ev);
     }
     
-    // Called by the sound system, gets all the events, and plays them.
+    // Called by the sound system, gets all the events and plays them.
     public IEnumerable<PlaySoundEvent> GetSoundEvents()
     {
         return _soundEvents;

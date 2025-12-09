@@ -8,13 +8,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d85ef076-19b6-4c35-852a-267c2112e074" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Data/GameSounds.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Data/SoundData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Managers/AudioManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/SoundSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Game1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Game1.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Physics/ColliderComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Physics/ColliderComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Physics/CollisionLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Physics/CollisionLayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Data/Entity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Data/Entity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Data/QueryBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Data/QueryBuilder.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Data/World.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Data/World.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Helper/CollisionHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Helper/CollisionHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/IO/LdtkData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/IO/LdtkData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/IO/LdtkReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/IO/LDtkReader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Managers/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Managers/InputManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Managers/SceneManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Managers/SceneManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/CameraSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/CameraSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/CollisionSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/CollisionSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Data/CollisionRules.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Data/CollisionRules.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Player Input/PlayerInputSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Player Input/PlayerInputSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Scenes/LevelScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Scenes/LevelScene.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" afterDir="false" />
     </list>
@@ -27,7 +37,7 @@
     <option name="firstShow" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="66" />
+    <option name="cachedIndexableFilesCount" value="70" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -106,28 +116,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Project.TFG.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.TFG.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="TFG" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -220,7 +230,8 @@
       <workItem from="1764661807706" duration="3478000" />
       <workItem from="1764683506546" duration="874000" />
       <workItem from="1765186601161" duration="7692000" />
-      <workItem from="1765234421515" duration="3154000" />
+      <workItem from="1765234421515" duration="3192000" />
+      <workItem from="1765271795179" duration="3831000" />
     </task>
     <task id="LOCAL-00001" summary="Upload of initial monogame project.">
       <option name="closed" value="true" />
@@ -334,7 +345,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764662927393</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Sound system added.">
+      <option name="closed" value="true" />
+      <created>1765237616767</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1765237616767</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -378,7 +397,8 @@
     <MESSAGE value="Camera System. For now it only follows the player controller." />
     <MESSAGE value="Small refactoring to improve code. AnimationSystem.cs done, need testing." />
     <MESSAGE value="File location refactor. Animation System tested and working." />
-    <option name="LAST_COMMIT_MESSAGE" value="File location refactor. Animation System tested and working." />
+    <MESSAGE value="Sound system added." />
+    <option name="LAST_COMMIT_MESSAGE" value="Sound system added." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

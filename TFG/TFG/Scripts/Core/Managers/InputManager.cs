@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using TFG.Scripts.Game.Player_Input;
 
-namespace TFG.Scripts.Core.Systems.Input;
+namespace TFG.Scripts.Core.Managers;
 
 public class InputManager
 {

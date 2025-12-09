@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using TFG.Scripts.Core.Abstractions;
 using TFG.Scripts.Core.Components;
+using TFG.Scripts.Core.Components.Physics;
 using TFG.Scripts.Core.Helper;
 
 namespace TFG.Scripts.Core.Systems;
