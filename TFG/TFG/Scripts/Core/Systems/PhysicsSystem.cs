@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using TFG.Scripts.Core.Abstractions;
 using TFG.Scripts.Core.Components;
-using TFG.Scripts.Core.Components.Physics;
 using TFG.Scripts.Core.Helper;
 
 namespace TFG.Scripts.Core.Systems;
@@ -43,7 +42,10 @@ public class PhysicsSystem : ISystem
             moverPhysics.IsGrounded = false;
             if (!wasGrounded)
             {
-                moverPhysics.Velocity.Y += _globalGravity.Y * deltaTime * moverPhysics.GravityScale;
+                moverPhysics.Velocity = moverPhysics.Velocity with
+                {
+                    Y = moverPhysics.Velocity.Y + _globalGravity.Y * deltaTime * moverPhysics.GravityScale
+                };
             }
             
             // ------------- Horizontal Movement --------------
@@ -108,8 +110,8 @@ public class PhysicsSystem : ISystem
             moverTransform.Position = moverTransform.Position with {X = moverTransform.Position.X - intersection.Width};
         else
             moverTransform.Position = moverTransform.Position with {X = moverTransform.Position.X + intersection.Width};
-        
-        moverPhysics.Velocity.X = 0;
+
+        moverPhysics.Velocity = moverPhysics.Velocity with { X = 0 };
     }
 
     private void ResolveVerticalCollision(ref TransformComponent moverTransform, ref PhysicsComponent moverPhysics,
@@ -124,7 +126,7 @@ public class PhysicsSystem : ISystem
         }
         else
             moverTransform.Position = moverTransform.Position with {Y = moverTransform.Position.Y + intersection.Height};
-        
-        moverPhysics.Velocity.Y = 0;
+
+        moverPhysics.Velocity = moverPhysics.Velocity with { Y = 0 };
     }
 }

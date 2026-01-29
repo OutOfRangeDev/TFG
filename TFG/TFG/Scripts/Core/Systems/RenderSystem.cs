@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using TFG.Scripts.Core.Components;
-using TFG.Scripts.Core.Components.Tilemap;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace TFG.Scripts.Core.Systems;
@@ -33,9 +32,12 @@ public class RenderSystem
             .With<TransformComponent>()
             .Execute();
         
+        //System.Diagnostics.Debug.WriteLine($"[RenderSystem] Found {entitiesToDraw.Count()} entities to draw this frame.");
+        
         //When we have entities, draw them.
         foreach (var entity in entitiesToDraw)
         {
+            //System.Diagnostics.Debug.WriteLine($"--> Drawing entity {entity.Id}");
             //We get the sprite component from the entity.
             ref var sprite = ref world.GetComponent<SpriteComponent>(entity);
             //And the transform component from the entity.

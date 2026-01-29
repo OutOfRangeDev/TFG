@@ -1,5 +1,5 @@
 ﻿using System;
-using TFG.Scripts.Core.Components.Physics;
+using TFG.Scripts.Core.Components;
 
 namespace TFG.Scripts.Game.Data;
 

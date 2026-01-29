@@ -5,6 +5,8 @@
         <RollForward>Major</RollForward>
         <PublishReadyToRun>false</PublishReadyToRun>
         <TieredCompilation>false</TieredCompilation>
+        <Configurations>Debug;Release;EXPORT_PREFABS</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
     <PropertyGroup>
         <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -16,10 +18,16 @@
         <None Update="Content\bin\DesktopGL\Test\TileMap\Test.ldtk">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="Content\Test\TileMap\Test.ldtk">
+        <None Update="Content\bin\DesktopGL\Content\Test\TileMap\Test.ldtk">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="Content\bin\DesktopGL\Content\Test\TileMap\Test.ldtk">
+        <None Update="Content\Scenes\Test.ldtk">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Content\Prefabs\Player.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Content\Test\TileMap\Test.ldtk">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
@@ -37,6 +45,7 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Content\bin\DesktopGL\" />
+      <Folder Include="Content\Prefabs\" />
     </ItemGroup>
     <Target Name="RestoreDotnetTools" BeforeTargets="CollectPackageReferences">
         <Message Text="Restoring dotnet tools (this might take a while depending on your internet speed and should only happen upon building your project for the first time, or after upgrading MonoGame, or clearing your nuget cache)" Importance="High"/>

@@ -1,4 +1,4 @@
-﻿namespace TFG.Scripts.Core.Components.Physics;
+﻿namespace TFG.Scripts.Core.Components;
 
 public enum CollisionLayer
 {

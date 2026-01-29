@@ -71,26 +71,79 @@ public class World
 
     #region Component Management
 
+    #region STATIC
+
+    // Generic function to get or create a component pool.
     private ComponentPool<T> GetOrCreateComponentPool<T>() where T : IComponent
     {
+        //Get the component type.
         var componentType = typeof(T);
+        //If the pool doesn't exist...
         if (!_componentPools.TryGetValue(componentType, out var pool))
         {
+            // Create a new pool of that type.
             pool = new ComponentPool<T>();
+            // And add it to the dictionary.
             _componentPools.Add(componentType, pool);
         }
+        // And return the pool.
         return (ComponentPool<T>) pool;
     }
 
+    // Generic function to add a component to a pool and an entity. Not using reflection.
     public void AddComponent<T>(Entity entity, T component) where T : IComponent
     {
+        // If the entity doesn't exist, throw an exception.'
         if (!_activeEntities.Contains(entity))
         {
             throw new Exception($"[World] Tried to add component {typeof(T).Name} to non-existing entity {entity.Id}.");
         }
+        // Add the component to the pool or create the pool if it doesn't exist.
         GetOrCreateComponentPool<T>().Add(entity.Id, component);
     }
+
+    #endregion
     
+
+    #region REFLECTION
+
+    // Using reflection, get the component pool of a component type or create it.
+    private IComponentPool GetOrCreateComponentPool(Type componentType)
+    {
+        // If the pool doesn't exist...
+        if (!_componentPools.TryGetValue(componentType, out var pool))
+        {
+            // type of gives a generic Type of ComponentPool<>.
+            // MakeGenericType, makes it a component pool of the component we want.
+            // So then, poolType is ComponentPool<T>.
+            var poolType = typeof(ComponentPool<>).MakeGenericType(componentType);
+            // Now that we have the type, we can create an instance of it.
+            // Activator it's a generic C# class to create instances of generic Type at runtime.
+            // And also with the IComponentPool interface, we indicate that we want an instance of ComponentPool<T>.
+            pool = (IComponentPool) Activator.CreateInstance(poolType);
+            // Now that the pool is created, we add it to the dictionary.
+            _componentPools.Add(componentType, pool);
+        }
+        // And return the pool.
+        return pool;
+    }
+    
+    // Generic function to add a component to an entity and the pool. But using reflection.
+    // As when getting the componentType, we don't know the type of the component, we use reflection.
+    public void AddComponent(Entity entity, Type componentType, IComponent component)
+    {
+        // First, check if the pool of the component exists.
+        var pool = GetOrCreateComponentPool(componentType);
+        // Then check if it has the Add method.
+        var addMethod = pool.GetType().GetMethod("Add");
+        // And finally, call the Add method.
+        addMethod?.Invoke(pool, [entity.Id, component]);
+    }
+
+    #endregion
+    
+    
+    // To check if an entity has a component.
     private bool HasComponent<T>(Entity entity) where T : IComponent
     {
         //Check if the component pool exists.
@@ -104,6 +157,7 @@ public class World
         return false;
     }
 
+    // To get a component from an entity. But check if it exists first.
     public bool TryGetComponent<T>(Entity entity, out T component) where T : IComponent
     {
         if (HasComponent<T>(entity))
@@ -120,13 +174,13 @@ public class World
 
     public ref T GetComponent<T>(Entity entity) where T : IComponent
     {
-#if DEBUG
+
         // In debug mode, we make a safety check to make sure the entity has the component.
         if (!HasComponent<T>(entity))
         {
             Debug.WriteLine($"[World] Tried to get component {typeof(T).Name} from entity {entity.Id} but it doesn't exist.");
         }
-#endif
+
         // Just return the component from the pool.
         return ref GetOrCreateComponentPool<T>().Get(entity.Id);
     }

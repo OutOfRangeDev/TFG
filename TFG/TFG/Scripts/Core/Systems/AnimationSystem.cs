@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using TFG.Scripts.Core.Abstractions;
 using TFG.Scripts.Core.Components;
-using TFG.Scripts.Core.Components.Animation;
 
 namespace TFG.Scripts.Core.Systems;
 

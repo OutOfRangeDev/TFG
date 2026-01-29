@@ -8,36 +8,74 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d85ef076-19b6-4c35-852a-267c2112e074" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/RectTransformComponent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/UIButtonComponent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/UiImageComponent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/UiTextComponent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Data/Constants.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Data/PrefabBlueprint.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Helper/LayoutHelper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/IO/ColorConverter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/IO/ComponentDeserializer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/IO/JsonOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/IO/RectangleConverter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/IO/Vector2Converter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Managers/PrefabManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/UI/UiInteractionSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/UI/UiLayoutSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/UI/UiRenderSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Tools/PrefabExporter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG.sln" beforeDir="false" afterPath="$PROJECT_DIR$/TFG.sln" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Game1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Game1.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Physics/ColliderComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Physics/ColliderComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Physics/CollisionLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Physics/CollisionLayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Data/Entity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Data/Entity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Data/QueryBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Data/QueryBuilder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Animation/Animation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Animation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Animation/AnimatorComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/AnimatorComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Physics/ColliderComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/ColliderComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Physics/CollisionLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/CollisionLayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Physics/PhysicsComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/PhysicsComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/PlayerControllerComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/PlayerControllerComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/SpriteComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/SpriteComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Tilemap/TileData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/TileData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/Tilemap/TilemapComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/TilemapComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/TransformComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/TransformComponent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Data/World.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Data/World.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Helper/CollisionHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Helper/CollisionHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/IO/LdtkData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/IO/LdtkData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/IO/LdtkReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/IO/LDtkReader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Managers/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Managers/InputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Managers/SceneManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Managers/SceneManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/AnimationSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/AnimationSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/CameraSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/CameraSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/CollisionSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/CollisionSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/PhysicsSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/PhysicsSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/RenderSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/RenderSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Data/CollisionRules.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Data/CollisionRules.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Player Input/PlayerInputSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Player Input/PlayerInputSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Prefabs/EntityFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Prefabs/EntityFactory.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Scenes/LevelScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Scenes/LevelScene.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/TFG.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/TFG.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/obj/TFG.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/TFG.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/obj/TFG.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/TFG.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/ROG/Desktop/TFG/TFG" value="34BZUhaARGuOcYjFHfEg4ahrW5A" />
+    </persistenceIdMap>
+  </component>
   <component name="DpaMonitoringSettings">
     <option name="firstShow" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="70" />
+    <option name="cachedIndexableFilesCount" value="88" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -71,25 +109,28 @@
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Abstractions/IComponent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Abstractions/IScene.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Abstractions/ISystem.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Components/Animation/Animation.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Components/Animation/AnimatorComponent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Components/Physics/CollisionLayer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Components/Physics/PhysicsComponent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Components/SpriteComponent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Components/Tilemap/TileData.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Components/Tilemap/TilemapComponent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Components/TransformComponent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Data/Constants.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Data/Entity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Data/GameSounds.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Data/PrefabBlueprint.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Data/QueryBuilder.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Data/SoundData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Data/World.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Helper/LayoutHelper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/IO/ColorConverter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/IO/ComponentDeserializer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/IO/JsonOptions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/IO/LDtkReader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/IO/LdtkData.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/IO/LdtkReader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/IO/RectangleConverter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/IO/Vector2Converter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Managers/AssetManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Managers/AudioManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Managers/Camera.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Managers/InputManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Managers/PrefabManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Managers/SceneManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/AnimationSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/CameraSystem.cs" root0="FORCE_HIGHLIGHTING" />
@@ -97,9 +138,17 @@
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/PhysicsSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/RenderSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/SoundSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/UI/UiInteractionSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/UI/UiLayoutSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Systems/UI/UiRenderSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Tools/PrefabExporter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Game/Data/CollisionRules.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Game/Player Input/DefaultBindings.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Game/Prefabs/EntityFactory.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
@@ -118,12 +167,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Project.TFG.executor": "Run",
+    ".NET Project.TFG.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "XThreadsFramesViewSplitterKey": "0.3378788",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
@@ -231,7 +282,24 @@
       <workItem from="1764683506546" duration="874000" />
       <workItem from="1765186601161" duration="7692000" />
       <workItem from="1765234421515" duration="3192000" />
-      <workItem from="1765271795179" duration="3831000" />
+      <workItem from="1765271795179" duration="4835000" />
+      <workItem from="1765287593858" duration="5359000" />
+      <workItem from="1765306177871" duration="1055000" />
+      <workItem from="1767963121316" duration="1732000" />
+      <workItem from="1767978494260" duration="1510000" />
+      <workItem from="1767980156988" duration="2341000" />
+      <workItem from="1768063867902" duration="2925000" />
+      <workItem from="1768134665142" duration="1570000" />
+      <workItem from="1768311864443" duration="4211000" />
+      <workItem from="1768490772487" duration="731000" />
+      <workItem from="1768649208996" duration="7491000" />
+      <workItem from="1769255541871" duration="135000" />
+      <workItem from="1769255776467" duration="4187000" />
+      <workItem from="1769266133811" duration="2405000" />
+      <workItem from="1769525708552" duration="2547000" />
+      <workItem from="1769592954222" duration="2760000" />
+      <workItem from="1769628733832" duration="6602000" />
+      <workItem from="1769691060203" duration="815000" />
     </task>
     <task id="LOCAL-00001" summary="Upload of initial monogame project.">
       <option name="closed" value="true" />
@@ -353,7 +421,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765237616767</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Fixes. Removed rider warnings.">
+      <option name="closed" value="true" />
+      <created>1765276340256</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1765276340256</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -398,7 +474,8 @@
     <MESSAGE value="Small refactoring to improve code. AnimationSystem.cs done, need testing." />
     <MESSAGE value="File location refactor. Animation System tested and working." />
     <MESSAGE value="Sound system added." />
-    <option name="LAST_COMMIT_MESSAGE" value="Sound system added." />
+    <MESSAGE value="Fixes. Removed rider warnings." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixes. Removed rider warnings." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -415,6 +492,32 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/TFG/Scripts/Core/Managers/PrefabManager.cs</url>
+          <line>89</line>
+          <properties documentPath="C:\Users\ROG\Desktop\TFG\TFG\TFG\Scripts\Core\Managers\PrefabManager.cs" containingFunctionPresentation="Method 'InstantiatePrefab'">
+            <startOffsets>
+              <option value="3787" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3806" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/TFG/Scripts/Core/Managers/PrefabManager.cs</url>
+          <line>104</line>
+          <properties documentPath="C:\Users\ROG\Desktop\TFG\TFG\TFG\Scripts\Core\Managers\PrefabManager.cs" containingFunctionPresentation="Method 'InstantiatePrefab'">
+            <startOffsets>
+              <option value="4655" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4699" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

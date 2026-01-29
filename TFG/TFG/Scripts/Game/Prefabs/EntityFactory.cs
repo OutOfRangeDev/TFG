@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using TFG.Scripts.Core.Components;
-using TFG.Scripts.Core.Components.Animation;
-using TFG.Scripts.Core.Components.Physics;
+using TFG.Scripts.Core.Data;
 using TFG.Scripts.Core.Managers;
 
 namespace TFG.Scripts.Game.Prefabs;
 
-public class EntityFactory
+public static class EntityFactory
 {
     private static AssetManager _assetManager;
 
@@ -16,54 +13,47 @@ public class EntityFactory
     {
         _assetManager = assetManager;
     }
-    
-    public static void CreatePlayerEntity(Core.Data.World world, Vector2 position)
+
+    public static PrefabBlueprint CreatePlayerPrefab()
     {
-        var entity = world.CreateEntity();
+        var blueprint = new PrefabBlueprint { Name = "Player" };
+
+        blueprint.Components["TransformComponent"] = new{};
         
-        world.AddComponent(entity, new TransformComponent { Position = position });
-        
-        world.AddComponent(entity, new PlayerControllerComponent
+        blueprint.Components["PlayerControllerComponent"] = new
         {
             Speed = 100f,
             JumpForce = 500f
-        });
-        
-        world.AddComponent(entity, new ColliderComponent
+        };
+
+        blueprint.Components["ColliderComponent"] = new
         {
             IsTrigger = false,
             Layer = CollisionLayer.Player,
-            Size = new Vector2(32, 32),
-            Offset = Vector2.Zero
-        });
+            Size = new {X = 32, Y = 32},
+        };
         
-        world.AddComponent(entity, new PhysicsComponent 
-        { 
-            Velocity = Vector2.Zero, 
+        blueprint.Components["PhysicsComponent"] = new
+        {
             SkinWidth = 1f,
             GravityScale = 1f, 
             Drag = 0.1f,
             IsStatic = false
-        });
-        
-        world.AddComponent(entity, new SpriteComponent 
-        { 
-            Texture = _assetManager.Load<Texture2D>("Test/Character/hello_kitty"),
-            SourceRectangle = new Rectangle(0, 0, 32, 32), 
-            Color = Color.White,
-            Rotation = 0f, 
-            Origin = Vector2.Zero, 
-            Scale = new Vector2(1f),
-            Effects = SpriteEffects.None,
-            LayerDepth = 0f 
-        });
-        
-        world.AddComponent(entity, new AnimatorComponent
+        };
+
+        blueprint.Components["SpriteComponent"] = new
         {
-            Animations = new Dictionary<string, Animation>
+            TextureName = "Test/Character/hello_kitty",
+            SourceRectangle = new {Width = 32, Height = 32}, 
+            Scale = new { X = 1f, Y = 1f }
+        };
+        
+        blueprint.Components["AnimatorComponent"] = new
+        {
+            Animations = new Dictionary<string, object>
             {
                 {
-                    "Idle", new Animation
+                    "Idle", new 
                     {
                         Name = "Idle",
                         RowIndex = 0,
@@ -73,7 +63,7 @@ public class EntityFactory
                     }
                 },
                 {
-                    "Run", new Animation
+                    "Run", new 
                     {
                         Name = "Run",
                         RowIndex = 2,
@@ -82,7 +72,9 @@ public class EntityFactory
                         Loop = true
                     }
                 }
-            },
-        });
+            }
+        };
+        
+        return blueprint;
     }
 }

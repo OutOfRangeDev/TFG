@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using TFG.Scripts.Core.Abstractions;
 
-namespace TFG.Scripts.Core.Components.Tilemap;
+namespace TFG.Scripts.Core.Components;
 
 public struct TilemapComponent : IComponent
 {

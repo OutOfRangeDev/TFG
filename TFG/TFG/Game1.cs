@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using TFG.Scripts.Core.Components;
 using TFG.Scripts.Core.Data;
 using TFG.Scripts.Core.Managers;
 using TFG.Scripts.Core.Systems;
+using TFG.Scripts.Core.Systems.UI;
 using TFG.Scripts.Game.Data;
 using TFG.Scripts.Game.Player_Input;
 using TFG.Scripts.Game.Prefabs;
@@ -28,11 +30,18 @@ public class Game1 : Game
     private PlayerInputSystem _playerInputSystem;
     private AnimationSystem _animationSystem;
     
+    private UiRenderSystem _uiRenderSystem;
+    private UiInteractionSystem _uiInteractionSystem;
+    
     private AudioManager _audioManager;
     private SoundSystem _soundSystem;
     
     private Camera _camera;
     private CameraSystem _cameraSystem;
+    
+    private PrefabManager _prefabManager;
+    
+    private Point _previousScreenSize;
     
     public Game1()
     {
@@ -43,6 +52,15 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
+
+#if EXPORT_PREFABS
+
+    PrefabExporter.ExportAllPrefabs("Content/Prefabs");
+        Exit();
+        return;
+        
+#endif
+        
         // First, we instance the world and the systems.
         _world = new World();
         _renderSystem = new RenderSystem();
@@ -62,20 +80,36 @@ public class Game1 : Game
         _camera = new Camera(GraphicsDevice.Viewport);
         _cameraSystem = new CameraSystem(_camera);
         
+        _previousScreenSize = new Point(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+        _uiRenderSystem = new UiRenderSystem(GraphicsDevice.Viewport);
+        _uiInteractionSystem = new UiInteractionSystem(_inputManager, GraphicsDevice.Viewport);
+        
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
+        
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         _assetManager = new AssetManager(Content);
-        _sceneManager.ChangeScene(new LevelScene("Content/Test/TileMap/Test.ldtk", _assetManager));
+        _prefabManager = new PrefabManager(_assetManager);
+        string levelToLoad = System.IO.Path.Combine(Constants.ScenesDirectory, "Test.ldtk");
+        _sceneManager.ChangeScene(new LevelScene(levelToLoad, _assetManager));
         EntityFactory.Initialize(_assetManager);
-        EntityFactory.CreatePlayerEntity(_world, new Vector2(100, 100));
+        _prefabManager.LoadPrefabs(Constants.PrefabDirectory);
+        _prefabManager.InstantiatePrefab("Player", _world, new Vector2(100, 100));
     }
 
     protected override void Update(GameTime gameTime)
     {
+        // Check if the screen size has changed.
+        var currentScreenSize = new Point(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+        if (currentScreenSize != _previousScreenSize)
+        {
+            MarkAllUiOutdated(_world);
+            _previousScreenSize = currentScreenSize;
+        }
+        
         // Update the systems.
         // ------------ Core Systems ------------
         
@@ -86,6 +120,7 @@ public class Game1 : Game
         if (_inputManager.IsKeyDown(Keys.Escape) || _inputManager.IsButtonDown(Buttons.Back)) Exit();
         
         _playerInputSystem.Update(_world, gameTime);
+        _uiInteractionSystem.Update(_world, gameTime);
         _physicsSystem.Update(_world, gameTime);
         _collisionSystem.Update(_world, gameTime);
         
@@ -108,14 +143,29 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         // Draw all the entities.
+        
+        // ------------ World Pass ------------
         _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix(), 
             sortMode: SpriteSortMode.BackToFront, 
             samplerState: SamplerState.PointClamp);
-        
         _renderSystem.Draw(_world, _spriteBatch);
+        _spriteBatch.End();
         
+        // ------------ UI Pass ------------
+        _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        _uiRenderSystem.Draw(_world, _spriteBatch);
         _spriteBatch.End();
 
         base.Draw(gameTime);
+    }
+
+    private void MarkAllUiOutdated(World world)
+    {
+        var uiEntities = world.Query().With<RectTransformComponent>().Execute();
+        foreach (var entity in uiEntities)
+        {
+            ref var rectTransform = ref world.GetComponent<RectTransformComponent>(entity);
+            rectTransform.MakeOutdated();
+        }
     }
 }

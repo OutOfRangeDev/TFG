@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using TFG.Scripts.Core.Components;
-using TFG.Scripts.Core.Components.Physics;
 using TFG.Scripts.Core.Data;
 
 namespace TFG.Scripts.Core.Helper;

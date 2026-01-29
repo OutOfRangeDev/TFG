@@ -2,8 +2,8 @@
 
 namespace TFG.Scripts.Core.Components;
 
-public struct PlayerControllerComponent(float speed, float jumpForce) : IComponent
+public struct PlayerControllerComponent : IComponent
 {
-    public float Speed = speed;
-    public float JumpForce = jumpForce;
+    public float Speed { get; set;}
+    public float JumpForce { get; set;}
 }

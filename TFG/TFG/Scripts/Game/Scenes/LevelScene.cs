@@ -7,8 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TFG.Scripts.Core.Abstractions;
 using TFG.Scripts.Core.Components;
-using TFG.Scripts.Core.Components.Physics;
-using TFG.Scripts.Core.Components.Tilemap;
+using TFG.Scripts.Core.Data;
 using TFG.Scripts.Core.IO;
 using TFG.Scripts.Core.Managers;
 
@@ -34,7 +33,7 @@ public class LevelScene : IScene
             throw new ArgumentNullException(nameof(assetManager), "Asset manager cannot be null.");
     }
     
-    public void Load(Core.Data.World world)
+    public void Load(World world)
     {
         // First, read the file.
         var ldtkData = LDtkReader.LoadFromFile(_filePath);
@@ -70,7 +69,7 @@ public class LevelScene : IScene
         
     }
 
-    private void TranslateVisualLayer(Core.Data.World world, LDtkLayerInstance layer, LDtkDefinition defs)
+    private void TranslateVisualLayer(World world, LDtkLayerInstance layer, LDtkDefinition defs)
     {
         // Get the tileset.
         int requiredTilesetId = layer.TilesetDefUid;
