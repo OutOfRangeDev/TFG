@@ -122,7 +122,7 @@ public class LevelScene : IScene
         // Create the tilemap entity.
         var tilemapEntity = world.CreateEntity();
         // Add the tilemap component.
-        world.AddComponent(tilemapEntity, new TilemapComponent
+        world.AddComponent(tilemapEntity.Id, new TilemapComponent
         {
             TilesetTexture = tilesetTexture,
             Tiles = tiles
@@ -149,13 +149,13 @@ public class LevelScene : IScene
                 var position = new Vector2(tileInstance.Px[0], tileInstance.Px[1]);
                 
                 // Add the components.
-                world.AddComponent(groundEntity, new TransformComponent{Position = position});
-                world.AddComponent(groundEntity, new ColliderComponent
+                world.AddComponent(groundEntity.Id, new TransformComponent{Position = position});
+                world.AddComponent(groundEntity.Id, new ColliderComponent
                 {
                     Layer = CollisionLayer.Environment,
                     Size = new Vector2(gridSize, gridSize)
                 });
-                world.AddComponent(groundEntity, new PhysicsComponent{IsStatic = true});
+                world.AddComponent(groundEntity.Id, new PhysicsComponent{IsStatic = true});
             }
         }
     }

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using TFG.Scripts.Game.Player_Input;
+using TFG.Scripts.Game.Data;
 
 namespace TFG.Scripts.Core.Managers;
 
@@ -27,8 +27,8 @@ public class InputManager
     private GamePadState _currentGamePadState;
     private GamePadState _previousGamePadState;
 
-    private readonly Dictionary<string, List<Keys>> _keyboardBindings = DefaultBindings.GetDefaultKeyboardBindings();
-    private readonly Dictionary<string, List<Buttons>> _gamepadBindings = DefaultBindings.GetDefaultGamepadBindings();
+    private readonly Dictionary<PlayerAction, List<Keys>> _keyboardBindings = DefaultBindings.GetDefaultKeyboardBindings();
+    private readonly Dictionary<PlayerAction, List<Buttons>> _gamepadBindings = DefaultBindings.GetDefaultGamepadBindings();
 
     public void Update()
     {
@@ -41,6 +41,32 @@ public class InputManager
         _currentKeyboardState = Keyboard.GetState();
         _currentGamePadState = GamePad.GetState(PlayerIndex.One);
         _currentMouseState = Mouse.GetState();
+    }
+
+    public Vector2 GetRawDirection()
+    {
+        Vector2 direction =  Vector2.Zero;
+        
+        // 1. Keyboard (Digital) - Easy, explicit
+        if (IsKeyDown(Keys.D) || IsKeyDown(Keys.Right)) direction.X += 1;
+        if (IsKeyDown(Keys.A) || IsKeyDown(Keys.Left))  direction.X -= 1;
+        if (IsKeyDown(Keys.W) || IsKeyDown(Keys.Up))    direction.Y -= 1; // Y-Up is negative in MonoGame
+        if (IsKeyDown(Keys.S) || IsKeyDown(Keys.Down))  direction.Y += 1;
+        
+        // 2. Gamepad (analog)
+        Vector2 gamepadInput = _currentGamePadState.ThumbSticks.Left;
+        
+        gamepadInput.Y *= -1;
+        
+        direction += gamepadInput;
+        
+        // 3. Normalize
+        if (direction.LengthSquared() > 1f)
+        {
+            direction.Normalize();
+        }
+
+        return direction;
     }
 
     #region Keyboard
@@ -141,7 +167,7 @@ public class InputManager
     #region Actions
 
     // Actions.
-    public bool IsActionPressed(string action)
+    public bool IsActionPressed(PlayerAction action)
     {
         
         if (!_keyboardBindings.ContainsKey(action) && !_gamepadBindings.ContainsKey(action))
@@ -166,7 +192,7 @@ public class InputManager
         return false;
     }
     
-    public bool IsActionHeld(string action)
+    public bool IsActionHeld(PlayerAction action)
     {
         
         if (!_keyboardBindings.ContainsKey(action) && !_gamepadBindings.ContainsKey(action))

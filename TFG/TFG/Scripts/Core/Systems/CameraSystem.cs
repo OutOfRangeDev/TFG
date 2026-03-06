@@ -20,7 +20,7 @@ public class CameraSystem(Managers.Camera camera) : ISystem
                                 //We will only get the first one or the default value.
 
         
-        if (playerEntity.Id == 0)
+        if (playerEntity == 0)
         {
             Debug.WriteLine("Player not found");
             return;

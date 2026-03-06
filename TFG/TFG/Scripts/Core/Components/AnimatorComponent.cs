@@ -3,7 +3,7 @@ using TFG.Scripts.Core.Abstractions;
 
 namespace TFG.Scripts.Core.Components;
 
-public class AnimatorComponent : IComponent
+public struct AnimatorComponent : IComponent
 {
     // All the animations for this entity.
     public Dictionary<string, Animation> Animations { get; set; }

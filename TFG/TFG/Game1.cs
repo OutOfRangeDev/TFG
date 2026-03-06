@@ -7,9 +7,11 @@ using TFG.Scripts.Core.Managers;
 using TFG.Scripts.Core.Systems;
 using TFG.Scripts.Core.Systems.UI;
 using TFG.Scripts.Game.Data;
-using TFG.Scripts.Game.Player_Input;
+using TFG.Scripts.Game.Managers;
 using TFG.Scripts.Game.Prefabs;
 using TFG.Scripts.Game.Scenes;
+using TFG.Scripts.Game.Systems.Combat;
+using TFG.Scripts.Game.Systems.Movement;
 
 namespace TFG;
 
@@ -42,6 +44,11 @@ public class Game1 : Game
     private PrefabManager _prefabManager;
     
     private Point _previousScreenSize;
+    
+    // GAME
+    
+    private HitboxManager  _hitboxManager;
+    private CombatSystem _combatSystem;
     
     public Game1()
     {
@@ -83,6 +90,10 @@ public class Game1 : Game
         _previousScreenSize = new Point(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
         _uiRenderSystem = new UiRenderSystem(GraphicsDevice.Viewport);
         _uiInteractionSystem = new UiInteractionSystem(_inputManager, GraphicsDevice.Viewport);
+        
+        // GAME
+        _hitboxManager = new HitboxManager(_world);
+        _combatSystem = new CombatSystem(_hitboxManager);
         
         base.Initialize();
     }

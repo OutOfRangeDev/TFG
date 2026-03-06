@@ -90,19 +90,18 @@ public class PrefabManager(AssetManager assetManager)
                 if(texture == null) Debug.WriteLine($"[PrefabManager] Could not find texture '{spriteBlueprint.TextureName}' for prefab '{prefabName}'.");
                 
                 // And instantiate the SpriteComponent with the texture and other properties.
-                var spriteComponent = new SpriteComponent{
-                    Texture = texture, 
-                    SourceRectangle = spriteBlueprint.SourceRectangle,
-                    Color = spriteBlueprint.Color,
-                    Rotation = spriteBlueprint.Rotation,
-                    Origin = spriteBlueprint.Origin,
-                    Scale = spriteBlueprint.Scale,
-                    Effects = spriteBlueprint.Effects,
-                    LayerDepth = spriteBlueprint.LayerDepth
-                    };
+                var spriteComponent = new SpriteComponent();
+                spriteComponent.Texture = texture;
+                spriteComponent.SourceRectangle = spriteBlueprint.SourceRectangle;
+                spriteComponent.LayerDepth = spriteBlueprint.LayerDepth;
+                spriteComponent.Color = spriteBlueprint.Color;
+                spriteComponent.Effects = spriteBlueprint.Effects;
+                spriteComponent.Origin = spriteBlueprint.Origin;
+                spriteComponent.Rotation = spriteBlueprint.Rotation;
+                spriteComponent.Scale = spriteBlueprint.Scale;
                 
                 // And finally, add the component to the entity.
-                world.AddComponent(entity, spriteComponent);
+                world.AddComponent(entity.Id, spriteComponent);
             }
             else if (componentName == "AnimatorComponent") 
             {
@@ -145,7 +144,7 @@ public class PrefabManager(AssetManager assetManager)
                 }
 
                 // 4. Add the fully constructed, real component to the entity.
-                world.AddComponent(entity, animatorComponent);
+                world.AddComponent(entity.Id, animatorComponent);
 
                 Debug.WriteLine($"     ... successfully added 'AnimatorComponent'.");
             }
@@ -170,13 +169,13 @@ public class PrefabManager(AssetManager assetManager)
                 var componentInstance = ComponentDeserializer.Deserialize(componentData, componentType);
                 
                 // And finally, add the component to the entity. With the reflection AddComponent method.
-                world.AddComponent(entity, componentType, componentInstance);
+                world.AddComponent(entity.Id, componentType, componentInstance);
             }
             Debug.WriteLine($"    ... successfully added '{componentName}'.");
         }
         
         // And finally, we set the entity's position.
-        ref var transform = ref world.GetComponent<TransformComponent>(entity);
+        ref var transform = ref world.GetComponent<TransformComponent>(entity.Id);
         transform.Position = position;
         
         // And return the entity.

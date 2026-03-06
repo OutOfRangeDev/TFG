@@ -4,5 +4,8 @@ public enum CollisionLayer
 {
     None,
     Environment,
-    Player
+    Player,
+    Enemy,
+    HitPlayer,
+    HitEnemy
 }

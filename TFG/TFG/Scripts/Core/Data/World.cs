@@ -9,7 +9,7 @@ public class World
 {
     //Entities.
     ///List of entities. HashSet is for fast lookup.
-    private readonly HashSet<Entity> _activeEntities = new();
+    private readonly HashSet<int> _activeEntities = new();
     ///Next entity id.
     private int _nextEntityId;
     ///Queue of available ids. Store deleted entity ID's.
@@ -38,7 +38,7 @@ public class World
             new Entity(_nextEntityId++);
 
         //Add the new entity to the list of active entities.
-        _activeEntities.Add(newEntity);
+        _activeEntities.Add(newEntity.Id);
         
         //Debug message.
         Debug.WriteLine($"[World] Created new entity with ID {newEntity.Id}.");
@@ -51,7 +51,7 @@ public class World
     public void DestroyEntity(Entity entityToDestroy)
     {
         //First, check if the entity exists.
-        if (!_activeEntities.Remove(entityToDestroy))
+        if (!_activeEntities.Remove(entityToDestroy.Id))
         {
             Debug.WriteLine($"[World] Tried to destroy non-existing entity {entityToDestroy.Id}.");
             return;
@@ -91,15 +91,15 @@ public class World
     }
 
     // Generic function to add a component to a pool and an entity. Not using reflection.
-    public void AddComponent<T>(Entity entity, T component) where T : IComponent
+    public void AddComponent<T>(int entity, T component) where T : IComponent
     {
         // If the entity doesn't exist, throw an exception.'
         if (!_activeEntities.Contains(entity))
         {
-            throw new Exception($"[World] Tried to add component {typeof(T).Name} to non-existing entity {entity.Id}.");
+            throw new Exception($"[World] Tried to add component {typeof(T).Name} to non-existing entity {entity}.");
         }
         // Add the component to the pool or create the pool if it doesn't exist.
-        GetOrCreateComponentPool<T>().Add(entity.Id, component);
+        GetOrCreateComponentPool<T>().Add(entity, component);
     }
 
     #endregion
@@ -130,35 +130,44 @@ public class World
     
     // Generic function to add a component to an entity and the pool. But using reflection.
     // As when getting the componentType, we don't know the type of the component, we use reflection.
-    public void AddComponent(Entity entity, Type componentType, IComponent component)
+    public void AddComponent(int entity, Type componentType, IComponent component)
     {
         // First, check if the pool of the component exists.
         var pool = GetOrCreateComponentPool(componentType);
         // Then check if it has the Add method.
         var addMethod = pool.GetType().GetMethod("Add");
         // And finally, call the Add method.
-        addMethod?.Invoke(pool, [entity.Id, component]);
+        addMethod?.Invoke(pool, [entity, component]);
     }
 
     #endregion
     
     
     // To check if an entity has a component.
-    private bool HasComponent<T>(Entity entity) where T : IComponent
+    public bool HasComponent<T>(int entity) where T : IComponent
     {
         //Check if the component pool exists.
         var componentType = typeof(T);
         if (_componentPools.TryGetValue(componentType, out var store))
         {
             // After checking if the pool exists, we return the result of the Contains method if it exists.
-            return ((ComponentPool<T>) store).Contains(entity.Id);
+            return ((ComponentPool<T>) store).Contains(entity);
         }
         // If the pool doesn't exist, return false.
         return false;
     }
 
+    public bool HasComponent(int entityId, Type componentType)
+    {
+        if (_componentPools.TryGetValue(componentType, out var pool))
+        {
+            return pool.Contains(entityId);
+        }
+        return false;
+    }
+
     // To get a component from an entity. But check if it exists first.
-    public bool TryGetComponent<T>(Entity entity, out T component) where T : IComponent
+    public bool TryGetComponent<T>(int entity, out T component) where T : IComponent
     {
         if (HasComponent<T>(entity))
         {
@@ -172,25 +181,25 @@ public class World
         return false;
     }
 
-    public ref T GetComponent<T>(Entity entity) where T : IComponent
+    public ref T GetComponent<T>(int entity) where T : IComponent
     {
 
         // In debug mode, we make a safety check to make sure the entity has the component.
         if (!HasComponent<T>(entity))
         {
-            Debug.WriteLine($"[World] Tried to get component {typeof(T).Name} from entity {entity.Id} but it doesn't exist.");
+            Debug.WriteLine($"[World] Tried to get component {typeof(T).Name} from entity {entity} but it doesn't exist.");
         }
 
         // Just return the component from the pool.
-        return ref GetOrCreateComponentPool<T>().Get(entity.Id);
+        return ref GetOrCreateComponentPool<T>().Get(entity);
     }
 
-    public void RemoveComponent<T>(Entity entity) where T : IComponent
+    public void RemoveComponent<T>(int entity) where T : IComponent
     {
         var componentType = typeof(T);
         if (_componentPools.TryGetValue(componentType, out var pool))
         {
-            ((ComponentPool<T>) pool).Remove(entity.Id);
+            ((ComponentPool<T>) pool).Remove(entity);
         }
     }
 
@@ -198,10 +207,10 @@ public class World
 
     #region Query
 
-    public QueryBuilder Query()
+    public Query Query()
     {
         // When a system calls Query(), we return a new QueryBuilder.
-        return new QueryBuilder(this);
+        return new Query(this);
     }
 
     public IEnumerable<int> GetEntityIdsForComponent(Type componentType)
@@ -214,6 +223,15 @@ public class World
         return null;
     }
 
+    public IComponentPool GetPool(Type componentType)
+    {
+        if (_componentPools.TryGetValue(componentType, out var pool))
+        {
+            return pool;
+        }
+        return null;
+    }
+
     #endregion
     
     //Events.
@@ -221,10 +239,10 @@ public class World
     #region Collision Events
     
     // A constructor for collision events.
-    public struct CollisionEvent(Entity entityA, Entity entityB)
+    public struct CollisionEvent(int entityA, int entityB)
     {
-        public Entity EntityA = entityA;
-        public Entity EntityB = entityB;
+        public readonly int EntityA = entityA;
+        public readonly int EntityB = entityB;
     }
     
     // Gets called by the CollisionSystem. To launch an event.

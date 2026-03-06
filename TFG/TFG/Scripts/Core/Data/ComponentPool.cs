@@ -17,6 +17,7 @@ public class ComponentPool <T>: IComponentPool where T : IComponent
     
     // Tracks the next index to use.
     private int _componentCount;
+    public int Count => _componentCount;
 
     #region Actions
 
