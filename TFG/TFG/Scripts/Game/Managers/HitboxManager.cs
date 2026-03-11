@@ -41,7 +41,7 @@ public class HitboxManager
         _world.AddComponent(id, new ColliderComponent { IsTrigger = true, Size = Vector2.Zero });
         _world.AddComponent(id, new AttackDefinitionComponent()); 
         _world.AddComponent(id, new OwnerComponent());
-        _world.AddComponent(id, new PlayerControllerComponent());
+        _world.AddComponent(id, new HitboxStateComponent());
         
         _inactiveHitboxes.Enqueue(id);
         

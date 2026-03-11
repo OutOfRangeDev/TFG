@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TFG.Scripts.Core.Abstractions;
 using TFG.Scripts.Core.Components;
@@ -43,6 +44,7 @@ public class PlayerInputSystem(InputManager inputManager) : ISystem
             // Action buffer
             if (inputManager.IsActionPressed(PlayerAction.Attack))
             {
+                Debug.WriteLine("[INPUT SYSTEM] Buffered attack.");
                 buffer.Buffer = new BufferedCommand()
                 {
                     Action = PlayerAction.Attack,
@@ -82,6 +84,14 @@ public class PlayerInputSystem(InputManager inputManager) : ISystem
                 {
                     physics.Velocity = physics.Velocity with { X = 0};
                     animator.CurrentAnimation = "Idle";
+                }
+
+                if (buffer.HasBufferedAction(PlayerAction.Jump, currentTime) && physics.IsGrounded)
+                {
+                    physics.Velocity = physics.Velocity with { Y = -controller.JumpForce };
+                    physics.IsGrounded = false;
+                    
+                    buffer.Consume();
                 }
             }
         }

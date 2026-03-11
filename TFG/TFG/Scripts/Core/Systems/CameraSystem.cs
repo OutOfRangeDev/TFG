@@ -15,8 +15,8 @@ public class CameraSystem(Managers.Camera camera) : ISystem
         var playerEntity = world.Query().
             With<TransformComponent>().
             With<PlayerControllerComponent>().
-            Execute()
-            .SingleOrDefault(); //This ignores multiple entities with the player controller component.
+            Execute().
+            SingleOrDefault(); //This ignores multiple entities with the player controller component.
                                 //We will only get the first one or the default value.
 
         
@@ -26,7 +26,7 @@ public class CameraSystem(Managers.Camera camera) : ISystem
             return;
         } //If the player entity is not found, return. 
         // For now, it's not very specific, but if needed, we can throw an exception.
-        
+            
         //Set the camera position to the player position.
         camera.Position = world.GetComponent<TransformComponent>(playerEntity).Position;
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework.Graphics;
 using TFG.Scripts.Core.Components;
 using Color = Microsoft.Xna.Framework.Color;
 
@@ -43,7 +44,11 @@ public class RenderSystem
             //And the transform component from the entity.
             ref var transform = ref world.GetComponent<TransformComponent>(entity);
             
-            if (sprite.Texture == null) continue;
+            if (sprite.Texture == null)
+            {
+                Debug.WriteLine($"Sprite texture is null for entity with ID: {entity}");
+                continue;
+            }
             
             //And draw the sprite.
             spriteBatch.Draw(

@@ -8,13 +8,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d85ef076-19b6-4c35-852a-267c2112e074" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Components/Combat/HitboxStateComponent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Components/Combat/SuperArmorComponent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/DamageSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/StatusSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Components/Combat/StunnedComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Components/Combat/StunnedComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Game1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Game1.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Managers/PrefabManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Managers/PrefabManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/CameraSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/CameraSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/RenderSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/RenderSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Data/DefaultBindings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Data/DefaultBindings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Data/MoveList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Data/GameAttacks.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Managers/HitboxManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Managers/HitboxManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Prefabs/EntityFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Prefabs/EntityFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Scenes/LevelScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Scenes/LevelScene.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/Combatsystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/Combatsystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Movement/PlayerInputSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Movement/PlayerInputSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" afterDir="false" />
     </list>
@@ -70,6 +75,7 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a69b121f85054691b2a8d28643003c23136600/fd/dfb9155e/GraphicsDeviceManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6354a7b35d7821629924d3676acd7e67a6f7f94343e0e66ec439aa2bd6ed5/ThrowHelper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Abstractions/IComponent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Abstractions/IScene.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Core/Abstractions/ISystem.cs" root0="FORCE_HIGHLIGHTING" />
@@ -144,30 +150,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Project.TFG.executor&quot;: &quot;Debug&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.3378788&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.TFG.executor": "Debug",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "XThreadsFramesViewSplitterKey": "0.50793654",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="TFG" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -307,7 +313,10 @@
       <workItem from="1773077372785" duration="377000" />
       <workItem from="1773165328103" duration="4175000" />
       <workItem from="1773177198102" duration="127000" />
-      <workItem from="1773187086787" duration="1660000" />
+      <workItem from="1773187086787" duration="1820000" />
+      <workItem from="1773229746249" duration="2032000" />
+      <workItem from="1773247416029" duration="1559000" />
+      <workItem from="1773259888304" duration="6927000" />
     </task>
     <task id="LOCAL-00001" summary="Upload of initial monogame project.">
       <option name="closed" value="true" />
@@ -453,7 +462,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772832696387</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Combat finished. Ready for testing.">
+      <option name="closed" value="true" />
+      <created>1773188883571</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1773188883573</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -501,7 +518,8 @@
     <MESSAGE value="Fixes. Removed rider warnings." />
     <MESSAGE value="Serialization." />
     <MESSAGE value="Combat system basic" />
-    <option name="LAST_COMMIT_MESSAGE" value="Combat system basic" />
+    <MESSAGE value="Combat finished. Ready for testing." />
+    <option name="LAST_COMMIT_MESSAGE" value="Combat finished. Ready for testing." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

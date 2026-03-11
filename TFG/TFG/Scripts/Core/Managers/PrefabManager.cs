@@ -5,6 +5,7 @@ using System.IO;
 using System.Text.Json;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TFG.Scripts.Core.Abstractions;
 using TFG.Scripts.Core.Components;
 using TFG.Scripts.Core.Data;
 using TFG.Scripts.Core.IO;
@@ -15,6 +16,8 @@ public class PrefabManager(AssetManager assetManager)
 {
     // We create a dictionary to store the prefabs.
     private readonly Dictionary<string, PrefabBlueprint> _blueprints = new();
+    
+    private readonly Dictionary<string, Type> _componentTypeCache = new();
 
     // Load all prefabs from the specified directory.
     public void LoadPrefabs(string directoryPath)
@@ -151,10 +154,7 @@ public class PrefabManager(AssetManager assetManager)
             else
             {
                 // If it's not a SpriteComponent, we need to find the component type dynamically.
-                var assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-                var fullTypeName = $"TFG.Scripts.Core.Components.{componentName}, {assemblyName}";
-                // We look for the component type in the assembly of the current domain.
-                var componentType = Type.GetType(fullTypeName);
+                var componentType = ResolveComponentType(componentName);
                 
                 // If we can't find it, we log a warning and skip the component.
                 if(componentType == null)
@@ -180,5 +180,25 @@ public class PrefabManager(AssetManager assetManager)
         
         // And return the entity.
         return entity;
+    }
+
+    private Type ResolveComponentType(string componentName)
+    {
+        if (_componentTypeCache.TryGetValue(componentName, out var type))
+        {
+            return type;
+        }
+
+        var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+        foreach (var t in assembly.GetTypes())
+        {
+            if (t.Name == componentName && typeof(IComponent).IsAssignableFrom(t))
+            {
+                _componentTypeCache[componentName] = t;
+                return t;
+            } 
+        }
+        
+        return null;
     }
 }

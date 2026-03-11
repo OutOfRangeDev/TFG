@@ -64,7 +64,7 @@ public class LevelScene : IScene
         }
     }
     
-    public void Unload(Core.Data.World world)
+    public void Unload(World world)
     {
         
     }
@@ -131,7 +131,7 @@ public class LevelScene : IScene
         Debug.WriteLine($"Created tilemap entity with ID {tilemapEntity.Id}.");
     }
 
-    private void TranslateCollisionFromTilesLayer(Core.Data.World world, LDtkLayerInstance layerInstance)
+    private void TranslateCollisionFromTilesLayer(World world, LDtkLayerInstance layerInstance)
     {
         // Get the grid size.
         int gridSize = layerInstance.GridSize;

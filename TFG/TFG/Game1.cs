@@ -6,6 +6,7 @@ using TFG.Scripts.Core.Data;
 using TFG.Scripts.Core.Managers;
 using TFG.Scripts.Core.Systems;
 using TFG.Scripts.Core.Systems.UI;
+using TFG.Scripts.Core.Tools;
 using TFG.Scripts.Game.Data;
 using TFG.Scripts.Game.Managers;
 using TFG.Scripts.Game.Prefabs;
@@ -49,6 +50,8 @@ public class Game1 : Game
     
     private HitboxManager  _hitboxManager;
     private CombatSystem _combatSystem;
+    private DamageSystem _damageSystem;
+    private StatusSystem _statusSystem;
     
     public Game1()
     {
@@ -94,6 +97,8 @@ public class Game1 : Game
         // GAME
         _hitboxManager = new HitboxManager(_world);
         _combatSystem = new CombatSystem(_hitboxManager);
+        _damageSystem  = new DamageSystem(_hitboxManager);
+        _statusSystem = new StatusSystem();
         
         base.Initialize();
     }
@@ -141,6 +146,11 @@ public class Game1 : Game
         // ------------ Visual Systems ------------
         _cameraSystem.Update(_world, gameTime);
         _animationSystem.Update(_world, gameTime);
+        
+        // ------------ Game ------------
+        _combatSystem.Update(_world, gameTime);
+        _damageSystem.Update(_world, gameTime);
+        _statusSystem.Update(_world, gameTime);
         
         // ------------ Clean up ------------
         _world.ClearCollisionEvents();

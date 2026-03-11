@@ -45,11 +45,16 @@ public static class EntityFactory
         {
             TextureName = "Test/Character/hello_kitty",
             SourceRectangle = new {Width = 32, Height = 32}, 
-            Scale = new { X = 1f, Y = 1f }
+            Scale = new { X = 1f, Y = 1f },
+            Color = new { R = 255, G = 255, B = 255 }
         };
+
+        blueprint.Components["InputBufferComponent"] = new { };
+        blueprint.Components["CombatStateComponent"] = new { };
         
         blueprint.Components["AnimatorComponent"] = new
         {
+            CurrentAnimation = "Idle",
             Animations = new Dictionary<string, object>
             {
                 {

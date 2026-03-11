@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TFG.Scripts.Core.Abstractions;
 using TFG.Scripts.Core.Components;
@@ -67,6 +68,8 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
         // 2. Check input.
         if (input.HasBufferedAction(PlayerAction.Attack, time))
         {
+            //Debug.WriteLine("[Combat System] Buffered attack detected.");
+            
             string nextAttack = GetNextAttackName(state.ComboIndex);
 
             if (nextAttack != null)
@@ -91,7 +94,7 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
     {
         state.StateTimer += dt;
         
-        if (!MoveList.Attacks.TryGetValue(state.CurrentAttackName, out var attackData)) return;
+        if (!GameAttacks.MoveList.TryGetValue(state.CurrentAttackName, out var attackData)) return;
 
         if (state.StateTimer >= attackData.StartUpTime)
         {
@@ -104,9 +107,11 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
     private void HandleActiveState(World world, int ownerId, ref CombatStateComponent state,
         ref TransformComponent ownerTrans, ref SpriteComponent sprite, float dt)
     {
+        Debug.WriteLine($"[Combat System] Attack activated for entity with ID {ownerId}");
+        
         state.StateTimer += dt;
         
-        if (!MoveList.Attacks.TryGetValue(state.CurrentAttackName, out var attackData)) return;
+        if (!GameAttacks.MoveList.TryGetValue(state.CurrentAttackName, out var attackData)) return;
 
         if (!state.HasSpawnedHitbox)
         {
@@ -134,11 +139,13 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
     private void HandleRecoveryState(ref CombatStateComponent state, ref InputBufferComponent input, double time,
         float dt)
     {
+        Debug.WriteLine("[Combat System] Recovery");
+        
         // 1. Update the timer
         state.StateTimer += dt;
         state.LastAttackEndTime = time;
 
-        if (!MoveList.Attacks.TryGetValue(state.CurrentAttackName, out var attackData))
+        if (!GameAttacks.MoveList.TryGetValue(state.CurrentAttackName, out var attackData))
         {
             //If no state is found, go to idle
             state.Phase = CombatPhase.None;
@@ -201,7 +208,12 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
 
     private string GetNextAttackName(int comboIndex)
     {
-        if (comboIndex == 0) return "Attack_default";
-        return null;
+        return comboIndex switch
+        {
+            0 => "Ground_Light_1",
+            1 => "Ground_Light_2",
+            2 => "Ground_Heavy_3",
+            _ => null 
+        };
     }
 }
