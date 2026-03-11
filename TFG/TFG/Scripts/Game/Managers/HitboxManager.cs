@@ -41,6 +41,7 @@ public class HitboxManager
         _world.AddComponent(id, new ColliderComponent { IsTrigger = true, Size = Vector2.Zero });
         _world.AddComponent(id, new AttackDefinitionComponent()); 
         _world.AddComponent(id, new OwnerComponent());
+        _world.AddComponent(id, new PlayerControllerComponent());
         
         _inactiveHitboxes.Enqueue(id);
         
@@ -60,6 +61,9 @@ public class HitboxManager
             id = CreateNewHitboxEntity();
             _inactiveHitboxes.Dequeue();
         }
+
+        ref var history = ref _world.GetComponent<HitboxStateComponent>(id);
+        history.Reset();
         
         ref var transform = ref _world.GetComponent<TransformComponent>(id);
         float dir = facingLeft ? -1f : 1f;
