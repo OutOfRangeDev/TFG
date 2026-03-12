@@ -7,11 +7,18 @@ namespace TFG.Scripts.Game.Systems.Combat;
 
 public class StatusSystem : ISystem
 {
+    // This script just updates the timers of the status components
+    
     public void Update(World world, GameTime gameTime)
     {
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
         
-        // 1. Invincibility
+        // ---------------------------------------------------
+        // INVINCIBILITY
+        // ---------------------------------------------------
+        
+        #region Invincibility
+        
         var invincibilityEntities = world.Query().
             With<InvincibleComponent>().
             Execute();
@@ -23,7 +30,14 @@ public class StatusSystem : ISystem
             if (inv.Timer <= 0) world.RemoveComponent<InvincibleComponent>(entity);
         }
         
-        // 2. Stunned
+        #endregion
+        
+        // ---------------------------------------------------
+        // STUNNED
+        // ---------------------------------------------------
+        
+        #region Stunned
+        
         var stunnedEntities = world.Query().
             With<StunnedComponent>().
             Execute();
@@ -34,5 +48,7 @@ public class StatusSystem : ISystem
             stunned.Timer -= dt;
             if (stunned.Timer <= 0) world.RemoveComponent<StunnedComponent>(entity);
         }
+        
+        #endregion
     }
 }

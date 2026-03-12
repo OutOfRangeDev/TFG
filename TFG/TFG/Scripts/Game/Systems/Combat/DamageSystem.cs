@@ -20,7 +20,11 @@ public class DamageSystem(HitboxManager hitboxManager) : ISystem
 
     private void ProcessCollision(World world, int hitboxId, int victimId)
     {
-        // 1. Validation of the hitbox & victim.
+        // ---------------------------------------------------
+        // VALIDATION AND GETS
+        // ---------------------------------------------------
+        
+        #region Validation
         
         // The hitbox needs definition and the state components.
         if(!world.HasComponent<AttackDefinitionComponent>(hitboxId) 
@@ -30,27 +34,33 @@ public class DamageSystem(HitboxManager hitboxManager) : ISystem
         if(!world.HasComponent<HealthComponent>(victimId) 
            || world.HasComponent<InvincibleComponent>(victimId)) return;
         
-        // 2. Now  we get the needed components.
+        // Now  we get the needed components.
         ref var attackDef = ref world.GetComponent<AttackDefinitionComponent>(hitboxId);
         var history = world.GetComponent<HitboxStateComponent>(hitboxId);
         ref var ownerComp = ref world.GetComponent<OwnerComponent>(hitboxId);
         ref var health = ref world.GetComponent<HealthComponent>(victimId);
         
-        // 3. Final validation before applying the hit and damage.
+        // Final validation before applying the hit and damage.
         // If the victim it's the emitter or already hit, ignore.
         if (ownerComp.Owner.Id == victimId) return;
         if (history.HitEntities.Contains(victimId)) return;
         
-        // HIT CONFIRMED - APPLY EFFECTS
+        #endregion
         
-        // 1. Record the hit
+        // ---------------------------------------------------
+        // HIT CONFIRMED
+        // ---------------------------------------------------
+        
+        #region Hit
+        
+        // Record the hit
         history.HitEntities.Add(victimId);
         
-        // 2. Apply the damage
+        // Apply the damage
         int finalDamage = (int)(attackDef.Damage * health.DamageMultiplier);
         health.CurrentHealth -= finalDamage;
         
-        // 3. Tell the attacker the combo can continue
+        // Tell the attacker the combo can continue
         int attackerId = ownerComp.Owner.Id;
         if (world.HasComponent<CombatStateComponent>(attackerId))
         {
@@ -58,14 +68,14 @@ public class DamageSystem(HitboxManager hitboxManager) : ISystem
             combatState.HasHitEnemy = true;
         }
         
-        // 4. Death check
+        // Death check, if the victim has less than 0, add death flag. For death system to check.
         if (health.CurrentHealth <= 0) 
         {
             world.AddComponent(victimId, new DeadComponent());
             return;
         }
         
-        // 5. Knockbacks
+        // Knockbacks
         if (world.HasComponent<PhysicsComponent>(victimId))
         {
             ref var victimPhysics = ref world.GetComponent<PhysicsComponent>(victimId);
@@ -84,46 +94,51 @@ public class DamageSystem(HitboxManager hitboxManager) : ISystem
             }
         }
         
-        // 6. Stunt
+        // Stunt
         // If it has "super armor" we do not apply stunt
-        if (!world.HasComponent<SuperArmorComponent>(victimId))
+        if (world.HasComponent<SuperArmorComponent>(victimId)) return;
+        
+        // To know in which direction apply the knockback --------------------------- CHECK FOR ORDER, SHOULD GO BEFORE?
+        int hitDir = attackDef.TargetKnockback.X > 0 ? -1 : 1;
+
+        // If it already has stunned, update the values. ------------------------------------------ CHECK, MAYBE IT BUGS
+        if (world.HasComponent<StunnedComponent>(victimId))
         {
-            
-            int hitDir = attackDef.TargetKnockback.X > 0 ? -1 : 1;
-
-            if (world.HasComponent<StunnedComponent>(victimId))
-            {
-                ref var stun = ref world.GetComponent<StunnedComponent>(victimId);
-                stun.Timer = health.StunDurationOnHit;
-                stun.HitDirectionX = hitDir;
-            }
-            else
-            {
-                world.AddComponent(victimId, new StunnedComponent
-                {
-                    Timer = health.StunDurationOnHit,
-                    HitDirectionX = hitDir
-                });
-            }
-
-            if (world.HasComponent<CombatStateComponent>(victimId))
-            {
-                ref var combatState = ref world.GetComponent<CombatStateComponent>(victimId);
-
-                if (combatState.Phase == CombatPhase.Active && combatState.ActiveHitboxId != -1)
-                {
-                    hitboxManager.ReturnHitbox(combatState.ActiveHitboxId);
-                    combatState.ActiveHitboxId = -1;
-                }
-                
-                combatState.Phase = CombatPhase.None;
-                combatState.IsAttacking = false;
-            }
-
-            if (world.HasComponent<PlayerControllerComponent>(victimId))
-            {
-                world.AddComponent(victimId, new InvincibleComponent{Timer = 1f});
-            }
+            ref var stun = ref world.GetComponent<StunnedComponent>(victimId);
+            stun.Timer = health.StunDurationOnHit;
+            stun.HitDirectionX = hitDir;
         }
+        else
+        {
+            world.AddComponent(victimId, new StunnedComponent
+            {
+                Timer = health.StunDurationOnHit,
+                HitDirectionX = hitDir
+            });
+        }
+
+        // In case it was attacking, remove/reset the attack status
+        if (world.HasComponent<CombatStateComponent>(victimId))
+        {
+            ref var combatState = ref world.GetComponent<CombatStateComponent>(victimId);
+
+            if (combatState.Phase == CombatPhase.Active && combatState.ActiveHitboxId != -1)
+            {
+                hitboxManager.ReturnHitbox(combatState.ActiveHitboxId);
+                combatState.ActiveHitboxId = -1;
+            }
+            
+            combatState.Phase = CombatPhase.None;
+            combatState.IsAttacking = false;
+        }
+
+        // And add invincibility to the player
+        if (world.HasComponent<PlayerControllerComponent>(victimId))
+        {
+            world.AddComponent(victimId, new InvincibleComponent{Timer = 1f});
+        }
+        
+
+        #endregion
     }
 }

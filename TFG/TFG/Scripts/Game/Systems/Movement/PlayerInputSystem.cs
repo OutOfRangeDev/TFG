@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TFG.Scripts.Core.Abstractions;
 using TFG.Scripts.Core.Components;
@@ -11,10 +10,9 @@ namespace TFG.Scripts.Game.Systems.Movement;
 
 public class PlayerInputSystem(InputManager inputManager) : ISystem
 {
-    //In the constructor we need to pass the input manager.
-
     public void Update(Core.Data.World world, GameTime gameTime)
     {
+        // Global time
         double currentTime = gameTime.TotalGameTime.TotalMilliseconds;
         
         //Get all the player entities.
@@ -26,11 +24,9 @@ public class PlayerInputSystem(InputManager inputManager) : ISystem
             With<SpriteComponent>().
             With<AnimatorComponent>().
             Execute();
-
-        for (int i = 0; i < playerEntities.Count; i++)
+        
+        foreach (var entityId in playerEntities)
         {
-            int entityId = playerEntities[i];
-            
             // Get the components
             ref var buffer = ref world.GetComponent<InputBufferComponent>(entityId);
             ref var physics  = ref world.GetComponent<PhysicsComponent>(entityId);
@@ -41,17 +37,24 @@ public class PlayerInputSystem(InputManager inputManager) : ISystem
             // Store directional input in buffer
             buffer.MoveDirection = inputManager.GetRawDirection();
             
-            // Action buffer
+            // ---------------------------------------------------
+            // BUFFER
+            // ---------------------------------------------------
+
+            #region Buffer
+            
+            // First check if an attack has been pressed
             if (inputManager.IsActionPressed(PlayerAction.Attack))
             {
-                Debug.WriteLine("[INPUT SYSTEM] Buffered attack.");
+                //Debug.WriteLine("[INPUT SYSTEM] Buffered attack.");
                 buffer.Buffer = new BufferedCommand()
                 {
                     Action = PlayerAction.Attack,
                     TimeStamp = currentTime,
                     DirectionSnapshot = inputManager.GetRawDirection()
                 };
-            }
+            } 
+            // And check the buffer for the jump
             else if (inputManager.IsActionPressed(PlayerAction.Jump))
             {
                 buffer.Buffer = new BufferedCommand()
@@ -62,6 +65,16 @@ public class PlayerInputSystem(InputManager inputManager) : ISystem
                 };
             }
 
+            #endregion
+            
+            // ---------------------------------------------------
+            // BUSY
+            // ---------------------------------------------------
+            
+            #region Busy
+            
+            // If the player is attacking, block the input.
+            
             bool isBusy = false;
 
             if (world.HasComponent<CombatStateComponent>(entityId))
@@ -71,29 +84,44 @@ public class PlayerInputSystem(InputManager inputManager) : ISystem
                 if(combatState.Phase != CombatPhase.None) isBusy = true;
             }
 
-            if (!isBusy)
+            if (isBusy) continue;
+            
+            #endregion
+            
+            // ---------------------------------------------------
+            // MOVEMENT
+            // ---------------------------------------------------
+            
+            #region Movement
+            
+            // Apply the force to the movement
+            physics.Velocity = physics.Velocity with { X = buffer.MoveDirection.X * controller.Speed };
+
+            // Now check the animations
+            // If the speed in the buffer is not 0
+            if (buffer.MoveDirection.X != 0)
             {
-                physics.Velocity = physics.Velocity with { X = buffer.MoveDirection.X * controller.Speed };
-
-                if (buffer.MoveDirection.X != 0)
-                {
-                    animator.CurrentAnimation = "Run";
-                    sprite.Effects = buffer.MoveDirection.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                }
-                else
-                {
-                    physics.Velocity = physics.Velocity with { X = 0};
-                    animator.CurrentAnimation = "Idle";
-                }
-
-                if (buffer.HasBufferedAction(PlayerAction.Jump, currentTime) && physics.IsGrounded)
-                {
-                    physics.Velocity = physics.Velocity with { Y = -controller.JumpForce };
-                    physics.IsGrounded = false;
-                    
-                    buffer.Consume();
-                }
+                // Play run
+                animator.CurrentAnimation = "Run";
+                sprite.Effects = buffer.MoveDirection.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
+            else
+            {
+                // If not, idle
+                physics.Velocity = physics.Velocity with { X = 0 };
+                animator.CurrentAnimation = "Idle";
+            }
+
+            // And if the jump is buffered, apply it.
+            if (buffer.HasBufferedAction(PlayerAction.Jump, currentTime) && physics.IsGrounded)
+            {
+                physics.Velocity = physics.Velocity with { Y = -controller.JumpForce };
+                physics.IsGrounded = false;
+                    
+                buffer.Consume();
+            }
+            
+            #endregion
         }
     }
 }
