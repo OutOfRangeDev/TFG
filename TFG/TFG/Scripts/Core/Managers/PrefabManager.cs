@@ -93,16 +93,18 @@ public class PrefabManager(AssetManager assetManager)
                 if(texture == null) Debug.WriteLine($"[PrefabManager] Could not find texture '{spriteBlueprint.TextureName}' for prefab '{prefabName}'.");
                 
                 // And instantiate the SpriteComponent with the texture and other properties.
-                var spriteComponent = new SpriteComponent();
-                spriteComponent.Texture = texture;
-                spriteComponent.SourceRectangle = spriteBlueprint.SourceRectangle;
-                spriteComponent.LayerDepth = spriteBlueprint.LayerDepth;
-                spriteComponent.Color = spriteBlueprint.Color;
-                spriteComponent.Effects = spriteBlueprint.Effects;
-                spriteComponent.Origin = spriteBlueprint.Origin;
-                spriteComponent.Rotation = spriteBlueprint.Rotation;
-                spriteComponent.Scale = spriteBlueprint.Scale;
-                
+                var spriteComponent = new SpriteComponent
+                {
+                    Texture = texture,
+                    SourceRectangle = spriteBlueprint.SourceRectangle,
+                    LayerDepth = spriteBlueprint.LayerDepth,
+                    Color = spriteBlueprint.Color,
+                    Effects = spriteBlueprint.Effects,
+                    Origin = spriteBlueprint.Origin,
+                    Rotation = spriteBlueprint.Rotation,
+                    Scale = spriteBlueprint.Scale
+                };
+
                 // And finally, add the component to the entity.
                 world.AddComponent(entity.Id, spriteComponent);
             }

@@ -35,10 +35,10 @@ public static class GameAttacks
             StartUpTime =  0.1f,
             ActiveTime =  0.1f,
             RecoveryTime =  0.2f,
-            HitboxSize =  new Vector2(1, 1),
+            HitboxSize =  new Vector2(10, 10),
             HitboxOffset =  new Vector2(1, 0),
             Damage =  10,
-            TargetKnockback =   new Vector2(3, -5),
+            TargetKnockback =   new Vector2(200, 200),
             SelfKnockback =   new Vector2(1, 0),
         };
         

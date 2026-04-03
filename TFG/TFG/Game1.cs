@@ -114,6 +114,7 @@ public class Game1 : Game
         EntityFactory.Initialize(_assetManager);
         _prefabManager.LoadPrefabs(Constants.PrefabDirectory);
         _prefabManager.InstantiatePrefab("Player", _world, new Vector2(100, 100));
+        _prefabManager.InstantiatePrefab("Dummy",  _world, new Vector2(200, 100));
     }
 
     protected override void Update(GameTime gameTime)

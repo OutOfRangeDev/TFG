@@ -52,6 +52,11 @@ public static class EntityFactory
         blueprint.Components["InputBufferComponent"] = new { };
         blueprint.Components["CombatStateComponent"] = new { };
         
+        blueprint.Components["HealthComponent"] = new
+        {
+            MaxHealth = 100
+        };
+        
         blueprint.Components["AnimatorComponent"] = new
         {
             CurrentAnimation = "Idle",
@@ -79,6 +84,49 @@ public static class EntityFactory
                 }
             }
         };
+        
+        return blueprint;
+    }
+
+    public static PrefabBlueprint CreateDummyPrefab()
+    {
+        var  blueprint = new PrefabBlueprint { Name = "Dummy" };
+
+        blueprint.Components["TransformComponent"] = new{};
+        
+        blueprint.Components["PhysicsComponent"] = new
+        {
+            SkinWidth = 1f,
+            GravityScale = 1f, 
+            Drag = 5.0f, 
+            IsStatic = false 
+        };
+        
+        blueprint.Components["ColliderComponent"] = new
+        {
+            IsTrigger = false,
+            Layer = CollisionLayer.Enemy,
+            Size = new { X = 32, Y = 32 },
+            Offset = new { X = 0, Y = 0 }
+        };
+
+        blueprint.Components["HealthComponent"] = new
+        {
+            MaxHealth = 1000,
+            CurrentHealth = 1000,
+            DamageMultiplier = 1.0f,
+            StunDurationOnHit = 0.2f
+        };
+
+        blueprint.Components["SpriteComponent"] = new
+        {
+            TextureName = "Test/Character/smashtest", 
+            SourceRectangle = new { Width = 32, Height = 32 }, 
+            Scale = new { X = 1f, Y = 1f },
+            Color = new { R = 255f, G = 255f, B = 255f, A = 255f }
+        };
+        
+        blueprint.Components["SuperArmorComponent"] = new { };
         
         return blueprint;
     }

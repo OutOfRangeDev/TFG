@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using TFG.Scripts.Core.Abstractions;
 using TFG.Scripts.Core.Components;
 using TFG.Scripts.Core.Helper;
+using TFG.Scripts.Game.Components.Combat;
 
 namespace TFG.Scripts.Core.Systems;
 
@@ -40,7 +41,15 @@ public class PhysicsSystem : ISystem
             
             bool wasGrounded = moverPhysics.IsGrounded;
             moverPhysics.IsGrounded = false;
-            if (!wasGrounded)
+
+            bool applyGravity = true;
+
+            if (world.HasComponent<CombatStateComponent>(moverEntity))
+            {
+                var combatState = world.GetComponent<CombatStateComponent>(moverEntity);
+                if(combatState.IsAttacking) applyGravity = false;
+            }
+            if (!wasGrounded && applyGravity)
             {
                 moverPhysics.Velocity = moverPhysics.Velocity with
                 {

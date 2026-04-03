@@ -41,7 +41,7 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
             switch (combatState.Phase)
             {
                 case CombatPhase.None:
-                    HandleIdleState(ref combatState, ref inputBuffer, totalTime);
+                    HandleIdleState(world, entityId, ref combatState, ref inputBuffer, totalTime);
                     break;
                 case CombatPhase.StartUp:
                     HandleStartupState(ref combatState, dt);
@@ -50,7 +50,7 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
                     HandleActiveState(entityId, ref combatState, ref transform, ref sprite, dt);
                     break;
                 case CombatPhase.Recovery:
-                    HandleRecoveryState(ref combatState, ref inputBuffer, totalTime, dt);
+                    HandleRecoveryState(world, entityId, ref combatState, ref inputBuffer, totalTime, dt);
                     break;
             }
         }
@@ -64,7 +64,7 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
     
     #region Phases
 
-    private void HandleIdleState(ref CombatStateComponent state, ref InputBufferComponent input, double time)
+    private void HandleIdleState(World world, int ownerId, ref CombatStateComponent state, ref InputBufferComponent input, double time)
     {
         // 1. Do we reset combo?
         if (time - state.LastAttackEndTime > 1f)
@@ -84,7 +84,7 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
             if (nextAttack != null)
             {
                 // And we reference the state component from the hitbox, and the name of the attack.
-                StartAttack(ref state, nextAttack);
+                StartAttack(world, ownerId, ref state, nextAttack);
                 // And also delete the buffer.
                 input.Consume();
             }
@@ -98,7 +98,7 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
                 if (nextAttack != null)
                 {
                     // Start attack sequence.
-                    StartAttack(ref state, nextAttack);
+                    StartAttack(world, ownerId, ref state, nextAttack);
                     // Delete the buffer.
                     input.Consume();
                 }
@@ -179,7 +179,7 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
         }
     }
 
-    private void HandleRecoveryState(ref CombatStateComponent state, ref InputBufferComponent input, double time,
+    private void HandleRecoveryState(World world, int ownerId,  ref CombatStateComponent state, ref InputBufferComponent input, double time,
         float dt)
     {
         //Debug.WriteLine("[Combat System] Recovery");
@@ -219,7 +219,7 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
             if (nextAttack != null)
             {
                 // Attack sequence again
-                StartAttack(ref state, nextAttack);
+                StartAttack(world, ownerId, ref state, nextAttack);
                 // And also clean the buffer
                 input.Consume();
                 return;
@@ -245,7 +245,7 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
     
     #region Helpers
 
-    private void StartAttack(ref CombatStateComponent state, string attackName)
+    private void StartAttack(World world, int entityId, ref CombatStateComponent state, string attackName)
     {
         // Change the entity state to attacking
         state.IsAttacking = true;
@@ -257,6 +257,12 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
         state.CurrentAttackName = attackName;
         // And make sure no hitbox is "assigned"
         state.HasSpawnedHitbox = false;
+
+        if (world.HasComponent<PhysicsComponent>(entityId))
+        {
+            ref var physics = ref world.GetComponent<PhysicsComponent>(entityId);
+            physics.Velocity = Vector2.Zero;
+        }
         
         // Debug.WriteLine($"[COMBAT SYSTEM] Started Attack: {attackName}");
     }
