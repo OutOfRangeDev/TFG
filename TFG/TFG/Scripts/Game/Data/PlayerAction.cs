@@ -4,5 +4,6 @@ public enum PlayerAction
 {
     None,
     Jump,
-    Attack
+    Attack, 
+    Dash
 }

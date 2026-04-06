@@ -10,7 +10,7 @@ public class CameraSystem(Managers.Camera camera) : ISystem
 {
     public void Update(Data.World world, GameTime gameTime)
     {
-        
+        float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
         // Get the player entity. Right now is the only camera target expected.
         var playerEntity = world.Query().
             With<TransformComponent>().
@@ -29,5 +29,6 @@ public class CameraSystem(Managers.Camera camera) : ISystem
             
         //Set the camera position to the player position.
         camera.Position = world.GetComponent<TransformComponent>(playerEntity).Position;
+        camera.Update(dt);
     }
 }

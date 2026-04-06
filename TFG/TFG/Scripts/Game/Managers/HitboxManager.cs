@@ -143,4 +143,31 @@ public class HitboxManager
         _activeHitboxes.Remove(id);
         _inactiveHitboxes.Enqueue(id);
     }
+
+    public void CleanupOrphanedHitboxes()
+    {
+        List<int> hitboxesToRemove = new List<int>();
+
+        foreach (var hitboxId in _activeHitboxes)
+        {
+            var ownerId = _world.GetComponent<OwnerComponent>(hitboxId).Owner.Id;
+
+            if (!_world.HasComponent<CombatStateComponent>(ownerId))
+            {
+                hitboxesToRemove.Add(hitboxId);
+                continue;
+            }
+            
+            var state= _world.GetComponent<CombatStateComponent>(ownerId);
+            if (state.Phase != CombatPhase.Active || state.ActiveHitboxId != hitboxId)
+            {
+                hitboxesToRemove.Add(hitboxId);
+            }
+        }
+
+        foreach (var id in hitboxesToRemove)
+        {
+            ReturnHitbox(id);
+        }
+    }
 }

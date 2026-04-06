@@ -34,6 +34,8 @@ public class PhysicsSystem : ISystem
 
         foreach (var moverEntity in dynamicEntities)
         {
+            if (world.HasComponent<HitStopComponent>(moverEntity)) continue;
+            
             ref var moverPhysics = ref world.GetComponent<PhysicsComponent>(moverEntity);
             ref var moverTransform = ref world.GetComponent<TransformComponent>(moverEntity);
             

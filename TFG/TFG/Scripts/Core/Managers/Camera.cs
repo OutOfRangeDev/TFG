@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace TFG.Scripts.Core.Managers;
@@ -11,6 +12,28 @@ public class Camera(Viewport viewport)
     public float Rotation = 0f;
     
     private readonly Viewport _viewport = viewport;
+    
+    // ---------------------------------------------------
+    // SHAKE
+    // ---------------------------------------------------
+    private float _shakeTimer;
+    private float _shakeIntensity;
+    private readonly Random _random = new Random();
+
+    public void AddShake(float intensity, float time)
+    {
+        _shakeIntensity = intensity;
+        _shakeTimer = time;
+    }
+
+    public void Update(float dt)
+    {
+        if (_shakeTimer > 0)
+        {
+            _shakeTimer -= dt;
+            if (_shakeTimer <= 0) _shakeIntensity = 0;
+        }
+    }
 
     public Matrix GetViewMatrix()
     {

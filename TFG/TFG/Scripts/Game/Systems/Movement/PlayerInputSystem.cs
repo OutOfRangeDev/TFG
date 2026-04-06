@@ -23,6 +23,7 @@ public class PlayerInputSystem(InputManager inputManager) : ISystem
             With<PhysicsComponent>().
             With<SpriteComponent>().
             With<AnimatorComponent>().
+            With<DashStateComponent>().
             Execute();
         
         foreach (var entityId in playerEntities)
@@ -44,6 +45,15 @@ public class PlayerInputSystem(InputManager inputManager) : ISystem
             #region Buffer
             
             // First check if an attack has been pressed
+            if (inputManager.IsActionPressed(PlayerAction.Dash))
+            {
+                buffer.Buffer = new BufferedCommand()
+                {
+                    Action = PlayerAction.Dash,
+                    TimeStamp = currentTime,
+                    DirectionSnapshot = inputManager.GetRawDirection()
+                };
+            }
             if (inputManager.IsActionPressed(PlayerAction.Attack))
             {
                 //Debug.WriteLine("[INPUT SYSTEM] Buffered attack.");
@@ -65,6 +75,64 @@ public class PlayerInputSystem(InputManager inputManager) : ISystem
                 };
             }
 
+            #endregion
+            
+            // ---------------------------------------------------
+            // DASH
+            // ---------------------------------------------------
+            
+            #region Dash
+            
+            ref var dash = ref world.GetComponent<DashStateComponent>(entityId);
+            
+            // Cooldown
+            if(dash.CooldownTimer > 0) dash.CooldownTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
+            // Handle Active Dash
+            if (dash.IsDashing)
+            {
+                dash.Timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (dash.Timer >= dash.CooldownTimer)
+                {
+                    dash.IsDashing = false;
+                    dash.CooldownTimer = controller.DashCooldown;
+                }
+                else
+                {
+                    physics.Velocity = dash.Direction * controller.DashSpeed;
+                    continue;
+                }
+            }
+
+            // Dash buffer
+            if (!dash.IsDashing && dash.CooldownTimer <= 0 && buffer.HasBufferedAction(PlayerAction.Dash, currentTime))
+            {
+                dash.IsDashing = true;
+                dash.Timer = 0;
+                
+                if(buffer.Buffer.DirectionSnapshot.X != 0) 
+                    dash.Direction = new Vector2(System.Math.Sign(buffer.Buffer.DirectionSnapshot.X), 0);
+                else
+                    dash.Direction = new Vector2(sprite.Effects == SpriteEffects.FlipHorizontally ? -1 : 1, 0);
+                
+                buffer.Consume();
+                
+                physics.Velocity = new Vector2(dash.Direction.X * controller.DashSpeed, 0);
+                
+                // Dash abort combat
+                if (world.HasComponent<CombatStateComponent>(entityId))
+                {
+                    ref var combatState = ref world.GetComponent<CombatStateComponent>(entityId);
+                    combatState.Phase = CombatPhase.None;
+                    combatState.IsAttacking = false;
+                }
+            
+                world.AddComponent(entityId, new InvincibleComponent {Timer = controller.DashDuration});
+
+                continue;
+            } 
+            
             #endregion
             
             // ---------------------------------------------------

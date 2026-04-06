@@ -1,0 +1,68 @@
+{
+  "Name": "Player",
+  "Components": {
+    "TransformComponent": {},
+    "PlayerControllerComponent": {
+      "Speed": 100,
+      "JumpForce": 500,
+      "DashSpeed": 400,
+      "DashDuration": 1,
+      "DashCooldown": 1
+    },
+    "DashStateComponent": {},
+    "ColliderComponent": {
+      "IsTrigger": false,
+      "Layer": "Player",
+      "Size": {
+        "X": 32,
+        "Y": 32
+      }
+    },
+    "PhysicsComponent": {
+      "SkinWidth": 1,
+      "GravityScale": 1,
+      "Drag": 0.1,
+      "IsStatic": false
+    },
+    "SpriteComponent": {
+      "TextureName": "Test/Character/hello_kitty",
+      "SourceRectangle": {
+        "Width": 32,
+        "Height": 32
+      },
+      "Scale": {
+        "X": 1,
+        "Y": 1
+      },
+      "Color": {
+        "R": 255,
+        "G": 255,
+        "B": 255
+      }
+    },
+    "InputBufferComponent": {},
+    "CombatStateComponent": {},
+    "HealthComponent": {
+      "MaxHealth": 100
+    },
+    "AnimatorComponent": {
+      "CurrentAnimation": "Idle",
+      "Animations": {
+        "Idle": {
+          "Name": "Idle",
+          "RowIndex": 0,
+          "FrameCount": 4,
+          "FrameDuration": 0.2,
+          "Loop": true
+        },
+        "Run": {
+          "Name": "Run",
+          "RowIndex": 2,
+          "FrameCount": 4,
+          "FrameDuration": 0.1,
+          "Loop": true
+        }
+      }
+    }
+  }
+}

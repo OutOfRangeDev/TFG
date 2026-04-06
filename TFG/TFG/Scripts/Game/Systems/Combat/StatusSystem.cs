@@ -50,5 +50,22 @@ public class StatusSystem : ISystem
         }
         
         #endregion
+        
+        // ---------------------------------------------------
+        // HIT STOP
+        // ---------------------------------------------------
+        
+        #region Combat
+
+        var hitStopEntities = world.Query().With<HitStopComponent>().Execute();
+        foreach (var entity in hitStopEntities)
+        {
+            ref var hitStop = ref world.GetComponent<HitStopComponent>(entity);
+            
+            hitStop.Timer -= dt;
+            if (hitStop.Timer <= 0) world.RemoveComponent<HitStopComponent>(entity);
+        }
+
+        #endregion
     }
 }

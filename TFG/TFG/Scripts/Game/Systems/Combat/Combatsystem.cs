@@ -19,6 +19,8 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
     
     public void Update(World world, GameTime gameTime)
     {
+        
+        hitboxManager.CleanupOrphanedHitboxes();
         // Deltatime and the total time passed.
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
         double totalTime = gameTime.TotalGameTime.TotalSeconds;
@@ -32,6 +34,8 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
 
         foreach (var entityId in entities)
         {
+            if (world.HasComponent<HitStopComponent>(entityId)) continue;
+            
             ref var combatState = ref world.GetComponent<CombatStateComponent>(entityId);
             ref var inputBuffer = ref world.GetComponent<InputBufferComponent>(entityId);
             ref var transform = ref world.GetComponent<TransformComponent>(entityId);

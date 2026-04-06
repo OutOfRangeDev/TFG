@@ -15,8 +15,8 @@ public class PrefabExporter
         // 1. Get all the prefabs to export.
         var blueprintsToExport = new List<PrefabBlueprint>
         {
-            //EntityFactory.CreatePlayerPrefab(),
-            EntityFactory.CreateDummyPrefab()
+            EntityFactory.CreatePlayerPrefab(),
+            //EntityFactory.CreateDummyPrefab()
         };
         
         // 2. Make sure the output directory exists.

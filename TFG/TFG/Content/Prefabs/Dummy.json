@@ -1,0 +1,48 @@
+{
+  "Name": "Dummy",
+  "Components": {
+    "TransformComponent": {},
+    "PhysicsComponent": {
+      "SkinWidth": 1,
+      "GravityScale": 1,
+      "Drag": 5,
+      "IsStatic": false
+    },
+    "ColliderComponent": {
+      "IsTrigger": false,
+      "Layer": "Enemy",
+      "Size": {
+        "X": 32,
+        "Y": 32
+      },
+      "Offset": {
+        "X": 0,
+        "Y": 0
+      }
+    },
+    "HealthComponent": {
+      "MaxHealth": 1000,
+      "CurrentHealth": 1000,
+      "DamageMultiplier": 1,
+      "StunDurationOnHit": 0.2
+    },
+    "SpriteComponent": {
+      "TextureName": "Test/Character/smashtest",
+      "SourceRectangle": {
+        "Width": 32,
+        "Height": 32
+      },
+      "Scale": {
+        "X": 1,
+        "Y": 1
+      },
+      "Color": {
+        "R": 255,
+        "G": 255,
+        "B": 255,
+        "A": 255
+      }
+    },
+    "SuperArmorComponent": {}
+  }
+}

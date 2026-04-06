@@ -23,8 +23,13 @@ public static class EntityFactory
         blueprint.Components["PlayerControllerComponent"] = new
         {
             Speed = 100f,
-            JumpForce = 500f
+            JumpForce = 500f,
+            DashSpeed = 400f,
+            DashDuration = 0.2f,
+            DashCooldown = 1f
         };
+        
+        blueprint.Components["DashStateComponent"] = new { };
 
         blueprint.Components["ColliderComponent"] = new
         {

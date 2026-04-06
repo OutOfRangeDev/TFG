@@ -75,6 +75,13 @@ public class DamageSystem(HitboxManager hitboxManager) : ISystem
             return;
         }
         
+        // Stop the time
+        if(!world.HasComponent<HitStopComponent>(victimId))
+            world.AddComponent(victimId, new HitStopComponent{ Timer = 0.05f });
+        
+        if(!world.HasComponent<HitStopComponent>(attackerId))
+            world.AddComponent(attackerId, new HitStopComponent{ Timer = 0.05f });
+        
         // Knockbacks
         if (world.HasComponent<PhysicsComponent>(victimId))
         {

@@ -10,7 +10,8 @@ public static class DefaultBindings
         return new Dictionary<PlayerAction, List<Keys>>
         {
             {PlayerAction.Jump, [Keys.Space] },
-            {PlayerAction.Attack, [Keys.C]}
+            {PlayerAction.Attack, [Keys.C]},
+            {PlayerAction.Dash, [Keys.LeftShift]},
         };
     }
     
@@ -19,7 +20,8 @@ public static class DefaultBindings
         return new Dictionary<PlayerAction, List<Buttons>>
         {
             {PlayerAction.Jump, [Buttons.A]},
-            {PlayerAction.Attack, [Buttons.X]}
+            {PlayerAction.Attack, [Buttons.X]},
+            {PlayerAction.Dash, [Buttons.RightShoulder]},
         };
     }
 }

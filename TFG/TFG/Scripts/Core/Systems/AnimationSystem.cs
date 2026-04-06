@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using TFG.Scripts.Core.Abstractions;
 using TFG.Scripts.Core.Components;
+using TFG.Scripts.Game.Components.Combat;
 
 namespace TFG.Scripts.Core.Systems;
 
@@ -19,6 +20,8 @@ public class AnimationSystem : ISystem
 
         foreach (var entity in entitiesToAnimate)
         {
+            if (world.HasComponent<HitStopComponent>(entity)) continue;
+            
             // Get the components.
             ref var animator = ref world.GetComponent<AnimatorComponent>(entity);
             ref var sprite = ref world.GetComponent<SpriteComponent>(entity);
