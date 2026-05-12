@@ -14,23 +14,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d85ef076-19b6-4c35-852a-267c2112e074" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Components/Combat/DashStateComponent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Components/Combat/HitStopComponent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/DeathSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TFG/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Components/PlayerControllerComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Components/PlayerControllerComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Managers/Camera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Managers/Camera.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/AnimationSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/AnimationSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/CameraSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/CameraSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/PhysicsSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Systems/PhysicsSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Tools/PrefabExporter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Tools/PrefabExporter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Data/DefaultBindings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Data/DefaultBindings.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Data/PlayerAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Data/PlayerAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Managers/HitboxManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Managers/HitboxManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Prefabs/EntityFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Prefabs/EntityFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/Combatsystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/Combatsystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Game1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Game1.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Core/Data/World.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Core/Data/World.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Components/Combat/DeadComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Components/Combat/DeadComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Components/Combat/HealthComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Components/Combat/HealthComponent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/DamageSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/DamageSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/StatusSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/StatusSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Movement/PlayerInputSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/Scripts/Game/Systems/Movement/PlayerInputSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/TFG/obj/Debug/net8.0/TFG.AssemblyInfoInputs.cache" afterDir="false" />
     </list>
@@ -144,6 +134,7 @@
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/CombatSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/Combatsystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/DamageSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/DeathSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TFG/Scripts/Game/Systems/Combat/StatusSystem.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="McpProjectServerCommands">
@@ -167,7 +158,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;.NET Project.TFG.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Project.TFG.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -353,6 +344,21 @@
       <workItem from="1775294866630" duration="1849000" />
       <workItem from="1775402886252" duration="8693000" />
       <workItem from="1775429518921" duration="1569000" />
+      <workItem from="1775507161039" duration="882000" />
+      <workItem from="1776423452110" duration="910000" />
+      <workItem from="1776943784121" duration="165000" />
+      <workItem from="1777043845266" duration="532000" />
+      <workItem from="1777368580138" duration="791000" />
+      <workItem from="1777397176939" duration="2175000" />
+      <workItem from="1777466472777" duration="2000" />
+      <workItem from="1777572398874" duration="2168000" />
+      <workItem from="1777627297798" duration="2767000" />
+      <workItem from="1777891607658" duration="141000" />
+      <workItem from="1778159629109" duration="188000" />
+      <workItem from="1778343348108" duration="2335000" />
+      <workItem from="1778488225968" duration="1871000" />
+      <workItem from="1778520313220" duration="1920000" />
+      <workItem from="1778574561889" duration="2792000" />
     </task>
     <task id="LOCAL-00001" summary="Upload of initial monogame project.">
       <option name="closed" value="true" />
@@ -530,7 +536,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775255904699</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Combat feedback.">
+      <option name="closed" value="true" />
+      <created>1775507231245</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1775507231245</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -582,7 +596,8 @@
     <MESSAGE value="Combat system fully working. Need to fix recovery." />
     <MESSAGE value="Comments and explanation." />
     <MESSAGE value="Test with hitting, and added small airhang for future up attacks" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test with hitting, and added small airhang for future up attacks" />
+    <MESSAGE value="Combat feedback." />
+    <option name="LAST_COMMIT_MESSAGE" value="Combat feedback." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

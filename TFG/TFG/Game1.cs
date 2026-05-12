@@ -52,6 +52,7 @@ public class Game1 : Game
     private CombatSystem _combatSystem;
     private DamageSystem _damageSystem;
     private StatusSystem _statusSystem;
+    private DeathSystem _deathSystem;
     
     public Game1()
     {
@@ -99,6 +100,7 @@ public class Game1 : Game
         _combatSystem = new CombatSystem(_hitboxManager);
         _damageSystem  = new DamageSystem(_hitboxManager);
         _statusSystem = new StatusSystem();
+        _deathSystem = new DeathSystem(_assetManager);
         
         base.Initialize();
     }
@@ -151,6 +153,7 @@ public class Game1 : Game
         // ------------ Game ------------
         _combatSystem.Update(_world, gameTime);
         _damageSystem.Update(_world, gameTime);
+        _deathSystem.Update(_world, gameTime);
         _statusSystem.Update(_world, gameTime);
         
         // ------------ Clean up ------------

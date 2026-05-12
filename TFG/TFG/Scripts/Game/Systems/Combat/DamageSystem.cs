@@ -71,7 +71,17 @@ public class DamageSystem(HitboxManager hitboxManager) : ISystem
         // Death check, if the victim has less than 0, add death flag. For death system to check.
         if (health.CurrentHealth <= 0) 
         {
-            world.AddComponent(victimId, new DeadComponent());
+            if (world.HasComponent<PlayerControllerComponent>(victimId))
+            {
+                
+            }else
+            {
+                world.AddComponent(victimId, new DeadComponent
+                {
+                    Stripped = false,
+                    Timer = health.CorpseLifespan,
+                });
+            }
             return;
         }
         

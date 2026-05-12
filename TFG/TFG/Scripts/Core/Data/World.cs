@@ -48,22 +48,22 @@ public class World
     }
 
     //Destroy an entity.
-    public void DestroyEntity(Entity entityToDestroy)
+    public void DestroyEntity(int entityToDestroy)
     {
         //First, check if the entity exists.
-        if (!_activeEntities.Remove(entityToDestroy.Id))
+        if (!_activeEntities.Remove(entityToDestroy))
         {
-            Debug.WriteLine($"[World] Tried to destroy non-existing entity {entityToDestroy.Id}.");
+            Debug.WriteLine($"[World] Tried to destroy non-existing entity {entityToDestroy}.");
             return;
         }
         
         //Add this id to the queue of available ids.
-        _availableIDs.Enqueue(entityToDestroy.Id);
+        _availableIDs.Enqueue(entityToDestroy);
 
         //Remove every component of this entity from the pools.
         foreach (var componentPool in _componentPools)
         {
-            componentPool.Value.Remove(entityToDestroy.Id);
+            componentPool.Value.Remove(entityToDestroy);
         }
     }
 

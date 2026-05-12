@@ -9,4 +9,6 @@ public struct HealthComponent : IComponent
 
     public float DamageMultiplier { get; set; } 
     public float StunDurationOnHit { get; set; } 
+    
+    public float CorpseLifespan { get; set; }
 }
