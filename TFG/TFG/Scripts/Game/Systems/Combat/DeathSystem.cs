@@ -17,7 +17,6 @@ public class DeathSystem(AssetManager assetManager) : ISystem
         foreach (var entity in entities)
         {
             ref var deathComponent = ref world.GetComponent<DeadComponent>(entity);
-            ref var spriteComponent = ref world.GetComponent<SpriteComponent>(entity);
             
             if(!deathComponent.Stripped)
             {

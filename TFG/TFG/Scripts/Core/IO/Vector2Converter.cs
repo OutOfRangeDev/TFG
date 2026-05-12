@@ -22,15 +22,16 @@ public class Vector2Converter : JsonConverter<Vector2>
             {
                 string propertyName = reader.GetString();
                 reader.Read();
-                switch (propertyName.ToUpperInvariant())
-                {
-                    case "X":
-                        x = reader.GetSingle();
-                        break;
-                    case "Y":
-                        y = reader.GetSingle();
-                        break;
-                }
+                if (propertyName != null)
+                    switch (propertyName.ToUpperInvariant())
+                    {
+                        case "X":
+                            x = reader.GetSingle();
+                            break;
+                        case "Y":
+                            y = reader.GetSingle();
+                            break;
+                    }
             }
         }
         throw new JsonException("Unexpected end of JSON.");

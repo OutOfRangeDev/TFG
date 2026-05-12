@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using TFG.Scripts.Game.Data;
 
 namespace TFG.Scripts.Core.Abstractions;

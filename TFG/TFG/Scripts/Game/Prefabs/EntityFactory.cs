@@ -1,19 +1,12 @@
 ﻿using System.Collections.Generic;
 using TFG.Scripts.Core.Components;
 using TFG.Scripts.Core.Data;
-using TFG.Scripts.Core.Managers;
 
 namespace TFG.Scripts.Game.Prefabs;
 
 public static class EntityFactory
 {
-    private static AssetManager _assetManager;
-
-    public static void Initialize(AssetManager assetManager)
-    {
-        _assetManager = assetManager;
-    }
-
+    public static void Initialize(){}
     public static PrefabBlueprint CreatePlayerPrefab()
     {
         var blueprint = new PrefabBlueprint { Name = "Player" };

@@ -22,21 +22,22 @@ public class ColorConverter : JsonConverter<Color>
             {
                 string propertyName = reader.GetString();
                 reader.Read();
-                switch (propertyName.ToUpperInvariant())
-                {
-                    case "R":
-                        r = reader.GetSingle();
-                        break;
-                    case "G":
-                        g = reader.GetSingle();
-                        break;
-                    case "B":
-                        b = reader.GetSingle();
-                        break;
-                    case "A":
-                        a = reader.GetSingle();
-                        break;
-                }
+                if (propertyName != null)
+                    switch (propertyName.ToUpperInvariant())
+                    {
+                        case "R":
+                            r = reader.GetSingle();
+                            break;
+                        case "G":
+                            g = reader.GetSingle();
+                            break;
+                        case "B":
+                            b = reader.GetSingle();
+                            break;
+                        case "A":
+                            a = reader.GetSingle();
+                            break;
+                    }
             }
         }
         throw new JsonException("Unexpected end of JSON.");

@@ -22,21 +22,22 @@ public class RectangleConverter : JsonConverter<Rectangle>
             {
                 string propertyName = reader.GetString();
                 reader.Read();
-                switch (propertyName.ToUpperInvariant())
-                {
-                    case "X":
-                        x = reader.GetInt32();
-                        break;
-                    case "Y":
-                        y = reader.GetInt32();
-                        break;
-                    case "WIDTH":
-                        width = reader.GetInt32();
-                        break;
-                    case "HEIGHT":
-                        height = reader.GetInt32();
-                        break;
-                }
+                if (propertyName != null)
+                    switch (propertyName.ToUpperInvariant())
+                    {
+                        case "X":
+                            x = reader.GetInt32();
+                            break;
+                        case "Y":
+                            y = reader.GetInt32();
+                            break;
+                        case "WIDTH":
+                            width = reader.GetInt32();
+                            break;
+                        case "HEIGHT":
+                            height = reader.GetInt32();
+                            break;
+                    }
             }
         }
         throw new JsonException("Unexpected end of JSON.");

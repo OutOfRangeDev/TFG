@@ -39,6 +39,12 @@ public class Camera(Viewport viewport)
     {
         // Make the camera look at the target plus offset.
         Vector2 targetPos = Position + Offset;
+
+        if (_shakeTimer > 0)
+        {
+            targetPos.X += (float)(_random.NextDouble() * 2 - 1) * _shakeIntensity;
+            targetPos.Y += (float)(_random.NextDouble() * 2 - 1) * _shakeIntensity;
+        }
         
         return 
             // Move the world up and to the right so the camera is centered on the target.

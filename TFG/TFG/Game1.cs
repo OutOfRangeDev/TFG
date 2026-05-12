@@ -6,7 +6,6 @@ using TFG.Scripts.Core.Data;
 using TFG.Scripts.Core.Managers;
 using TFG.Scripts.Core.Systems;
 using TFG.Scripts.Core.Systems.UI;
-using TFG.Scripts.Core.Tools;
 using TFG.Scripts.Game.Data;
 using TFG.Scripts.Game.Managers;
 using TFG.Scripts.Game.Prefabs;
@@ -113,7 +112,7 @@ public class Game1 : Game
         _prefabManager = new PrefabManager(_assetManager);
         string levelToLoad = System.IO.Path.Combine(Constants.ScenesDirectory, "Test.ldtk");
         _sceneManager.ChangeScene(new LevelScene(levelToLoad, _assetManager));
-        EntityFactory.Initialize(_assetManager);
+        EntityFactory.Initialize();
         _prefabManager.LoadPrefabs(Constants.PrefabDirectory);
         _prefabManager.InstantiatePrefab("Player", _world, new Vector2(100, 100));
         _prefabManager.InstantiatePrefab("Dummy",  _world, new Vector2(200, 100));
