@@ -17,6 +17,11 @@ namespace TFG;
 
 public class Game1 : Game
 {
+    // RESOLUTION VARIABLES
+    private const int VirtualWidth = 480;
+    private const int VirtualHeight = 270;
+    private RenderTarget2D  _renderTarget;
+    
     private SpriteBatch _spriteBatch;
 
     // Resharper disable once NotAccessedField.Local
@@ -58,6 +63,10 @@ public class Game1 : Game
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+        Window.AllowUserResizing = true;
+        _graphics.PreferredBackBufferWidth = 480 * 3;  
+        _graphics.PreferredBackBufferHeight = 270 * 3; 
+        _graphics.ApplyChanges();
     }
 
     protected override void Initialize()
@@ -87,7 +96,7 @@ public class Game1 : Game
         _audioManager = new AudioManager(Content);
         _soundSystem = new SoundSystem(_audioManager);
         
-        _camera = new Camera(GraphicsDevice.Viewport);
+        _camera = new Camera(VirtualWidth, VirtualHeight);
         _cameraSystem = new CameraSystem(_camera);
         
         _previousScreenSize = new Point(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
@@ -106,8 +115,8 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        _renderTarget =  new RenderTarget2D(GraphicsDevice, VirtualWidth, VirtualHeight);
         _assetManager = new AssetManager(Content);
         _prefabManager = new PrefabManager(_assetManager);
         string levelToLoad = System.IO.Path.Combine(Constants.ScenesDirectory, "Test.ldtk");
@@ -164,8 +173,9 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
+        GraphicsDevice.SetRenderTarget(_renderTarget);
+        
         GraphicsDevice.Clear(Color.CornflowerBlue);
-
         // Draw all the entities.
         
         // ------------ World Pass ------------
@@ -178,6 +188,24 @@ public class Game1 : Game
         // ------------ UI Pass ------------
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         _uiRenderSystem.Draw(_world, _spriteBatch);
+        _spriteBatch.End();
+        
+        GraphicsDevice.SetRenderTarget(null);
+        
+        GraphicsDevice.Clear(Color.Black);
+
+        float scaleX = (float)GraphicsDevice.Viewport.Width / VirtualWidth;
+        float scaleY = (float)GraphicsDevice.Viewport.Height / VirtualHeight;
+        float finalScale = System.Math.Min(scaleX, scaleY);
+        
+        int newWidth = (int)(VirtualWidth * finalScale);
+        int newHeight = (int)(VirtualHeight * finalScale);
+        int offsetX = (GraphicsDevice.Viewport.Width - newWidth) / 2;
+        int offsetY = (GraphicsDevice.Viewport.Height - newHeight) / 2;
+        Rectangle destinationRect = new Rectangle(offsetX, offsetY, newWidth, newHeight);
+        
+        _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        _spriteBatch.Draw(_renderTarget, destinationRect, Color.White);
         _spriteBatch.End();
 
         base.Draw(gameTime);

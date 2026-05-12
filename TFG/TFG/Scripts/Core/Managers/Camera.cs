@@ -4,14 +4,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TFG.Scripts.Core.Managers;
 
-public class Camera(Viewport viewport)
+public class Camera(int virtualWidth, int virtualHeight)
 {
     public Vector2 Position;
-    public Vector2 Offset = new Vector2(300, -100); // +X to the left, +Y up.
+
+    public Vector2 Offset = Vector2.Zero; // +X to the left, +Y up.
+    
     public float Zoom = 1f; 
     public float Rotation = 0f;
     
-    private readonly Viewport _viewport = viewport;
+    private readonly int _virtualWidth = virtualWidth;
+    private readonly int _virtualHeight = virtualHeight;
     
     // ---------------------------------------------------
     // SHAKE
@@ -54,6 +57,6 @@ public class Camera(Viewport viewport)
             // Scale around the new origin.
             Matrix.CreateScale(Zoom) *
             // Now move the world so the player is at the origin plus offset.
-            Matrix.CreateTranslation(_viewport.Width / 2f, _viewport.Height / 2f, 0f);
+            Matrix.CreateTranslation(_virtualWidth / 2f, _virtualHeight / 2f, 0f);
     }
 }
