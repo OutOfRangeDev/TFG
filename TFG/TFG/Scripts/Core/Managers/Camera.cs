@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace TFG.Scripts.Core.Managers;
 
@@ -8,10 +7,10 @@ public class Camera(int virtualWidth, int virtualHeight)
 {
     public Vector2 Position;
 
-    public Vector2 Offset = Vector2.Zero; // +X to the left, +Y up.
-    
-    public float Zoom = 1f; 
-    public float Rotation = 0f;
+    private Vector2 _offset = Vector2.Zero; // +X to the left, +Y up.
+
+    private float _zoom = 1f;
+    private float _rotation = 0f;
     
     private readonly int _virtualWidth = virtualWidth;
     private readonly int _virtualHeight = virtualHeight;
@@ -41,7 +40,7 @@ public class Camera(int virtualWidth, int virtualHeight)
     public Matrix GetViewMatrix()
     {
         // Make the camera look at the target plus offset.
-        Vector2 targetPos = Position + Offset;
+        Vector2 targetPos = Position + _offset;
 
         if (_shakeTimer > 0)
         {
@@ -53,9 +52,9 @@ public class Camera(int virtualWidth, int virtualHeight)
             // Move the world up and to the right so the camera is centered on the target.
             Matrix.CreateTranslation(-targetPos.X, -targetPos.Y, 0f) *
             // Rotate around the target.
-            Matrix.CreateRotationZ(Rotation) *
+            Matrix.CreateRotationZ(_rotation) *
             // Scale around the new origin.
-            Matrix.CreateScale(Zoom) *
+            Matrix.CreateScale(_zoom) *
             // Now move the world so the player is at the origin plus offset.
             Matrix.CreateTranslation(_virtualWidth / 2f, _virtualHeight / 2f, 0f);
     }

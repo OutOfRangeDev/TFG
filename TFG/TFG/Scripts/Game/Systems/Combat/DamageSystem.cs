@@ -115,10 +115,10 @@ public class DamageSystem(HitboxManager hitboxManager) : ISystem
         // If it has "super armor" we do not apply stunt
         if (world.HasComponent<SuperArmorComponent>(victimId)) return;
         
-        // To know in which direction apply the knockback --------------------------- CHECK FOR ORDER, SHOULD GO BEFORE?
+        // To know in which direction apply the knockback.
         int hitDir = attackDef.TargetKnockback.X > 0 ? -1 : 1;
 
-        // If it already has stunned, update the values. ------------------------------------------ CHECK, MAYBE IT BUGS
+        // If it already has stunned, update the values.
         if (world.HasComponent<StunnedComponent>(victimId))
         {
             ref var stun = ref world.GetComponent<StunnedComponent>(victimId);

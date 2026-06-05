@@ -81,8 +81,11 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
         {
             //Debug.WriteLine("[Combat System] Buffered attack detected.");
             
+            bool isGrounded = world.HasComponent<PhysicsComponent>(ownerId) && world.GetComponent<PhysicsComponent>(ownerId).IsGrounded;
+            Vector2 inputDir = input.Buffer.DirectionSnapshot;
+            
             // If we do, we look for the next attack.
-            string nextAttack = GetNextAttackName(state.ComboIndex);
+            string nextAttack = GetNextAttackName(state.ComboIndex, isGrounded, inputDir);
 
             // And if you have one, we start the attack
             if (nextAttack != null)
@@ -97,7 +100,7 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
                 // If we don't have another attack, this means the combo has been reset.
                 state.ComboIndex = 0;
                 // And reset the array combo.
-                nextAttack = GetNextAttackName(0);
+                nextAttack = GetNextAttackName(0, isGrounded, inputDir);
                 // And again try to do the attack
                 if (nextAttack != null)
                 {
@@ -217,7 +220,10 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
             state.ComboIndex++;
             
             // Get the next attack
-            string nextAttack = GetNextAttackName(state.ComboIndex);
+            bool isGrounded = world.HasComponent<PhysicsComponent>(ownerId) && world.GetComponent<PhysicsComponent>(ownerId).IsGrounded;
+            Vector2 inputDir = input.Buffer.DirectionSnapshot;
+            
+            string nextAttack = GetNextAttackName(state.ComboIndex, isGrounded, inputDir);
 
             // If there is a next attack
             if (nextAttack != null)
@@ -271,8 +277,25 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
         // Debug.WriteLine($"[COMBAT SYSTEM] Started Attack: {attackName}");
     }
 
-    private string GetNextAttackName(int comboIndex)
+    private string GetNextAttackName(int comboIndex, bool isGrounded, Vector2 inputDir)
     {
+        // 1. Check for air combo
+        if (!isGrounded)
+        {
+            return comboIndex switch
+            {
+                0 => "Air_Light_1",
+                1 => "Air_Light_2",
+                _ => null
+            };
+        }
+        
+        // Check for launch to air
+        if (comboIndex == 0 && inputDir.Y < -0.5f)
+        {
+            return "Launch_Air";
+        }
+        
         return comboIndex switch
         {
             0 => "Ground_Light_1",
