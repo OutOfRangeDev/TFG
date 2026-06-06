@@ -106,5 +106,18 @@ public static class GameAttacks
             TargetKnockback =   new Vector2(10, -5),
             SelfKnockback =   new Vector2(5, 0),
         };
+
+        MoveList["Enemy_Basic"] = new AttackDefinition()
+        {
+            AttackName =  "Enemy_Basic",
+            StartUpTime =  0.5f,
+            ActiveTime =  0.2f,
+            RecoveryTime =  0.5f,
+            HitboxSize =  new Vector2(1, 1),
+            HitboxOffset =  new Vector2(1, 0),
+            Damage =  10,
+            TargetKnockback =   new Vector2(10, -5),
+            SelfKnockback =   new Vector2(5, 0),
+        };
     }
 }
