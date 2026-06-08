@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using TFG.Scripts.Core.Abstractions;
 using TFG.Scripts.Core.Components;
 using TFG.Scripts.Core.Data;
@@ -53,6 +54,8 @@ public class DamageSystem(HitboxManager hitboxManager) : ISystem
         
         #region Hit
         
+        //Console.WriteLine("[DamageSystem] Entity " + ownerComp.Owner.Id + " has hit Entity " + victimId);
+        
         // Record the hit
         history.HitEntities.Add(victimId);
         
@@ -92,22 +95,13 @@ public class DamageSystem(HitboxManager hitboxManager) : ISystem
         if(!world.HasComponent<HitStopComponent>(attackerId))
             world.AddComponent(attackerId, new HitStopComponent{ Timer = 0.05f });
         
-        // Knockbacks
+        // Knockback for the victim
         if (world.HasComponent<PhysicsComponent>(victimId))
         {
             ref var victimPhysics = ref world.GetComponent<PhysicsComponent>(victimId);
             if (!victimPhysics.IsStatic)
             {
                 victimPhysics.Velocity += attackDef.TargetKnockback;
-            }
-        }
-        
-        if (world.HasComponent<PhysicsComponent>(attackerId))
-        {
-            ref var attackerPhysics = ref world.GetComponent<PhysicsComponent>(victimId);
-            if (!attackerPhysics.IsStatic)
-            {
-                attackerPhysics.Velocity += attackDef.SelfKnockback;
             }
         }
         
@@ -121,6 +115,7 @@ public class DamageSystem(HitboxManager hitboxManager) : ISystem
         // If it already has stunned, update the values.
         if (world.HasComponent<StunnedComponent>(victimId))
         {
+            Console.WriteLine("[DamageSystem] Entity " + victimId + " has been stunned.");
             ref var stun = ref world.GetComponent<StunnedComponent>(victimId);
             stun.Timer = health.StunDurationOnHit;
             stun.HitDirectionX = hitDir;
@@ -152,6 +147,7 @@ public class DamageSystem(HitboxManager hitboxManager) : ISystem
         // And add invincibility to the player
         if (world.HasComponent<PlayerControllerComponent>(victimId))
         {
+            Console.WriteLine("[DamageSystem] Entity " + victimId + " has been given invincibility.");
             world.AddComponent(victimId, new InvincibleComponent{Timer = 1f});
         }
         

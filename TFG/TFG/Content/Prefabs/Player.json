@@ -3,10 +3,10 @@
   "Components": {
     "TransformComponent": {},
     "PlayerControllerComponent": {
-      "Speed": 100,
+      "Speed": 150,
       "JumpForce": 500,
       "DashSpeed": 400,
-      "DashDuration": 1,
+      "DashDuration": 0.3,
       "DashCooldown": 1
     },
     "DashStateComponent": {},
@@ -21,11 +21,11 @@
     "PhysicsComponent": {
       "SkinWidth": 1,
       "GravityScale": 1,
-      "Drag": 0.1,
+      "Drag": 10,
       "IsStatic": false
     },
     "SpriteComponent": {
-      "TextureName": "Test/Character/hello_kitty",
+      "TextureName": "Test/Character/TFG_Char",
       "SourceRectangle": {
         "Width": 32,
         "Height": 32
@@ -51,15 +51,36 @@
         "Idle": {
           "Name": "Idle",
           "RowIndex": 0,
-          "FrameCount": 4,
+          "FrameCount": 2,
           "FrameDuration": 0.2,
           "Loop": true
         },
         "Run": {
           "Name": "Run",
-          "RowIndex": 2,
-          "FrameCount": 4,
+          "RowIndex": 1,
+          "FrameCount": 8,
           "FrameDuration": 0.1,
+          "Loop": true
+        },
+        "JumpStart": {
+          "Name": "JumpStart",
+          "RowIndex": 2,
+          "FrameCount": 2,
+          "FrameDuration": 0.2,
+          "Loop": false
+        },
+        "JumpEnd": {
+          "Name": "JumpEnd",
+          "RowIndex": 3,
+          "FrameCount": 1,
+          "FrameDuration": 0.2,
+          "Loop": false
+        },
+        "Fall": {
+          "Name": "Fall",
+          "RowIndex": 4,
+          "FrameCount": 1,
+          "FrameDuration": 0.2,
           "Loop": true
         }
       }

@@ -11,6 +11,7 @@ using TFG.Scripts.Game.Managers;
 using TFG.Scripts.Game.Prefabs;
 using TFG.Scripts.Game.Scenes;
 using TFG.Scripts.Game.Systems.Combat;
+using TFG.Scripts.Game.Systems.Enemy;
 using TFG.Scripts.Game.Systems.Movement;
 
 namespace TFG;
@@ -21,6 +22,7 @@ public class Game1 : Game
     private const int VirtualWidth = 480;
     private const int VirtualHeight = 270;
     private RenderTarget2D  _renderTarget;
+    Viewport _virtualViewport = new Viewport(0, 0, VirtualWidth, VirtualHeight);
     
     private SpriteBatch _spriteBatch;
 
@@ -57,6 +59,11 @@ public class Game1 : Game
     private DamageSystem _damageSystem;
     private StatusSystem _statusSystem;
     private DeathSystem _deathSystem;
+    private EnemyAiSystem _aiSystem;
+    
+    // DEBUG
+    
+    private FpsSystem _fpsSystem;
     
     public Game1()
     {
@@ -66,6 +73,19 @@ public class Game1 : Game
         Window.AllowUserResizing = true;
         _graphics.PreferredBackBufferWidth = 480 * 3;  
         _graphics.PreferredBackBufferHeight = 270 * 3; 
+        
+        // -------------------------------- FPS ADJUSTMENT--------------------------------
+        
+        // VSync
+        _graphics.SynchronizeWithVerticalRetrace = true;
+        
+        // UNCAP
+        //IsFixedTimeStep = false;
+        //_graphics.SynchronizeWithVerticalRetrace = false;
+        
+        // 240/90...
+        //TargetElapsedTime = System.TimeSpan.FromSeconds(1.0/240.0);
+        
         _graphics.ApplyChanges();
     }
 
@@ -99,9 +119,9 @@ public class Game1 : Game
         _camera = new Camera(VirtualWidth, VirtualHeight);
         _cameraSystem = new CameraSystem(_camera);
         
-        _previousScreenSize = new Point(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
-        _uiRenderSystem = new UiRenderSystem(GraphicsDevice.Viewport);
-        _uiInteractionSystem = new UiInteractionSystem(_inputManager, GraphicsDevice.Viewport);
+        _previousScreenSize = new Point(_virtualViewport.X, _virtualViewport.Y);
+        _uiRenderSystem = new UiRenderSystem(_virtualViewport);
+        _uiInteractionSystem = new UiInteractionSystem(_inputManager, _virtualViewport);
         
         // GAME
         _hitboxManager = new HitboxManager(_world);
@@ -109,6 +129,10 @@ public class Game1 : Game
         _damageSystem  = new DamageSystem(_hitboxManager);
         _statusSystem = new StatusSystem();
         _deathSystem = new DeathSystem(_assetManager);
+        _aiSystem = new EnemyAiSystem();
+        
+        // DEBUG
+        _fpsSystem = new FpsSystem();
         
         base.Initialize();
     }
@@ -125,6 +149,7 @@ public class Game1 : Game
         _prefabManager.LoadPrefabs(Constants.PrefabDirectory);
         _prefabManager.InstantiatePrefab("Player", _world, new Vector2(100, 100));
         _prefabManager.InstantiatePrefab("Dummy",  _world, new Vector2(200, 100));
+        CreateFpsEntity();
     }
 
     protected override void Update(GameTime gameTime)
@@ -163,10 +188,14 @@ public class Game1 : Game
         _damageSystem.Update(_world, gameTime);
         _deathSystem.Update(_world, gameTime);
         _statusSystem.Update(_world, gameTime);
+        _aiSystem.Update(_world, gameTime);
         
         // ------------ Clean up ------------
         _world.ClearCollisionEvents();
         _world.ClearSoundEvents();
+        
+        // ------------ Debug ------------
+        _fpsSystem.Update(_world, gameTime);
         
         base.Update(gameTime);
     }
@@ -219,5 +248,29 @@ public class Game1 : Game
             ref var rectTransform = ref world.GetComponent<RectTransformComponent>(entity);
             rectTransform.MakeOutdated();
         }
+    }
+
+    private void CreateFpsEntity()
+    {
+        var debugFont = _assetManager.Load<SpriteFont>("Test/Fonts/DebugFont");
+        
+        var fpsEntity = _world.CreateEntity();
+        
+        _world.AddComponent(fpsEntity.Id, new FpsCounterTag());
+        
+        _world.AddComponent(fpsEntity.Id, new RectTransformComponent(
+            UiAnchorPresets.TopRight,
+            new Vector2(-10, 10),
+            new Vector2(100, 30),
+            new Vector2(1, 0),
+            0f));
+        
+        _world.AddComponent(fpsEntity.Id, new UiTextComponent
+        {
+            Font = debugFont,
+            Text = "FPS: --",
+            Color = Color.White,
+            Alignment = TextAlignment.Right
+        });
     }
 }

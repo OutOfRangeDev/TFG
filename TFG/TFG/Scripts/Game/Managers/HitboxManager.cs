@@ -103,9 +103,6 @@ public class HitboxManager
         ref var attackDef = ref _world.GetComponent<AttackDefinitionComponent>(id);
         // Then set the damage
         attackDef.Damage = attackData.Damage;
-        // And the knockbacks
-        attackDef.TargetKnockback = new Vector2(attackData.TargetKnockback.X * dir, attackData.TargetKnockback.Y);
-        attackDef.SelfKnockback = new Vector2(attackData.SelfKnockback.X * dir, attackData.SelfKnockback.Y);
         
         // Also set the owner
         ref var owner = ref _world.GetComponent<OwnerComponent>(id);

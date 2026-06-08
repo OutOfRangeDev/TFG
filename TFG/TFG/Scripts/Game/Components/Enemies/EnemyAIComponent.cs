@@ -2,11 +2,11 @@
 
 namespace TFG.Scripts.Game.Components.Enemies;
 
-public enum AIState{Idle, Patrol, Chase, Attack}
+public enum AiState{Idle, Patrol, Chase, Attack}
 
-public struct EnemyAIComponent : IComponent
+public struct EnemyAiComponent : IComponent
 {
-    public AIState CurrentState  { get; set; }
+    public AiState CurrentState  { get; set; }
     public int TargetEntityId {get; set;}
     public float PatrolDirection  {get; set;}
     
@@ -17,9 +17,9 @@ public struct EnemyAIComponent : IComponent
     
     public string DefaultAttackName  {get; set;}
 
-    public EnemyAIComponent()
+    public EnemyAiComponent()
     {
-        CurrentState = AIState.Patrol;
+        CurrentState = AiState.Patrol;
         TargetEntityId = -1;
         PatrolDirection = 1f; // Start facing right by default
         

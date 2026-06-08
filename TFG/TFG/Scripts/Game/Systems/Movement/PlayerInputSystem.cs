@@ -33,7 +33,7 @@ public class PlayerInputSystem(InputManager inputManager) : ISystem
             ref var physics  = ref world.GetComponent<PhysicsComponent>(entityId);
             ref var sprite = ref world.GetComponent<SpriteComponent>(entityId);
             ref var animator = ref world.GetComponent<AnimatorComponent>(entityId);
-            var controller =  world.GetComponent<PlayerControllerComponent>(entityId);
+            ref var controller = ref world.GetComponent<PlayerControllerComponent>(entityId);
             
             // Store directional input in buffer
             buffer.MoveDirection = inputManager.GetRawDirection();
@@ -93,7 +93,7 @@ public class PlayerInputSystem(InputManager inputManager) : ISystem
             {
                 dash.Timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                if (dash.Timer >= dash.CooldownTimer)
+                if (dash.Timer >= controller.DashDuration)
                 {
                     dash.IsDashing = false;
                     dash.CooldownTimer = controller.DashCooldown;
@@ -162,31 +162,49 @@ public class PlayerInputSystem(InputManager inputManager) : ISystem
             
             #region Movement
             
-            // Apply the force to the movement
+            // Apply velocity
             physics.Velocity = physics.Velocity with { X = buffer.MoveDirection.X * controller.Speed };
-
-            // Now check the animations
-            // If the speed in the buffer is not 0
-            if (buffer.MoveDirection.X != 0)
-            {
-                // Play run
-                animator.CurrentAnimation = "Run";
-                sprite.Effects = buffer.MoveDirection.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            }
-            else
-            {
-                // If not, idle
-                physics.Velocity = physics.Velocity with { X = 0 };
-                animator.CurrentAnimation = "Idle";
-            }
-
-            // And if the jump is buffered, apply it.
+            
+            // Apply jump force
             if (buffer.HasBufferedAction(PlayerAction.Jump, currentTime) && physics.IsGrounded)
             {
                 physics.Velocity = physics.Velocity with { Y = -controller.JumpForce };
                 physics.IsGrounded = false;
-                    
                 buffer.Consume();
+            }
+            
+            // Set facing direction
+            if (buffer.MoveDirection.X != 0)
+            {
+                sprite.Effects = buffer.MoveDirection.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            }
+            
+            // Set animations
+            
+            if (!physics.IsGrounded)
+            {
+                // Airborne
+                if (physics.Velocity.Y < 0)
+                    animator.ChangeAnimation("JumpStart");
+                else
+                    animator.ChangeAnimation("Fall");
+            }
+            else
+            {
+                // Grounded
+
+                // If we just hit the ground
+                if (!physics.WasGrounded)
+                {
+                    animator.ChangeAnimation("JumpEnd");
+                }
+                else
+                {
+                    if(buffer.MoveDirection.X != 0)
+                        animator.ChangeAnimation("Run");
+                    else
+                        animator.ChangeAnimation("Idle");
+                }
             }
             
             #endregion

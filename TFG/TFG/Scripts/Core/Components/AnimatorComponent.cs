@@ -26,4 +26,14 @@ public struct AnimatorComponent : IComponent
         FrameTimer = 0;
         FrameIndex = 0;
     }
+
+    public void ChangeAnimation(string newAnimation)
+    {
+        if (CurrentAnimation != newAnimation)
+        {
+            CurrentAnimation = newAnimation;
+            FrameTimer = 0;
+            FrameIndex = 0;
+        }
+    }
 }

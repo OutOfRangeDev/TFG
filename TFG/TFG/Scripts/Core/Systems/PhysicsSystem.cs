@@ -41,7 +41,7 @@ public class PhysicsSystem : ISystem
             
             //------------- Gravity --------------
             
-            bool wasGrounded = moverPhysics.IsGrounded;
+            moverPhysics.WasGrounded = moverPhysics.IsGrounded;
             moverPhysics.IsGrounded = false;
 
             bool applyGravity = true;
@@ -51,12 +51,22 @@ public class PhysicsSystem : ISystem
                 var combatState = world.GetComponent<CombatStateComponent>(moverEntity);
                 if(combatState.IsAttacking) applyGravity = false;
             }
-            if (!wasGrounded && applyGravity)
+            if (!moverPhysics.WasGrounded && applyGravity)
             {
                 moverPhysics.Velocity = moverPhysics.Velocity with
                 {
                     Y = moverPhysics.Velocity.Y + _globalGravity.Y * deltaTime * moverPhysics.GravityScale
                 };
+            }
+            
+            // ------------- Drag --------------
+
+            if (moverPhysics.Drag > 0)
+            {
+                float friction = System.Math.Max(0f, 1f - (moverPhysics.Drag * deltaTime));
+
+                moverPhysics.Velocity = moverPhysics.Velocity 
+                    with { X = moverPhysics.Velocity.X * friction };
             }
             
             // ------------- Horizontal Movement --------------

@@ -51,7 +51,7 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
                     HandleStartupState(ref combatState, dt);
                     break;
                 case CombatPhase.Active:
-                    HandleActiveState(entityId, ref combatState, ref transform, ref sprite, dt);
+                    HandleActiveState(world, entityId, ref combatState, ref transform, ref sprite, dt);
                     break;
                 case CombatPhase.Recovery:
                     HandleRecoveryState(world, entityId, ref combatState, ref inputBuffer, totalTime, dt);
@@ -137,7 +137,7 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
         }
     }
 
-    private void HandleActiveState(int ownerId, ref CombatStateComponent state,
+    private void HandleActiveState(World world, int ownerId, ref CombatStateComponent state,
         ref TransformComponent ownerTrans, ref SpriteComponent sprite, float dt)
     {
         //Debug.WriteLine($"[Combat System] Attack activated for entity with ID {ownerId}");
@@ -161,6 +161,19 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
             state.ActiveHitboxId = hitboxId;
             // And also make sure we mark the hitbox is created
             state.HasSpawnedHitbox = true;
+
+            if (world.HasComponent<PhysicsComponent>(ownerId))
+            {
+                ref var physics = ref world.GetComponent<PhysicsComponent>(ownerId);
+                float dir = isFacingLeft ? -1 : 1;
+
+                // Reset Y velocity if it's an upward or downward attack
+                if (attackData.SelfKnockback.Y != 0)
+                {
+                    physics.Velocity = physics.Velocity with { Y = 0 };
+                }
+                physics.Velocity += new Vector2(attackData.SelfKnockback.X * dir, attackData.SelfKnockback.Y);
+            }
         }
         
         // ---------------------------------------------------
@@ -257,6 +270,7 @@ public class CombatSystem(HitboxManager hitboxManager) : ISystem
 
     private void StartAttack(World world, int entityId, ref CombatStateComponent state, string attackName)
     {
+        //Console.WriteLine("[CombatSystem] Entity " + entityId + " has started an attack.");
         // Change the entity state to attacking
         state.IsAttacking = true;
         // Start the attack sequence

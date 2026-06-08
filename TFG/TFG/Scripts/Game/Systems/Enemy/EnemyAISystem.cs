@@ -11,7 +11,7 @@ using TFG.Scripts.Game.Components.Enemies;
 
 namespace TFG.Scripts.Game.Systems.Enemy;
 
-public class EnemyAISystem : ISystem
+public class EnemyAiSystem : ISystem
 {
     public void Update(World world, GameTime gameTime)
     {
@@ -54,7 +54,7 @@ public class EnemyAISystem : ISystem
         }
 
         var enemies = world.Query().
-            With<EnemyAIComponent>().
+            With<EnemyAiComponent>().
             With<PhysicsComponent>().
             With<TransformComponent>().
             With<ColliderComponent>().
@@ -73,7 +73,7 @@ public class EnemyAISystem : ISystem
             ref var combatState = ref world.GetComponent<CombatStateComponent>(enemyId);
             if (combatState.Phase != CombatPhase.None || combatState.IsAttacking) continue;
 
-            ref var ai = ref world.GetComponent<EnemyAIComponent>(enemyId);
+            ref var ai = ref world.GetComponent<EnemyAiComponent>(enemyId);
             ref var physics = ref world.GetComponent<PhysicsComponent>(enemyId);
             ref var transform = ref world.GetComponent<TransformComponent>(enemyId);
             ref var sprite = ref world.GetComponent<SpriteComponent>(enemyId);
@@ -85,26 +85,26 @@ public class EnemyAISystem : ISystem
 
                 if (distanceToPlayer <= ai.AttackRange)
                 {
-                    ai.CurrentState = AIState.Attack;
+                    ai.CurrentState = AiState.Attack;
                 }
                 else if (distanceToPlayer <= ai.DetectionRadius)
                 {
-                    ai.CurrentState = AIState.Chase;
+                    ai.CurrentState = AiState.Chase;
                 }
                 else
                 {
-                    ai.CurrentState = AIState.Patrol;
+                    ai.CurrentState = AiState.Patrol;
                 }
             }
             else
             {
-                ai.CurrentState = AIState.Patrol;
+                ai.CurrentState = AiState.Patrol;
             }
             
             // Execution
             switch (ai.CurrentState)
             {
-                case AIState.Attack:
+                case AiState.Attack:
                     // Stop Walking
                     physics.Velocity = physics.Velocity with { X = 0 };
                     
@@ -122,7 +122,7 @@ public class EnemyAISystem : ISystem
                     
                     break;
                 
-                case AIState.Chase:
+                case AiState.Chase:
                     // Move torwards player
                     float chaseDir = Math.Sign(playerPosition.X - transform.Position.X);
                     sprite.Effects = chaseDir < 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
@@ -138,7 +138,7 @@ public class EnemyAISystem : ISystem
                     }
                     break;
                 
-                case AIState.Patrol:
+                case AiState.Patrol:
                     if (!IsPathSafe(world, enemyId, ai.PatrolDirection, validEnvironment))
                     {
                         // Flip direction if the path is not safe

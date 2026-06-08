@@ -11,6 +11,7 @@ public struct PhysicsComponent : IComponent
     public float GravityScale {get; set;}
     public bool IsStatic {get; set;}
     public bool IsGrounded {get; set;}
+    public bool WasGrounded {get; set;}
 
     public PhysicsComponent()
     {
