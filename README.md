@@ -80,3 +80,13 @@ The reason we use centralized "Component Pools" is entirely because of how CPU C
 When a System requests a component to update it, the CPU doesn't just fetch that single piece of data from RAM; it grabs that data and the memory slots immediately next to it (a Cache Line). Because this engine stores components of the same type contiguously in an array—rather than scattered randomly across the Heap like standard OOP objects—the processor benefits from hardware prefetching. It already has the next component loaded in the cache before the System even asks for it. This virtually eradicates cache misses and drastically speeds up execution time
 
 # DIBUJO/ANIMACIÓN DE COMO FUNCIONA
+
+### Defeating the Garbage Collector
+
+In managed languages like C#, dynamic memory allocation triggers the Garbage Collector (GC). The GC causes unpredictable "Stop-The-World" pauses (lag spikes) which completely destroy the Game Feel and input responsiveness in a fast-paced Hack 'n' Slash.
+
+To guarantee a deterministic 16.6ms frame budget, this engine enforces a strict **Zero-Allocation** policy during the core gameplay loop:
+
+* **Structs over Classes:** Components are defined strictly as Value Types (`structs`). Instead of instantiating thousands of individual objects, the engine pre-allocates massive, contiguous arrays of structs at level initialization. Once the level starts, no new memory is allocated.
+* **Entity Recycling:** Entities are merely `int` identifiers. When an enemy dies, the engine does not destroy the object. It simply deactivates the ID, pushes it into an available Queue, and overwrites its component data when a new entity spawns.
+* **Combat Object Pooling:** Just like in Unity, creating and destroying elements like attack hitboxes, projectiles, or particle emitters mid-combat is extremely expensive. These ephemeral gameplay elements utilize dynamic Object Pooling—they are "parked" off-screen and teleported to the impact coordinates instantly, generating zero garbage.
